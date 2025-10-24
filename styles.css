@@ -1,0 +1,348 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    color: #667eea;
+    font-size: 2rem;
+}
+
+.user-info {
+    display: flex;
+    gap: 15px;
+    font-weight: bold;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.profile-card, .progress-card, .achievements, .learning-path {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.xp-bar {
+    position: relative;
+    background: #e0e0e0;
+    height: 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+.xp-fill {
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+#xpText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.streak {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.badge {
+    background: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 2px solid transparent;
+}
+
+.badge.earned {
+    background: #4CAF50;
+    color: white;
+    border-color: #45a049;
+}
+
+.progress-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.path-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.path-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.path-item.completed {
+    background: #e8f5e8;
+    border-color: #4CAF50;
+}
+
+.path-item.locked {
+    opacity: 0.5;
+    background: #f5f5f5;
+}
+
+.path-item.current {
+    border-color: #667eea;
+    background: #f0f4ff;
+}
+
+.path-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.2rem;
+}
+
+.path-icon.completed {
+    background: #4CAF50;
+    color: white;
+}
+
+.path-icon.current {
+    background: #667eea;
+    color: white;
+}
+
+.path-icon.locked {
+    background: #ccc;
+    color: #666;
+}
+
+.path-info h4 {
+    margin-bottom: 5px;
+}
+
+.path-info p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.editor-link, .challenges-link, .gamification-link, .resources-link, .advanced-link, .ui-link, .semantic-link, .css-link, .js-link, .concepts-link, .challenge-demo-link, .validation-demo-link, .progress-dashboard-link, .achievements-demo-link, .bonus-features-link, .performance-link {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    flex: 1;
+}
+
+.challenges-link {
+    background: #28a745;
+}
+
+.gamification-link {
+    background: #ff6b6b;
+}
+
+.resources-link {
+    background: #17a2b8;
+}
+
+.advanced-link {
+    background: #6f42c1;
+}
+
+.ui-link {
+    background: #fd7e14;
+}
+
+.semantic-link {
+    background: #20c997;
+}
+
+.css-link {
+    background: #e83e8c;
+}
+
+.js-link {
+    background: #f39c12;
+}
+
+.concepts-link {
+    background: #9b59b6;
+}
+
+.challenge-demo-link {
+    background: #2ecc71;
+}
+
+.validation-demo-link {
+    background: #8e44ad;
+}
+
+.progress-dashboard-link {
+    background: #16a085;
+}
+
+.achievements-demo-link {
+    background: #e67e22;
+}
+
+.bonus-features-link {
+    background: #9c27b0;
+}
+
+.performance-link {
+    background: #ff5722;
+}
+
+.editor-link:hover {
+    background: #5a67d8;
+}
+
+.challenges-link:hover {
+    background: #218838;
+}
+
+.gamification-link:hover {
+    background: #ee5a24;
+}
+
+.resources-link:hover {
+    background: #138496;
+}
+
+.advanced-link:hover {
+    background: #5a32a3;
+}
+
+.ui-link:hover {
+    background: #e8590c;
+}
+
+.semantic-link:hover {
+    background: #1ba085;
+}
+
+.css-link:hover {
+    background: #d91a72;
+}
+
+.js-link:hover {
+    background: #e67e22;
+}
+
+.concepts-link:hover {
+    background: #8e44ad;
+}
+
+.challenge-demo-link:hover {
+    background: #27ae60;
+}
+
+.validation-demo-link:hover {
+    background: #7d3c98;
+}
+
+.progress-dashboard-link:hover {
+    background: #138d75;
+}
+
+.achievements-demo-link:hover {
+    background: #d35400;
+}
+
+.bonus-features-link:hover {
+    background: #7b1fa2;
+}
+
+.performance-link:hover {
+    background: #e64a19;
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
