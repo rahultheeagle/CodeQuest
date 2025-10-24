@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Basics Tutorial - CodeQuest</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📄 HTML Basics Tutorial</h1>
+            <a href="../index.html" class="back-btn">← Back to Dashboard</a>
+        </header>
+
+        <div class="tutorial-content">
+            <div class="lesson-card">
+                <h2>1. HTML Document Structure</h2>
+                <p>Every HTML document needs a basic structure:</p>
+                <div class="code-example">
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello World!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <div class="practice-area">
+                    <h3>Try it yourself:</h3>
+                    <textarea id="htmlPractice1" placeholder="Write your HTML here..."></textarea>
+                    <button onclick="runHTML('htmlPractice1', 'output1')">Run Code</button>
+                    <div class="output" id="output1"></div>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <h2>2. Common HTML Elements</h2>
+                <div class="elements-grid">
+                    <div class="element-item">
+                        <h4>Headings</h4>
+                        <code>&lt;h1&gt;Main Title&lt;/h1&gt;</code>
+                        <p>Use h1-h6 for different heading levels</p>
+                    </div>
+                    <div class="element-item">
+                        <h4>Paragraphs</h4>
+                        <code>&lt;p&gt;This is a paragraph&lt;/p&gt;</code>
+                        <p>For regular text content</p>
+                    </div>
+                    <div class="element-item">
+                        <h4>Links</h4>
+                        <code>&lt;a href="url"&gt;Link text&lt;/a&gt;</code>
+                        <p>Create clickable links</p>
+                    </div>
+                    <div class="element-item">
+                        <h4>Images</h4>
+                        <code>&lt;img src="image.jpg" alt="Description"&gt;</code>
+                        <p>Display images</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>🎯 Next Steps</h2>
+                <p>Practice with real HTML challenges:</p>
+                <a href="../challenges.html" class="next-btn">Start HTML Challenges</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runHTML(textareaId, outputId) {
+            const code = document.getElementById(textareaId).value;
+            const output = document.getElementById(outputId);
+            output.innerHTML = code;
+        }
+    </script>
+</body>
+</html>

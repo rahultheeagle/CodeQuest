@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics Tutorial - CodeQuest</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>⚙️ JavaScript Basics Tutorial</h1>
+            <a href="../index.html" class="back-btn">← Back to Dashboard</a>
+        </header>
+
+        <div class="tutorial-content">
+            <div class="lesson-card">
+                <h2>1. Variables and Data Types</h2>
+                <div class="code-example">
+                    <pre><code>// Variables
+let name = "John";
+const age = 25;
+var isStudent = true;
+
+// Data Types
+let number = 42;
+let text = "Hello World";
+let boolean = true;
+let array = [1, 2, 3];
+let object = { name: "John", age: 25 };</code></pre>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <h2>2. Functions</h2>
+                <div class="code-example">
+                    <pre><code>// Function Declaration
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+// Arrow Function
+const add = (a, b) => a + b;
+
+// Function Call
+let message = greet("Alice");
+let sum = add(5, 3);</code></pre>
+                </div>
+                <div class="practice-area">
+                    <h3>Try JavaScript:</h3>
+                    <textarea id="jsPractice1" placeholder="Write JavaScript code...">console.log("Hello World!");</textarea>
+                    <button onclick="runJS('jsPractice1')">Run Code</button>
+                    <div class="output" id="jsOutput1"></div>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <h2>3. DOM Manipulation</h2>
+                <div class="code-example">
+                    <pre><code>// Select elements
+let element = document.getElementById("myId");
+let elements = document.querySelectorAll(".myClass");
+
+// Change content
+element.textContent = "New text";
+element.innerHTML = "&lt;strong&gt;Bold text&lt;/strong&gt;";
+
+// Change styles
+element.style.color = "red";
+element.style.fontSize = "20px";</code></pre>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <h2>4. Events</h2>
+                <div class="code-example">
+                    <pre><code>// Add event listener
+button.addEventListener("click", function() {
+    alert("Button clicked!");
+});
+
+// Arrow function version
+button.addEventListener("click", () => {
+    console.log("Button clicked!");
+});</code></pre>
+                </div>
+                <div class="practice-area">
+                    <h3>Interactive Example:</h3>
+                    <button id="demoButton">Click Me!</button>
+                    <p id="demoText">Click the button to see JavaScript in action!</p>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>🎯 Next Steps</h2>
+                <p>Practice JavaScript with coding challenges:</p>
+                <a href="../challenges.html" class="next-btn">Start JavaScript Challenges</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runJS(textareaId) {
+            const code = document.getElementById(textareaId).value;
+            const output = document.getElementById('jsOutput1');
+            
+            // Capture console.log output
+            const originalLog = console.log;
+            let logOutput = '';
+            console.log = function(...args) {
+                logOutput += args.join(' ') + '\n';
+                originalLog.apply(console, args);
+            };
+            
+            try {
+                eval(code);
+                output.innerHTML = `<pre>${logOutput}</pre>`;
+            } catch (error) {
+                output.innerHTML = `<pre style="color: red;">Error: ${error.message}</pre>`;
+            }
+            
+            // Restore console.log
+            console.log = originalLog;
+        }
+
+        // Demo button functionality
+        document.getElementById('demoButton').addEventListener('click', function() {
+            const text = document.getElementById('demoText');
+            text.textContent = 'JavaScript is working! You clicked the button.';
+            text.style.color = 'green';
+        });
+    </script>
+</body>
+</html>

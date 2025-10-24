@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Fundamentals Tutorial - CodeQuest</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎨 CSS Fundamentals Tutorial</h1>
+            <a href="../index.html" class="back-btn">← Back to Dashboard</a>
+        </header>
+
+        <div class="tutorial-content">
+            <div class="lesson-card">
+                <h2>1. CSS Basics</h2>
+                <p>CSS (Cascading Style Sheets) controls the appearance of HTML elements:</p>
+                <div class="code-example">
+                    <pre><code>/* CSS Syntax */
+selector {
+    property: value;
+}
+
+/* Example */
+h1 {
+    color: blue;
+    font-size: 24px;
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <h2>2. Selectors</h2>
+                <div class="elements-grid">
+                    <div class="element-item">
+                        <h4>Element Selector</h4>
+                        <code>p { color: red; }</code>
+                        <p>Selects all paragraph elements</p>
+                    </div>
+                    <div class="element-item">
+                        <h4>Class Selector</h4>
+                        <code>.highlight { background: yellow; }</code>
+                        <p>Selects elements with class="highlight"</p>
+                    </div>
+                    <div class="element-item">
+                        <h4>ID Selector</h4>
+                        <code>#header { font-weight: bold; }</code>
+                        <p>Selects element with id="header"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <h2>3. Box Model</h2>
+                <div class="code-example">
+                    <pre><code>.box {
+    width: 200px;
+    height: 100px;
+    padding: 20px;
+    border: 2px solid black;
+    margin: 10px;
+}</code></pre>
+                </div>
+                <div class="practice-area">
+                    <h3>Try styling a box:</h3>
+                    <textarea id="cssPractice1" placeholder="Write CSS to style a div..."></textarea>
+                    <button onclick="runCSS('cssPractice1', 'cssOutput1')">Apply Styles</button>
+                    <div class="css-demo">
+                        <div id="cssOutput1" class="demo-box">Sample Box</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <h2>4. Flexbox Layout</h2>
+                <div class="code-example">
+                    <pre><code>.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>🎯 Next Steps</h2>
+                <p>Master CSS with hands-on challenges:</p>
+                <a href="../challenges.html" class="next-btn">Start CSS Challenges</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runCSS(textareaId, outputId) {
+            const css = document.getElementById(textareaId).value;
+            const output = document.getElementById(outputId);
+            
+            // Remove existing styles
+            const existingStyle = document.getElementById('dynamic-style');
+            if (existingStyle) existingStyle.remove();
+            
+            // Add new styles
+            const style = document.createElement('style');
+            style.id = 'dynamic-style';
+            style.textContent = `#${outputId} { ${css} }`;
+            document.head.appendChild(style);
+        }
+    </script>
+</body>
+</html>
