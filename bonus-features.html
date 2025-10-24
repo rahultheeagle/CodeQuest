@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonus Features Demo - CodeQuest</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .feature-demo {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .race-players {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .player-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .player-name {
+            min-width: 80px;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .share-demo {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .share-url {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .ai-hint-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .certificate-preview {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin: 15px 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .install-prompt {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Bonus Features Demo</h1>
+            <nav>
+                <a href="index.html" class="btn btn-secondary">← Back</a>
+                <button class="btn btn-primary" onclick="refreshFeatures()">Refresh</button>
+            </nav>
+        </header>
+
+        <div class="features-grid">
+            <!-- Code Sharing -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">🔗</span>
+                    <h3 class="feature-title">Code Sharing</h3>
+                </div>
+                <p>Generate shareable links to your code solutions</p>
+                <div class="feature-demo">
+                    <textarea id="shareCode" placeholder="Enter code to share..." rows="3" style="width: 100%; margin-bottom: 10px;"></textarea>
+                    <button class="btn btn-primary" onclick="shareCode()">Generate Share Link</button>
+                    <div class="share-demo" id="shareResult" style="display: none;">
+                        <input type="text" class="share-url" id="shareUrl" readonly>
+                        <button class="btn btn-secondary" onclick="copyShareLink()">Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Hints -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">🤖</span>
+                    <h3 class="feature-title">AI Hints</h3>
+                </div>
+                <p>Get personalized coding hints powered by AI</p>
+                <div class="feature-demo">
+                    <select id="hintCategory" style="width: 100%; margin-bottom: 10px; padding: 8px;">
+                        <option value="html">HTML Challenge</option>
+                        <option value="css">CSS Challenge</option>
+                        <option value="javascript">JavaScript Challenge</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="getAIHint()">Get AI Hint</button>
+                    <div class="ai-hint-box" id="aiHintResult" style="display: none;">
+                        <strong>💡 AI Hint:</strong>
+                        <p id="hintText"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multiplayer Racing -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">🏁</span>
+                    <h3 class="feature-title">Multiplayer Racing</h3>
+                </div>
+                <p>Race against other coders in real-time challenges</p>
+                <div class="feature-demo">
+                    <button class="btn btn-primary" onclick="startRace()" id="raceBtn">Start Race</button>
+                    <div id="raceRoom" style="display: none;">
+                        <p><strong>Room:</strong> <span id="roomId"></span></p>
+                        <div class="race-players" id="racePlayers"></div>
+                        <button class="btn btn-danger" onclick="leaveRace()">Leave Race</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PWA Installation -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">📱</span>
+                    <h3 class="feature-title">Mobile App (PWA)</h3>
+                </div>
+                <p>Install CodeQuest as a mobile app</p>
+                <div class="feature-demo">
+                    <div class="install-prompt">
+                        <h4>📲 Install CodeQuest</h4>
+                        <p>Get the full app experience with offline support</p>
+                        <button class="btn btn-success" onclick="installPWA()" id="installBtn">Install App</button>
+                    </div>
+                    <div id="pwaStatus"></div>
+                </div>
+            </div>
+
+            <!-- Certificate Generator -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">🏆</span>
+                    <h3 class="feature-title">Completion Certificates</h3>
+                </div>
+                <p>Generate and download completion certificates</p>
+                <div class="feature-demo">
+                    <div class="certificate-preview">
+                        Certificate Preview<br>
+                        <small>Complete 5+ challenges to unlock</small>
+                    </div>
+                    <button class="btn btn-primary" onclick="generateCertificate()">Generate Certificate</button>
+                    <button class="btn btn-secondary" onclick="shareCertificate()">Share Certificate</button>
+                </div>
+            </div>
+
+            <!-- Voice Commands -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">🎤</span>
+                    <h3 class="feature-title">Voice Commands</h3>
+                </div>
+                <p>Control the editor with voice commands</p>
+                <div class="feature-demo">
+                    <button class="btn btn-primary" onclick="startVoiceRecognition()" id="voiceBtn">Start Listening</button>
+                    <div id="voiceResult" style="margin-top: 10px; font-style: italic; color: #666;"></div>
+                    <div style="margin-top: 10px; font-size: 0.9rem;">
+                        <strong>Try saying:</strong> "Create heading", "Add paragraph", "Make it red"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/code-sharing.js"></script>
+    <script src="js/ai-hints.js"></script>
+    <script src="js/multiplayer.js"></script>
+    <script src="js/pwa-manager.js"></script>
+    <script src="js/certificate-generator.js"></script>
+    <script>
+        let currentRace = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupEventListeners();
+            checkPWAStatus();
+        });
+
+        function setupEventListeners() {
+            // Multiplayer events
+            document.addEventListener('race:started', (e) => {
+                showRaceRoom(e.detail);
+            });
+
+            document.addEventListener('race:progressUpdate', (e) => {
+                updateRaceProgress(e.detail.players);
+            });
+
+            document.addEventListener('race:finished', (e) => {
+                showRaceResult(e.detail);
+            });
+        }
+
+        // Code Sharing
+        function shareCode() {
+            const code = document.getElementById('shareCode').value;
+            if (!code.trim()) {
+                Utils.showNotification('Please enter some code to share', 'warning');
+                return;
+            }
+
+            const result = codeSharing.shareCode(code, 'Shared Code', 'html');
+            document.getElementById('shareUrl').value = result.url;
+            document.getElementById('shareResult').style.display = 'flex';
+        }
+
+        function copyShareLink() {
+            const url = document.getElementById('shareUrl').value;
+            codeSharing.copyToClipboard(url);
+        }
+
+        // AI Hints
+        async function getAIHint() {
+            const category = document.getElementById('hintCategory').value;
+            const mockChallenge = { category, description: `${category.toUpperCase()} coding challenge` };
+            
+            const hint = await aiHints.getHint(mockChallenge, '', 1);
+            document.getElementById('hintText').textContent = hint.hint;
+            document.getElementById('aiHintResult').style.display = 'block';
+        }
+
+        // Multiplayer Racing
+        async function startRace() {
+            const result = await multiplayerRacing.joinRace();
+            currentRace = result;
+            document.getElementById('raceBtn').style.display = 'none';
+        }
+
+        function showRaceRoom(raceData) {
+            document.getElementById('roomId').textContent = raceData.race ? multiplayerRacing.roomId : 'DEMO123';
+            document.getElementById('raceRoom').style.display = 'block';
+            updateRaceProgress(raceData.players);
+        }
+
+        function updateRaceProgress(players) {
+            const container = document.getElementById('racePlayers');
+            container.innerHTML = players.map(player => `
+                <div class="player-row">
+                    <span class="player-name">${player.name}</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${player.progress}%"></div>
+                    </div>
+                    <span>${Math.round(player.progress)}%</span>
+                </div>
+            `).join('');
+        }
+
+        function leaveRace() {
+            multiplayerRacing.leaveRace();
+            document.getElementById('raceRoom').style.display = 'none';
+            document.getElementById('raceBtn').style.display = 'inline-block';
+        }
+
+        function showRaceResult(result) {
+            Utils.showNotification(`Race finished! You placed #${result.position}`, 'success');
+        }
+
+        // PWA Installation
+        function checkPWAStatus() {
+            const status = document.getElementById('pwaStatus');
+            if (pwaManager.isInstalled) {
+                status.innerHTML = '<p style="color: green;">✅ App is installed</p>';
+                document.getElementById('installBtn').style.display = 'none';
+            }
+        }
+
+        async function installPWA() {
+            const installed = await pwaManager.promptInstall();
+            if (installed) {
+                checkPWAStatus();
+            }
+        }
+
+        // Certificate Generation
+        function generateCertificate() {
+            const userData = {
+                name: 'Demo User',
+                completedChallenges: 8,
+                totalXP: 450
+            };
+            
+            if (certificateGenerator.qualifiesForCertificate(userData)) {
+                certificateGenerator.downloadCertificate(userData);
+            } else {
+                Utils.showNotification('Complete at least 5 challenges to earn a certificate', 'warning');
+            }
+        }
+
+        function shareCertificate() {
+            const userData = {
+                name: 'Demo User',
+                completedChallenges: 8,
+                totalXP: 450
+            };
+            
+            certificateGenerator.shareCertificate(userData);
+        }
+
+        // Voice Commands
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                Utils.showNotification('Speech recognition not supported in this browser', 'error');
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            const btn = document.getElementById('voiceBtn');
+            const result = document.getElementById('voiceResult');
+
+            btn.textContent = 'Listening...';
+            btn.disabled = true;
+            result.textContent = 'Say something...';
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript.toLowerCase();
+                result.textContent = `You said: "${transcript}"`;
+                
+                // Process voice commands
+                processVoiceCommand(transcript);
+            };
+
+            recognition.onerror = () => {
+                result.textContent = 'Error occurred in recognition';
+            };
+
+            recognition.onend = () => {
+                btn.textContent = 'Start Listening';
+                btn.disabled = false;
+            };
+
+            recognition.start();
+        }
+
+        function processVoiceCommand(command) {
+            let response = 'Command not recognized';
+            
+            if (command.includes('heading') || command.includes('title')) {
+                response = 'Creating HTML heading: <h1>Your Title</h1>';
+            } else if (command.includes('paragraph')) {
+                response = 'Creating paragraph: <p>Your text here</p>';
+            } else if (command.includes('red')) {
+                response = 'Adding red color: color: red;';
+            } else if (command.includes('button')) {
+                response = 'Creating button: <button>Click me</button>';
+            }
+            
+            setTimeout(() => {
+                document.getElementById('voiceResult').textContent = response;
+            }, 1000);
+        }
+
+        function refreshFeatures() {
+            Utils.showNotification('Features refreshed!', 'success');
+            checkPWAStatus();
+        }
+    </script>
+</body>
+</html>
