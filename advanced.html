@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest - Advanced Features</title>
+    <link rel="stylesheet" href="advanced.css">
+</head>
+<body>
+    <div class="advanced-container">
+        <header class="advanced-header">
+            <h1>⚙️ Advanced Features</h1>
+            <div class="header-controls">
+                <button id="themeToggle" class="theme-btn">🌙</button>
+                <button id="settingsBtn" class="settings-btn">⚙️</button>
+                <a href="index.html" class="back-btn">← Dashboard</a>
+            </div>
+        </header>
+
+        <div class="features-grid">
+            <!-- Code Execution Engine -->
+            <div class="feature-card">
+                <h3>🚀 Code Execution Engine</h3>
+                <div class="code-executor">
+                    <textarea id="codeInput" placeholder="// Write JavaScript code here
+console.log('Hello World!');
+let x = 5 + 3;
+console.log('Result:', x);"></textarea>
+                    <div class="executor-controls">
+                        <button id="runCode">Run Code</button>
+                        <button id="validateCode">Validate</button>
+                        <button id="clearOutput">Clear</button>
+                    </div>
+                    <div id="codeOutput" class="code-output"></div>
+                </div>
+            </div>
+
+            <!-- Drag & Drop Code Builder -->
+            <div class="feature-card">
+                <h3>🧩 Visual Code Builder</h3>
+                <div class="code-builder">
+                    <div class="blocks-palette">
+                        <div class="code-block" draggable="true" data-code="console.log('Hello!');">Print Message</div>
+                        <div class="code-block" draggable="true" data-code="let x = 10;">Create Variable</div>
+                        <div class="code-block" draggable="true" data-code="if (condition) { }">If Statement</div>
+                        <div class="code-block" draggable="true" data-code="for (let i = 0; i < 5; i++) { }">For Loop</div>
+                    </div>
+                    <div class="drop-zone" id="dropZone">
+                        <p>Drag code blocks here to build your program</p>
+                    </div>
+                    <button id="executeBuiltCode">Execute Built Code</button>
+                </div>
+            </div>
+
+            <!-- Statistics Dashboard -->
+            <div class="feature-card">
+                <h3>📊 Learning Analytics</h3>
+                <div class="stats-dashboard">
+                    <div class="stat-item">
+                        <div class="stat-label">Total Time</div>
+                        <div class="stat-value" id="totalTime">0h 0m</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Challenges Completed</div>
+                        <div class="stat-value" id="completedCount">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Success Rate</div>
+                        <div class="stat-value" id="successRate">0%</div>
+                    </div>
+                    <div class="progress-chart">
+                        <canvas id="progressChart" width="300" height="150"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Management -->
+            <div class="feature-card">
+                <h3>💾 Data Management</h3>
+                <div class="data-controls">
+                    <button id="exportData">📤 Export Progress</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                    <button id="importData">📥 Import Progress</button>
+                    <button id="resetData" class="danger-btn">🗑️ Reset All Data</button>
+                    <div class="data-info">
+                        <div>Last Backup: <span id="lastBackup">Never</span></div>
+                        <div>Data Size: <span id="dataSize">0 KB</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Filter -->
+            <div class="feature-card">
+                <h3>🔍 Advanced Search</h3>
+                <div class="search-controls">
+                    <input type="text" id="searchInput" placeholder="Search challenges...">
+                    <select id="difficultyFilter">
+                        <option value="">All Difficulties</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                    <select id="topicFilter">
+                        <option value="">All Topics</option>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="js">JavaScript</option>
+                    </select>
+                </div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <!-- Timer System -->
+            <div class="feature-card">
+                <h3>⏱️ Timer & Tracking</h3>
+                <div class="timer-display">
+                    <div class="timer-value" id="currentTimer">00:00:00</div>
+                    <div class="timer-controls">
+                        <button id="startTimer">Start</button>
+                        <button id="pauseTimer">Pause</button>
+                        <button id="resetTimer">Reset</button>
+                    </div>
+                    <div class="session-stats">
+                        <div>Session Time: <span id="sessionTime">0m</span></div>
+                        <div>Today's Total: <span id="todayTime">0m</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚙️ Settings</h3>
+                <button id="closeSettings">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label>Theme Preference</label>
+                    <select id="themeSelect">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>Auto-save Interval</label>
+                    <select id="autosaveInterval">
+                        <option value="30">30 seconds</option>
+                        <option value="60">1 minute</option>
+                        <option value="300">5 minutes</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>Notifications</label>
+                    <input type="checkbox" id="enableNotifications" checked>
+                    <span>Enable toast notifications</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+    <script src="advanced.js"></script>
+</body>
+</html>
