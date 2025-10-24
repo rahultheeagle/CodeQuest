@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest - UI Components</title>
+    <link rel="stylesheet" href="design-system.css">
+    <link rel="stylesheet" href="ui-components.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Skip Links for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#navigation" class="skip-link">Skip to navigation</a>
+
+    <div class="ui-container">
+        <!-- Header with Navigation -->
+        <header class="ui-header" role="banner">
+            <div class="header-content">
+                <h1 class="text-2xl font-bold text-primary">
+                    <i class="fas fa-code" aria-hidden="true"></i>
+                    CodeQuest UI System
+                </h1>
+                <nav id="navigation" class="header-nav" role="navigation" aria-label="Main navigation">
+                    <button class="btn btn-icon mobile-menu-toggle lg:hidden" aria-label="Toggle mobile menu" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <ul class="nav-list" role="menubar">
+                        <li role="none"><a href="#components" class="nav-link" role="menuitem">Components</a></li>
+                        <li role="none"><a href="#responsive" class="nav-link" role="menuitem">Responsive</a></li>
+                        <li role="none"><a href="#accessibility" class="nav-link" role="menuitem">Accessibility</a></li>
+                        <li role="none"><a href="index.html" class="btn btn-primary btn-sm">← Dashboard</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content" class="ui-main" role="main">
+            <!-- Component Library Section -->
+            <section id="components" class="ui-section" aria-labelledby="components-heading">
+                <h2 id="components-heading" class="text-3xl font-bold text-primary mb-8">Component Library</h2>
+                
+                <!-- Buttons -->
+                <div class="component-group">
+                    <h3 class="text-xl font-semibold mb-4">Buttons</h3>
+                    <div class="component-showcase">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                            Primary Button
+                        </button>
+                        <button class="btn btn-secondary">Secondary Button</button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-check" aria-hidden="true"></i>
+                            Success
+                        </button>
+                        <button class="btn btn-danger">
+                            <i class="fas fa-trash" aria-hidden="true"></i>
+                            Danger
+                        </button>
+                        <button class="btn btn-primary btn-sm">Small</button>
+                        <button class="btn btn-primary btn-lg">Large Button</button>
+                        <button class="btn btn-icon tooltip" data-tooltip="Icon Button" aria-label="Settings">
+                            <i class="fas fa-cog" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-primary" disabled>Disabled</button>
+                    </div>
+                </div>
+
+                <!-- Cards -->
+                <div class="component-group">
+                    <h3 class="text-xl font-semibold mb-4">Cards</h3>
+                    <div class="cards-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="font-semibold">Basic Card</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-secondary">This is a basic card with header and body content.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-code text-2xl text-primary mr-3" aria-hidden="true"></i>
+                                    <div>
+                                        <h4 class="font-semibold">Challenge Card</h4>
+                                        <p class="text-sm text-secondary">HTML Basics</p>
+                                    </div>
+                                </div>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar" style="width: 75%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Progress: 75%"></div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="badge badge-success">Completed</span>
+                                    <span class="text-sm text-muted">+50 XP</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Elements -->
+                <div class="component-group">
+                    <h3 class="text-xl font-semibold mb-4">Form Elements</h3>
+                    <form class="form-showcase" novalidate>
+                        <div class="form-group">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" class="input" placeholder="Enter your username" required aria-describedby="username-help">
+                            <small id="username-help" class="form-help">Choose a unique username</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="input input-error" placeholder="Enter your email" aria-describedby="email-error">
+                            <small id="email-error" class="form-error">Please enter a valid email address</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="difficulty" class="form-label">Difficulty Level</label>
+                            <select id="difficulty" class="input">
+                                <option value="">Select difficulty</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="checkbox" checked>
+                                <span class="checkmark"></span>
+                                Enable notifications
+                            </label>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Submit Form</button>
+                            <button type="button" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Badges and Status -->
+                <div class="component-group">
+                    <h3 class="text-xl font-semibold mb-4">Badges & Status</h3>
+                    <div class="component-showcase">
+                        <span class="badge badge-primary">Primary</span>
+                        <span class="badge badge-success">Success</span>
+                        <span class="badge badge-warning">Warning</span>
+                        <span class="badge badge-error">Error</span>
+                        <div class="status-indicator">
+                            <span class="status-dot status-online"></span>
+                            Online
+                        </div>
+                        <div class="status-indicator">
+                            <span class="status-dot status-offline"></span>
+                            Offline
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Responsive Design Section -->
+            <section id="responsive" class="ui-section" aria-labelledby="responsive-heading">
+                <h2 id="responsive-heading" class="text-3xl font-bold text-primary mb-8">Responsive Design</h2>
+                
+                <!-- Collapsible Panels -->
+                <div class="component-group">
+                    <h3 class="text-xl font-semibold mb-4">Collapsible Panels</h3>
+                    <div class="collapsible-demo">
+                        <div class="collapsible" data-collapsible>
+                            <div class="collapsible-header" role="button" tabindex="0" aria-expanded="false" aria-controls="panel1">
+                                <span class="font-medium">Mobile Navigation</span>
+                                <i class="fas fa-chevron-down collapsible-toggle" aria-hidden="true"></i>
+                            </div>
+                            <div id="panel1" class="collapsible-content">
+                                <div class="p-4">
+                                    <p>This panel collapses on mobile devices to save screen space. It includes navigation links and user actions.</p>
+                                    <ul class="mt-3 space-y-2">
+                                        <li><a href="#" class="text-primary hover:underline">Dashboard</a></li>
+                                        <li><a href="#" class="text-primary hover:underline">Challenges</a></li>
+                                        <li><a href="#" class="text-primary hover:underline">Progress</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="collapsible" data-collapsible>
+                            <div class="collapsible-header" role="button" tabindex="0" aria-expanded="false" aria-controls="panel2">
+                                <span class="font-medium">Challenge Details</span>
+                                <i class="fas fa-chevron-down collapsible-toggle" aria-hidden="true"></i>
+                            </div>
+                            <div id="panel2" class="collapsible-content">
+                                <div class="p-4">
+                                    <p>Challenge information and requirements can be collapsed to focus on the code editor on smaller screens.</p>
+                                    <div class="mt-3">
+                                        <span class="badge badge-primary">HTML</span>
+                                        <span class="badge badge-success">Beginner</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Responsive Grid -->
+                <div class="component-group">
+                    <h3 class="text-xl font-semibold mb-4">Responsive Grid</h3>
+                    <div class="responsive-grid">
+                        <div class="grid-item">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-mobile-alt text-3xl text-primary mb-3" aria-hidden="true"></i>
+                                    <h4 class="font-semibold">Mobile First</h4>
+                                    <p class="text-sm text-secondary">Optimized for touch</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-tablet-alt text-3xl text-primary mb-3" aria-hidden="true"></i>
+                                    <h4 class="font-semibold">Tablet Ready</h4>
+                                    <p class="text-sm text-secondary">Adaptive layouts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-desktop text-3xl text-primary mb-3" aria-hidden="true"></i>
+                                    <h4 class="font-semibold">Desktop</h4>
+                                    <p class="text-sm text-secondary">Full experience</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Accessibility Section -->
+            <section id="accessibility" class="ui-section" aria-labelledby="accessibility-heading">
+                <h2 id="accessibility-heading" class="text-3xl font-bold text-primary mb-8">Accessibility Features</h2>
+                
+                <!-- Keyboard Navigation -->
+                <div class="component-group">
+                    <h3 class="text-xl font-semibold mb-4">Keyboard Navigation</h3>
+                    <div class="keyboard-demo">
+                        <p class="mb-4 text-secondary">Try navigating with Tab, Enter, and Arrow keys:</p>
+                        <div class="keyboard-nav-example">
+                            <button class="btn btn-primary" tabindex="0">First Button</button>
+                            <button class="btn btn-secondary" tabindex="0">Second Button</button>
+                            <input type="text" class="input" placeholder="Focusable input" tabindex="0">
+                            <select class="input" tabindex="0" aria-label="Example select">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARIA Examples -->
+                <div class="component-group">
+                    <h3 class="text-xl font-semibold mb-4">ARIA Labels & Roles</h3>
+                    <div class="aria-examples">
+                        <div class="progress mb-4" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Course completion progress">
+                            <div class="progress-bar" style="width: 60%"></div>
+                        </div>
+                        <p class="sr-only">Progress: 60% complete</p>
+                        
+                        <div class="alert alert-info" role="alert" aria-live="polite">
+                            <i class="fas fa-info-circle" aria-hidden="true"></i>
+                            <span>This is an informational alert with proper ARIA attributes.</span>
+                        </div>
+                        
+                        <nav aria-label="Breadcrumb navigation">
+                            <ol class="breadcrumb">
+                                <li><a href="#" aria-current="false">Home</a></li>
+                                <li><a href="#" aria-current="false">Challenges</a></li>
+                                <li><span aria-current="page">HTML Basics</span></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Color Contrast -->
+                <div class="component-group">
+                    <h3 class="text-xl font-semibold mb-4">Color Contrast (WCAG AA)</h3>
+                    <div class="contrast-examples">
+                        <div class="contrast-item contrast-good">
+                            <span class="contrast-label">Good Contrast</span>
+                            <span class="contrast-ratio">4.5:1</span>
+                        </div>
+                        <div class="contrast-item contrast-excellent">
+                            <span class="contrast-label">Excellent Contrast</span>
+                            <span class="contrast-ratio">7:1</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Theme Toggle -->
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+        </button>
+
+        <!-- Toast Container -->
+        <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+    </div>
+
+    <script src="ui-components.js"></script>
+</body>
+</html>
