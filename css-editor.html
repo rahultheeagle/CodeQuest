@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>CSS Editor</title>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1e1e1e; color: #d4d4d4; }
+        .header { background: #2d2d30; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3e3e42; }
+        .header h1 { color: #cccccc; margin: 0; font-size: 18px; font-weight: 400; }
+        .btn { background: #0e639c; color: white; border: none; padding: 8px 16px; border-radius: 3px; cursor: pointer; font-size: 13px; margin-left: 8px; transition: background 0.2s; }
+        .btn:hover { background: #1177bb; }
+        .container { display: flex; flex-direction: column; height: calc(100vh - 70px); gap: 10px; padding: 10px; }
+        .left { display: flex; flex-direction: column; flex: 1; gap: 10px; }
+        .panel { background: #1e1e1e; display: flex; flex-direction: column; }
+        .editor-panel { flex: 1; }
+        .preview-panel { flex: 1; }
+        .title { background: #2d2d30; padding: 12px 16px; font-weight: 400; font-size: 13px; color: #cccccc; border-bottom: 1px solid #3e3e42; display: flex; align-items: center; }
+        .title::before { content: ''; width: 20px; height: 20px; margin-right: 12px; background-size: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .title.html::before { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e34c26"><path d="M12,17.56L16.07,16.43L16.62,10.33H9.38L9.2,8.3H16.8L17,6.31H7L7.56,12.32H14.45L14.22,14.9L12,15.5L9.78,14.9L9.64,13.24H7.64L7.93,16.43L12,17.56M4.07,3H19.93L18.5,19.2L12,21L5.5,19.2L4.07,3Z"/></svg>'); }
+        .title.css::before { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%231572b6"><path d="M5,3L4.35,6.34H17.94L17.5,8.5H3.92L3.26,11.83H16.85L16.09,15.64L10.61,17.45L5.86,15.64L6.19,14H2.85L2.06,18L9.91,21L18.96,18L20.16,11.97L20.4,10.76L21.94,3H5Z"/></svg>'); }
+        .editor-container { flex: 1; position: relative; }
+        .line-numbers { position: absolute; left: 0; top: 0; width: 50px; background: #1e1e1e; color: #858585; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 14px; line-height: 20px; padding: 16px 8px; border-right: 1px solid #3e3e42; user-select: none; }
+        .editor { width: calc(100% - 50px); height: 100%; border: none; padding: 16px 16px 16px 66px; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 14px; line-height: 20px; resize: none; background: #1e1e1e; color: #d4d4d4; outline: none; tab-size: 2; }
+        .editor:focus { background: #1e1e1e; }
+        .output { width: 100%; height: calc(100% - 40px); background: white; padding: 16px; overflow: auto; font-family: Arial, sans-serif; }
+        .status-bar { background: #007acc; color: white; padding: 4px 16px; font-size: 12px; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CSS Editor</h1>
+        <div>
+            <button class="btn" onclick="run()">Run</button>
+            <button class="btn" onclick="clearCode()">Clear</button>
+            <a href="index.html" class="btn">Back</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left">
+            <div class="panel editor-panel">
+                <div class="title html">index.html</div>
+                <div class="editor-container">
+                    <div class="line-numbers" id="htmlLineNumbers">1</div>
+                    <textarea class="editor" id="html" placeholder="<!-- HTML structure -->"></textarea>
+                </div>
+                <div class="status-bar">
+                    <span>HTML</span>
+                    <span id="html-cursor-pos">Ln 1, Col 1</span>
+                </div>
+            </div>
+            <div class="panel editor-panel">
+                <div class="title css">styles.css</div>
+                <div class="editor-container">
+                    <div class="line-numbers" id="cssLineNumbers">1</div>
+                    <textarea class="editor" id="css" placeholder="/* CSS styles */"></textarea>
+                </div>
+                <div class="status-bar">
+                    <span>CSS</span>
+                    <span id="css-cursor-pos">Ln 1, Col 1</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel preview-panel">
+            <div class="title">Output</div>
+            <div class="output" id="output"></div>
+        </div>
+    </div>
+
+    <script src="css-editor.js"></script>
+</body>
+</html>
