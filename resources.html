@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - CodeQuest</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <style>
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .resource-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .resource-icon {
+            font-size: 1.5rem;
+        }
+
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .resource-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .resource-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Learning Resources</h1>
+            <nav>
+                <a href="index.html" class="btn btn-secondary">← Back</a>
+                <a href="editor.html" class="btn btn-primary">Try Code</a>
+            </nav>
+        </header>
+
+        <input type="text" class="search-box" id="searchBox" placeholder="Search resources..." oninput="searchResources()">
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('tutorials')">Tutorials</button>
+            <button class="tab" onclick="showTab('references')">References</button>
+            <button class="tab" onclick="showTab('tools')">Tools</button>
+            <button class="tab" onclick="showTab('videos')">Videos</button>
+        </div>
+
+        <div id="tutorials" class="tab-content active">
+            <div class="resource-grid" id="tutorialsGrid"></div>
+        </div>
+
+        <div id="references" class="tab-content">
+            <div class="resource-grid" id="referencesGrid"></div>
+        </div>
+
+        <div id="tools" class="tab-content">
+            <div class="resource-grid" id="toolsGrid"></div>
+        </div>
+
+        <div id="videos" class="tab-content">
+            <div class="resource-grid" id="videosGrid"></div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script>
+        class ResourceManager {
+            constructor() {
+                this.resources = {
+                    tutorials: [
+                        {
+                            title: "HTML Basics",
+                            description: "Learn the fundamentals of HTML markup and structure",
+                            icon: "📄",
+                            links: [
+                                { text: "Start Tutorial", url: "#", type: "primary" },
+                                { text: "Examples", url: "#", type: "secondary" }
+                            ]
+                        },
+                        {
+                            title: "CSS Fundamentals",
+                            description: "Master styling with CSS properties and selectors",
+                            icon: "🎨",
+                            links: [
+                                { text: "Start Tutorial", url: "#", type: "primary" },
+                                { text: "Practice", url: "#", type: "secondary" }
+                            ]
+                        },
+                        {
+                            title: "JavaScript Essentials",
+                            description: "Build interactive web pages with JavaScript",
+                            icon: "⚡",
+                            links: [
+                                { text: "Start Tutorial", url: "#", type: "primary" },
+                                { text: "Exercises", url: "#", type: "secondary" }
+                            ]
+                        }
+                    ],
+                    references: [
+                        {
+                            title: "HTML Reference",
+                            description: "Complete reference for all HTML elements and attributes",
+                            icon: "📚",
+                            links: [
+                                { text: "View Reference", url: "https://developer.mozilla.org/en-US/docs/Web/HTML", type: "primary" }
+                            ]
+                        },
+                        {
+                            title: "CSS Reference",
+                            description: "Comprehensive guide to CSS properties and values",
+                            icon: "📖",
+                            links: [
+                                { text: "View Reference", url: "https://developer.mozilla.org/en-US/docs/Web/CSS", type: "primary" }
+                            ]
+                        },
+                        {
+                            title: "JavaScript Reference",
+                            description: "Complete JavaScript language reference and API docs",
+                            icon: "📋",
+                            links: [
+                                { text: "View Reference", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript", type: "primary" }
+                            ]
+                        }
+                    ],
+                    tools: [
+                        {
+                            title: "Code Editor",
+                            description: "Built-in code editor with live preview",
+                            icon: "💻",
+                            links: [
+                                { text: "Open Editor", url: "editor.html", type: "primary" }
+                            ]
+                        },
+                        {
+                            title: "Color Picker",
+                            description: "Choose colors for your CSS designs",
+                            icon: "🎨",
+                            links: [
+                                { text: "Use Tool", url: "#", type: "primary" }
+                            ]
+                        },
+                        {
+                            title: "Code Formatter",
+                            description: "Format and beautify your code",
+                            icon: "✨",
+                            links: [
+                                { text: "Format Code", url: "#", type: "primary" }
+                            ]
+                        }
+                    ],
+                    videos: [
+                        {
+                            title: "HTML in 10 Minutes",
+                            description: "Quick introduction to HTML basics",
+                            icon: "🎥",
+                            links: [
+                                { text: "Watch Video", url: "#", type: "primary" }
+                            ]
+                        },
+                        {
+                            title: "CSS Grid Tutorial",
+                            description: "Learn CSS Grid layout system",
+                            icon: "📺",
+                            links: [
+                                { text: "Watch Video", url: "#", type: "primary" }
+                            ]
+                        },
+                        {
+                            title: "JavaScript Functions",
+                            description: "Understanding functions in JavaScript",
+                            icon: "🎬",
+                            links: [
+                                { text: "Watch Video", url: "#", type: "primary" }
+                            ]
+                        }
+                    ]
+                };
+                this.init();
+            }
+
+            init() {
+                this.renderResources();
+            }
+
+            renderResources() {
+                Object.keys(this.resources).forEach(category => {
+                    const grid = document.getElementById(`${category}Grid`);
+                    if (grid) {
+                        grid.innerHTML = this.resources[category].map(resource => `
+                            <div class="resource-card" data-title="${resource.title.toLowerCase()}" data-description="${resource.description.toLowerCase()}">
+                                <div class="resource-header">
+                                    <span class="resource-icon">${resource.icon}</span>
+                                    <h3 class="resource-title">${resource.title}</h3>
+                                </div>
+                                <p class="resource-description">${resource.description}</p>
+                                <div class="resource-links">
+                                    ${resource.links.map(link => `
+                                        <a href="${link.url}" class="btn btn-${link.type}" ${link.url.startsWith('http') ? 'target="_blank"' : ''}>${link.text}</a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                });
+            }
+        }
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function searchResources() {
+            const query = document.getElementById('searchBox').value.toLowerCase();
+            const cards = document.querySelectorAll('.resource-card');
+            
+            cards.forEach(card => {
+                const title = card.dataset.title;
+                const description = card.dataset.description;
+                const matches = title.includes(query) || description.includes(query);
+                card.style.display = matches ? 'block' : 'none';
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            window.resourceManager = new ResourceManager();
+        });
+    </script>
+</body>
+</html>
