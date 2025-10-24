@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest - CSS Architecture Demo</title>
+    <link rel="stylesheet" href="design-system.css">
+    <link rel="stylesheet" href="css-architecture.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-theme="light">
+    <!-- App Layout Grid -->
+    <div class="app-layout" id="appLayout">
+        <!-- Header -->
+        <header class="grid-area-header bg-secondary border-b flex items-center justify-between p-4">
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-bold text-primary">
+                    <i class="fas fa-palette" aria-hidden="true"></i>
+                    CSS Architecture Demo
+                </h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="themeToggle" class="btn btn--ghost btn-icon" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="layoutToggle" class="btn btn--secondary" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="grid-area-sidebar bg-tertiary border-r p-4 lg:block hidden" id="sidebar">
+            <nav class="space-y-2">
+                <h3 class="font-semibold text-sm text-secondary mb-4">Navigation</h3>
+                <a href="#grid-demo" class="nav-link block p-2 rounded hover:bg-secondary transition">
+                    <i class="fas fa-th mr-2"></i>Grid Layouts
+                </a>
+                <a href="#flexbox-demo" class="nav-link block p-2 rounded hover:bg-secondary transition">
+                    <i class="fas fa-arrows-alt mr-2"></i>Flexbox
+                </a>
+                <a href="#components-demo" class="nav-link block p-2 rounded hover:bg-secondary transition">
+                    <i class="fas fa-puzzle-piece mr-2"></i>Components
+                </a>
+                <a href="#animations-demo" class="nav-link block p-2 rounded hover:bg-secondary transition">
+                    <i class="fas fa-magic mr-2"></i>Animations
+                </a>
+                <a href="#theming-demo" class="nav-link block p-2 rounded hover:bg-secondary transition">
+                    <i class="fas fa-palette mr-2"></i>Theming
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="grid-area-main p-6 overflow-y-auto">
+            <!-- CSS Grid Demo -->
+            <section id="grid-demo" class="section">
+                <div class="container">
+                    <h2 class="text-3xl font-bold mb-8 text-center">CSS Grid Layouts</h2>
+                    
+                    <!-- Auto-fit Grid -->
+                    <div class="mb-12">
+                        <h3 class="text-xl font-semibold mb-4">Auto-fit Grid</h3>
+                        <div class="grid grid-auto-fit gap-4">
+                            <div class="card card--interactive">
+                                <div class="card__body text-center">
+                                    <i class="fas fa-code text-2xl text-primary mb-2"></i>
+                                    <h4 class="font-semibold">HTML</h4>
+                                    <p class="text-sm text-secondary">Structure & Semantics</p>
+                                </div>
+                            </div>
+                            <div class="card card--interactive">
+                                <div class="card__body text-center">
+                                    <i class="fas fa-paint-brush text-2xl text-primary mb-2"></i>
+                                    <h4 class="font-semibold">CSS</h4>
+                                    <p class="text-sm text-secondary">Styling & Layout</p>
+                                </div>
+                            </div>
+                            <div class="card card--interactive">
+                                <div class="card__body text-center">
+                                    <i class="fas fa-bolt text-2xl text-primary mb-2"></i>
+                                    <h4 class="font-semibold">JavaScript</h4>
+                                    <p class="text-sm text-secondary">Interactivity & Logic</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Complex Grid Layout -->
+                    <div class="mb-12">
+                        <h3 class="text-xl font-semibold mb-4">Complex Grid Layout</h3>
+                        <div class="grid grid-cols-4 gap-4 h-64">
+                            <div class="col-span-2 row-span-2 card bg-primary text-white flex items-center justify-center">
+                                <div class="text-center">
+                                    <i class="fas fa-star text-3xl mb-2"></i>
+                                    <h4 class="font-semibold">Featured</h4>
+                                </div>
+                            </div>
+                            <div class="card flex items-center justify-center">
+                                <span class="font-medium">Item 1</span>
+                            </div>
+                            <div class="card flex items-center justify-center">
+                                <span class="font-medium">Item 2</span>
+                            </div>
+                            <div class="card flex items-center justify-center">
+                                <span class="font-medium">Item 3</span>
+                            </div>
+                            <div class="card flex items-center justify-center">
+                                <span class="font-medium">Item 4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flexbox Demo -->
+            <section id="flexbox-demo" class="section bg-tertiary">
+                <div class="container">
+                    <h2 class="text-3xl font-bold mb-8 text-center">Flexbox Utilities</h2>
+                    
+                    <!-- Flex Direction Demo -->
+                    <div class="grid md:grid-cols-2 gap-8 mb-12">
+                        <div class="card">
+                            <div class="card__header">
+                                <h4 class="font-semibold">Flex Row</h4>
+                            </div>
+                            <div class="card__body">
+                                <div class="flex gap-2">
+                                    <div class="flex-1 bg-primary text-white p-3 rounded text-center">1</div>
+                                    <div class="flex-1 bg-primary text-white p-3 rounded text-center">2</div>
+                                    <div class="flex-1 bg-primary text-white p-3 rounded text-center">3</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card__header">
+                                <h4 class="font-semibold">Flex Column</h4>
+                            </div>
+                            <div class="card__body">
+                                <div class="flex flex-col gap-2 h-32">
+                                    <div class="flex-1 bg-primary text-white p-3 rounded text-center">1</div>
+                                    <div class="flex-1 bg-primary text-white p-3 rounded text-center">2</div>
+                                    <div class="flex-1 bg-primary text-white p-3 rounded text-center">3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Justify Content Demo -->
+                    <div class="card mb-8">
+                        <div class="card__header">
+                            <h4 class="font-semibold">Justify Content Options</h4>
+                        </div>
+                        <div class="card__body space-y-4">
+                            <div class="flex justify-start gap-2 p-2 bg-tertiary rounded">
+                                <div class="bg-primary text-white p-2 rounded">Start</div>
+                                <div class="bg-primary text-white p-2 rounded">Items</div>
+                            </div>
+                            <div class="flex justify-center gap-2 p-2 bg-tertiary rounded">
+                                <div class="bg-primary text-white p-2 rounded">Center</div>
+                                <div class="bg-primary text-white p-2 rounded">Items</div>
+                            </div>
+                            <div class="flex justify-between gap-2 p-2 bg-tertiary rounded">
+                                <div class="bg-primary text-white p-2 rounded">Between</div>
+                                <div class="bg-primary text-white p-2 rounded">Items</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Components Demo -->
+            <section id="components-demo" class="section">
+                <div class="container">
+                    <h2 class="text-3xl font-bold mb-8 text-center">Modular Components</h2>
+                    
+                    <!-- Button Components -->
+                    <div class="card mb-8">
+                        <div class="card__header">
+                            <h4 class="font-semibold">Button Variants</h4>
+                        </div>
+                        <div class="card__body">
+                            <div class="flex flex-wrap gap-4 items-center">
+                                <button class="btn btn--primary">
+                                    <i class="fas fa-play"></i>
+                                    Primary
+                                </button>
+                                <button class="btn btn--secondary">Secondary</button>
+                                <button class="btn btn--ghost">Ghost</button>
+                                <button class="btn btn--primary btn--loading" id="loadingBtn">
+                                    Loading...
+                                </button>
+                                <button class="btn btn--primary" id="successBtn">
+                                    <i class="fas fa-check"></i>
+                                    Success
+                                </button>
+                                <button class="btn btn--primary" id="errorBtn">
+                                    <i class="fas fa-times"></i>
+                                    Error
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Components -->
+                    <div class="card mb-8">
+                        <div class="card__header">
+                            <h4 class="font-semibold">Form Elements</h4>
+                        </div>
+                        <div class="card__body">
+                            <form class="space-y-4 max-w-md">
+                                <div class="form-group">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" class="form-input" placeholder="Enter username">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-input form-input--error" placeholder="Enter email" value="invalid-email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Message</label>
+                                    <textarea class="form-input" rows="3" placeholder="Enter message"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Card Variants -->
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="card">
+                            <div class="card__body text-center">
+                                <h4 class="font-semibold mb-2">Basic Card</h4>
+                                <p class="text-sm text-secondary">Simple card component</p>
+                            </div>
+                        </div>
+                        <div class="card card--elevated">
+                            <div class="card__body text-center">
+                                <h4 class="font-semibold mb-2">Elevated Card</h4>
+                                <p class="text-sm text-secondary">Card with enhanced shadow</p>
+                            </div>
+                        </div>
+                        <div class="card card--interactive">
+                            <div class="card__body text-center">
+                                <h4 class="font-semibold mb-2">Interactive Card</h4>
+                                <p class="text-sm text-secondary">Hover for interaction</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Animations Demo -->
+            <section id="animations-demo" class="section bg-tertiary">
+                <div class="container">
+                    <h2 class="text-3xl font-bold mb-8 text-center">Animation System</h2>
+                    
+                    <!-- Animation Controls -->
+                    <div class="card mb-8">
+                        <div class="card__header">
+                            <h4 class="font-semibold">Animation Triggers</h4>
+                        </div>
+                        <div class="card__body">
+                            <div class="flex flex-wrap gap-4">
+                                <button class="btn btn--primary" onclick="triggerAnimation('fadeIn')">Fade In</button>
+                                <button class="btn btn--primary" onclick="triggerAnimation('slideInRight')">Slide Right</button>
+                                <button class="btn btn--primary" onclick="triggerAnimation('scaleIn')">Scale In</button>
+                                <button class="btn btn--primary" onclick="triggerAnimation('bounce')">Bounce</button>
+                                <button class="btn btn--primary" onclick="triggerAnimation('shake')">Shake</button>
+                                <button class="btn btn--primary" onclick="triggerAnimation('pulse')">Pulse</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Animation Demo Area -->
+                    <div class="card mb-8">
+                        <div class="card__header">
+                            <h4 class="font-semibold">Animation Preview</h4>
+                        </div>
+                        <div class="card__body">
+                            <div class="flex justify-center items-center h-32 bg-tertiary rounded">
+                                <div id="animationTarget" class="w-16 h-16 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- State Animations -->
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="card text-center">
+                            <div class="card__body">
+                                <div class="loading w-12 h-12 bg-primary rounded-full mx-auto mb-4"></div>
+                                <h4 class="font-semibold">Loading State</h4>
+                            </div>
+                        </div>
+                        <div class="card text-center" id="successCard">
+                            <div class="card__body">
+                                <div class="w-12 h-12 bg-success rounded-full mx-auto mb-4 flex items-center justify-center text-white">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <h4 class="font-semibold">Success State</h4>
+                            </div>
+                        </div>
+                        <div class="card text-center" id="errorCard">
+                            <div class="card__body">
+                                <div class="w-12 h-12 bg-error rounded-full mx-auto mb-4 flex items-center justify-center text-white">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <h4 class="font-semibold">Error State</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Theming Demo -->
+            <section id="theming-demo" class="section">
+                <div class="container">
+                    <h2 class="text-3xl font-bold mb-8 text-center">Dynamic Theming</h2>
+                    
+                    <!-- Theme Controls -->
+                    <div class="card mb-8">
+                        <div class="card__header">
+                            <h4 class="font-semibold">Theme Options</h4>
+                        </div>
+                        <div class="card__body">
+                            <div class="flex flex-wrap gap-4">
+                                <button class="btn btn--primary" onclick="setTheme('light')">
+                                    <i class="fas fa-sun"></i>
+                                    Light Theme
+                                </button>
+                                <button class="btn btn--primary" onclick="setTheme('dark')">
+                                    <i class="fas fa-moon"></i>
+                                    Dark Theme
+                                </button>
+                                <button class="btn btn--primary" onclick="setTheme('high-contrast')">
+                                    <i class="fas fa-adjust"></i>
+                                    High Contrast
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CSS Variables Demo -->
+                    <div class="card mb-8">
+                        <div class="card__header">
+                            <h4 class="font-semibold">CSS Variables in Action</h4>
+                        </div>
+                        <div class="card__body">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h5 class="font-medium mb-3">Color Variables</h5>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-6 h-6 rounded" style="background: var(--theme-bg-primary); border: 1px solid var(--theme-border);"></div>
+                                            <code class="text-sm">--theme-bg-primary</code>
+                                        </div>
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-6 h-6 rounded" style="background: var(--theme-bg-secondary);"></div>
+                                            <code class="text-sm">--theme-bg-secondary</code>
+                                        </div>
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-6 h-6 rounded" style="background: var(--primary-500);"></div>
+                                            <code class="text-sm">--primary-500</code>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium mb-3">Layout Variables</h5>
+                                    <div class="space-y-2 text-sm">
+                                        <div><code>--grid-gap:</code> <span class="text-secondary">1.5rem</span></div>
+                                        <div><code>--container-max-width:</code> <span class="text-secondary">1200px</span></div>
+                                        <div><code>--sidebar-width:</code> <span class="text-secondary">280px</span></div>
+                                        <div><code>--header-height:</code> <span class="text-secondary">64px</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Responsive Demo -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h4 class="font-semibold">Responsive Utilities</h4>
+                        </div>
+                        <div class="card__body">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                <div class="bg-primary text-white p-4 rounded text-center">
+                                    <div class="block sm:hidden">XS</div>
+                                    <div class="hidden sm:block md:hidden">SM</div>
+                                    <div class="hidden md:block lg:hidden">MD</div>
+                                    <div class="hidden lg:block">LG</div>
+                                </div>
+                                <div class="bg-primary text-white p-4 rounded text-center sm:col-span-2 md:col-span-1">
+                                    Responsive
+                                </div>
+                                <div class="bg-primary text-white p-4 rounded text-center md:col-span-2 lg:col-span-1">
+                                    Grid
+                                </div>
+                                <div class="bg-primary text-white p-4 rounded text-center">
+                                    System
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="grid-area-footer bg-secondary border-t p-4 text-center text-sm text-secondary">
+            <p>&copy; 2024 CodeQuest CSS Architecture Demo</p>
+        </footer>
+    </div>
+
+    <script src="css-demo.js"></script>
+</body>
+</html>
