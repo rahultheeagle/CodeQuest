@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Path - CodeQuest</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); color: #334155; min-height: 100vh; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        .header { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); padding: 24px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2); margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 24px; font-weight: 600; color: #1e293b; }
+        
+        .btn { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; text-decoration: none; font-size: 14px; margin-left: 8px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); transition: all 0.3s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
+        .btn.secondary { background: linear-gradient(135deg, #6b7280, #4b5563); box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3); }
+        .btn.secondary:hover { box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4); }
+        
+        .progress-overview { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2); margin-bottom: 24px; }
+        .overall-progress { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .progress-bar { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #10b981, #059669); transition: width 0.3s; border-radius: 4px; }
+        
+        .level-container { margin-bottom: 32px; }
+        .level-header { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #ff9ff3 100%); color: white; padding: 24px; border-radius: 20px; margin-bottom: 20px; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3); border: 1px solid rgba(255,255,255,0.2); }
+        .level-header:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(255, 107, 107, 0.4); }
+        .level-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .level-description { opacity: 0.9; }
+        .level-badge { display: inline-block; padding: 4px 12px; background: rgba(255,255,255,0.2); border-radius: 20px; font-size: 12px; margin-top: 8px; }
+        .chapters-preview { line-height: 1.4; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .back-btn { background: #64748b; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-bottom: 20px; }
+        .main-view { display: block; }
+        .level-detail-view { display: none; }
+        
+        .subjects-grid { display: grid; gap: 20px; }
+        
+        .subject-card { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s; }
+        .subject-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+
+        
+
+        
+        .subject-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .subject-title { font-size: 18px; font-weight: 600; color: #1e293b; }
+        .subject-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+        .subject-badge.completed { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .subject-badge.in-progress { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; border: 1px solid rgba(245, 158, 11, 0.2); }
+
+        
+        .chapters-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        
+        .chapter-card { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .chapter-card:hover { border-color: #667eea; transform: translateY(-4px); box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2); background: rgba(255,255,255,1); }
+        .chapter-card.completed { border-color: #10b981; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05)); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2); }
+
+        
+        .chapter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .chapter-number { background: linear-gradient(135deg, #667eea, #764ba2); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3); }
+        .chapter-number.completed { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3); }
+
+        
+        .chapter-title { font-weight: 600; margin-bottom: 4px; }
+        .chapter-description { font-size: 14px; color: #64748b; margin-bottom: 12px; }
+        .chapter-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #64748b; }
+        
+        .quiz-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .quiz-content { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 28px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); }
+        .quiz-question { margin-bottom: 20px; }
+        .quiz-options { display: grid; gap: 8px; margin-bottom: 20px; }
+        .quiz-option { padding: 16px; border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; cursor: pointer; transition: all 0.3s; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); }
+        .quiz-option:hover { border-color: #667eea; background: rgba(255,255,255,1); transform: translateY(-1px); }
+        .quiz-option.selected { border-color: #667eea; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); }
+        .quiz-option.correct { border-color: #10b981; background: #f0fdf4; }
+        .quiz-option.incorrect { border-color: #ef4444; background: #fef2f2; }
+        
+        @media (max-width: 768px) { 
+            .chapters-grid { grid-template-columns: 1fr; }
+            .overall-progress { flex-direction: column; align-items: stretch; gap: 12px; }
+            .level-header { padding: 15px; }
+            .level-title { font-size: 18px; }
+            .chapters-preview { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Learning Path</h1>
+            <div>
+                <button class="btn" onclick="resetProgress()">Reset Progress</button>
+                <a href="index.html" class="btn secondary">← Back</a>
+            </div>
+        </div>
+
+        <div class="progress-overview">
+            <div class="overall-progress">
+                <div>
+                    <h3>Overall Progress</h3>
+                    <p id="progressText">0 of 24 chapters completed</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 24px; font-weight: 700; color: #10b981;" id="progressPercent">0%</div>
+                    <div style="font-size: 14px; color: #64748b;">Complete</div>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="overallProgress"></div>
+            </div>
+        </div>
+
+        <div id="mainView" class="main-view">
+            <div id="pathContainer">
+                <!-- Learning levels will be populated here -->
+            </div>
+        </div>
+        
+        <div id="levelDetailView" class="level-detail-view">
+            <!-- Level details will be shown here -->
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div class="quiz-modal" id="quizModal">
+        <div class="quiz-content">
+            <h3 id="quizTitle">Chapter Quiz</h3>
+            <div id="quizContent"></div>
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button class="btn secondary" onclick="closeQuiz()">Cancel</button>
+                <button class="btn" id="submitQuiz" onclick="submitQuiz()">Submit Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const learningPath = {
+            "level-1": {
+                title: "Level 1: Beginner",
+                description: "Start your web development journey",
+                level: 1,
+                subjects: {
+                    "html-fundamentals": {
+                        title: "HTML Fundamentals",
+                        description: "Learn the structure of web pages",
+                        chapters: [
+                            { id: 1, title: "Chapter 1: HTML Basics", description: "What is HTML and basic structure", duration: "15 min", quiz: { question: "What does HTML stand for?", options: ["Hyper Text Markup Language", "High Tech Modern Language", "Home Tool Markup Language"], correct: 0 } },
+                            { id: 2, title: "Chapter 2: HTML Elements", description: "Understanding tags and elements", duration: "20 min", quiz: { question: "Which tag is used for the largest heading?", options: ["<h6>", "<h1>", "<header>"], correct: 1 } },
+                            { id: 3, title: "Chapter 3: Text & Formatting", description: "Formatting text content", duration: "18 min", quiz: { question: "Which tag makes text bold?", options: ["<b>", "<bold>", "<strong>"], correct: 0 } },
+                            { id: 4, title: "Chapter 4: Links & Images", description: "Adding links and images", duration: "25 min", quiz: { question: "Which attribute specifies the image source?", options: ["href", "src", "link"], correct: 1 } }
+                        ]
+                    },
+                    "css-basics": {
+                        title: "CSS Basics",
+                        description: "Style your web pages",
+                        prerequisite: "html-fundamentals",
+                        chapters: [
+                            { id: 5, title: "Chapter 1: CSS Introduction", description: "What is CSS and how to use it", duration: "15 min", quiz: { question: "How do you select an element with id 'header'?", options: [".header", "#header", "header"], correct: 1 } },
+                            { id: 6, title: "Chapter 2: Colors & Fonts", description: "Styling text and colors", duration: "20 min", quiz: { question: "Which property changes text color?", options: ["font-color", "text-color", "color"], correct: 2 } },
+                            { id: 7, title: "Chapter 3: Box Model", description: "Understanding spacing and borders", duration: "25 min", quiz: { question: "What's the correct order of the box model from inside out?", options: ["content, padding, border, margin", "margin, border, padding, content", "content, margin, padding, border"], correct: 0 } },
+                            { id: 8, title: "Chapter 4: Basic Layout", description: "Simple page layouts", duration: "30 min", quiz: { question: "Which property controls element positioning?", options: ["position", "layout", "place"], correct: 0 } }
+                        ]
+                    }
+                }
+            },
+            "level-2": {
+                title: "Level 2: Intermediate",
+                description: "Build interactive and responsive websites",
+                level: 2,
+                prerequisite: "level-1",
+                subjects: {
+                    "advanced-css": {
+                        title: "Advanced CSS",
+                        description: "Master modern CSS techniques",
+                        chapters: [
+                            { id: 9, title: "Chapter 1: Flexbox Layout", description: "Flexible box layouts", duration: "30 min", quiz: { question: "Which property makes an element a flex container?", options: ["display: flex", "flex: 1", "flex-direction: row"], correct: 0 } },
+                            { id: 10, title: "Chapter 2: CSS Grid", description: "Advanced grid layouts", duration: "35 min", quiz: { question: "Which property defines grid columns?", options: ["grid-columns", "grid-template-columns", "columns"], correct: 1 } },
+                            { id: 11, title: "Chapter 3: Responsive Design", description: "Mobile-first design", duration: "40 min", quiz: { question: "What's the viewport meta tag for?", options: ["SEO", "Responsive design", "Performance"], correct: 1 } },
+                            { id: 12, title: "Chapter 4: Animations", description: "CSS transitions and animations", duration: "25 min", quiz: { question: "Which property creates smooth transitions?", options: ["animation", "transition", "transform"], correct: 1 } }
+                        ]
+                    },
+                    "javascript-fundamentals": {
+                        title: "JavaScript Fundamentals",
+                        description: "Add interactivity to websites",
+                        prerequisite: "advanced-css",
+                        chapters: [
+                            { id: 13, title: "Chapter 1: JS Basics", description: "Variables and data types", duration: "25 min", quiz: { question: "How do you declare a variable in modern JavaScript?", options: ["var x", "let x", "variable x"], correct: 1 } },
+                            { id: 14, title: "Chapter 2: Functions", description: "Creating and using functions", duration: "30 min", quiz: { question: "How do you define a function?", options: ["function myFunc()", "def myFunc()", "func myFunc()"], correct: 0 } },
+                            { id: 15, title: "Chapter 3: Arrays & Objects", description: "Working with data structures", duration: "35 min", quiz: { question: "How do you access the first element of an array?", options: ["arr[1]", "arr[0]", "arr.first()"], correct: 1 } },
+                            { id: 16, title: "Chapter 4: DOM Basics", description: "Manipulating web page content", duration: "40 min", quiz: { question: "Which method selects an element by ID?", options: ["getElementById", "querySelector", "getElement"], correct: 0 } }
+                        ]
+                    }
+                }
+            },
+            "level-3": {
+                title: "Level 3: Advanced",
+                description: "Master advanced concepts and build projects",
+                level: 3,
+                prerequisite: "level-2",
+                subjects: {
+                    "advanced-javascript": {
+                        title: "Advanced JavaScript",
+                        description: "Complex JavaScript concepts",
+                        chapters: [
+                            { id: 17, title: "Chapter 1: Events & Interactions", description: "Handling user interactions", duration: "30 min", quiz: { question: "Which event fires when a button is clicked?", options: ["onclick", "click", "onpress"], correct: 1 } },
+                            { id: 18, title: "Chapter 2: Control Flow", description: "Loops and conditions", duration: "25 min", quiz: { question: "Which loop runs a specific number of times?", options: ["while", "for", "do-while"], correct: 1 } },
+                            { id: 19, title: "Chapter 3: Async Programming", description: "Promises and async/await", duration: "45 min", quiz: { question: "What does 'await' do?", options: ["Waits for a promise", "Creates a promise", "Cancels a promise"], correct: 0 } },
+                            { id: 20, title: "Chapter 4: Error Handling", description: "Debugging and error management", duration: "20 min", quiz: { question: "Which statement catches errors?", options: ["catch", "try-catch", "error"], correct: 1 } }
+                        ]
+                    },
+                    "web-projects": {
+                        title: "Web Projects",
+                        description: "Build real-world applications",
+                        prerequisite: "advanced-javascript",
+                        chapters: [
+                            { id: 21, title: "Project 1: Todo App", description: "Build a functional todo application", duration: "60 min", quiz: { question: "What's the first step in building a todo app?", options: ["Design the UI", "Plan the features", "Write the code"], correct: 1 } },
+                            { id: 22, title: "Project 2: Weather App", description: "Create a weather dashboard with API", duration: "75 min", quiz: { question: "What's needed to fetch weather data?", options: ["API key", "Database", "Server"], correct: 0 } },
+                            { id: 23, title: "Project 3: Calculator", description: "Build a working calculator", duration: "50 min", quiz: { question: "How do you handle calculator operations?", options: ["Switch statement", "If-else chain", "Functions"], correct: 0 } },
+                            { id: 24, title: "Project 4: Portfolio Site", description: "Create your personal portfolio", duration: "90 min", quiz: { question: "What should a portfolio include?", options: ["Only projects", "Projects and about", "Just contact info"], correct: 1 } }
+                        ]
+                    }
+                }
+            }
+        };
+
+        let userProgress = JSON.parse(localStorage.getItem('learningProgress') || '{}');
+        let currentQuiz = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderLearningPath();
+            updateOverallProgress();
+        });
+
+        function renderLearningPath() {
+            const container = document.getElementById('pathContainer');
+            container.innerHTML = '';
+
+            Object.entries(learningPath).forEach(([levelId, level]) => {
+                const levelEl = document.createElement('div');
+                levelEl.className = 'level-container';
+                
+                const levelProgress = calculateLevelProgress(level);
+                const allChapters = Object.values(level.subjects).flatMap(subject => subject.chapters);
+                
+                levelEl.innerHTML = `
+                    <div class="level-header" data-level="${levelId}">
+                        <div class="level-title">
+                            <span>${level.title}</span>
+                            <span class="toggle-icon">→</span>
+                        </div>
+                        <div class="level-description">${level.description}</div>
+                        <div class="level-badge">${levelProgress}% Complete</div>
+                        <div class="chapters-preview">
+                            <strong>Chapters in this level:</strong><br>
+                            ${allChapters.map(chapter => `• ${chapter.title}`).join('<br>')}
+                        </div>
+                    </div>
+                `;
+                
+                const header = levelEl.querySelector('.level-header');
+                header.addEventListener('click', () => showLevelView(levelId, level));
+                
+                container.appendChild(levelEl);
+            });
+        }
+
+        function renderSubject(subject, levelId) {
+            const completedChapters = subject.chapters.filter(chapter => userProgress[chapter.id]?.completed).length;
+            const totalChapters = subject.chapters.length;
+            const subjectProgress = (completedChapters / totalChapters) * 100;
+
+            return `
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <div>
+                            <h3 class="subject-title">${subject.title}</h3>
+                            <p style="color: #64748b; margin-top: 4px;">${subject.description}</p>
+                        </div>
+                        <div class="subject-badge ${completedChapters === totalChapters ? 'completed' : 'in-progress'}">
+                            ${completedChapters}/${totalChapters} Completed
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${subjectProgress}%"></div>
+                        </div>
+                    </div>
+                    <div class="chapters-grid">
+                        ${subject.chapters.map(chapter => renderChapter(chapter)).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderChapter(chapter) {
+            const isCompleted = userProgress[chapter.id]?.completed;
+
+            return `
+                <div class="chapter-card ${isCompleted ? 'completed' : 'available'}" onclick="startChapter(${chapter.id})">
+                    <div class="chapter-header">
+                        <div class="chapter-number ${isCompleted ? 'completed' : 'available'}">${chapter.id}</div>
+                        <div>
+                            ${isCompleted ? '✅' : '▶️'}
+                        </div>
+                    </div>
+                    <div class="chapter-title">${chapter.title}</div>
+                    <div class="chapter-description">${chapter.description}</div>
+                    <div class="chapter-meta">
+                        <span>${chapter.duration}</span>
+                        <span>${isCompleted ? 'Completed' : 'Available'}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function startChapter(chapterId) {
+            let chapter = null;
+            for (const level of Object.values(learningPath)) {
+                for (const subject of Object.values(level.subjects)) {
+                    chapter = subject.chapters.find(c => c.id === chapterId);
+                    if (chapter) break;
+                }
+                if (chapter) break;
+            }
+
+            if (!chapter) return;
+
+            currentQuiz = chapter;
+            document.getElementById('quizTitle').textContent = `${chapter.title} - Quiz`;
+            document.getElementById('quizContent').innerHTML = `
+                <div class="quiz-question">
+                    <h4>${chapter.quiz.question}</h4>
+                </div>
+                <div class="quiz-options">
+                    ${chapter.quiz.options.map((option, index) => `
+                        <div class="quiz-option" onclick="selectOption(${index})" data-index="${index}">
+                            ${option}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            document.getElementById('quizModal').style.display = 'flex';
+        }
+
+        function selectOption(index) {
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+        }
+
+        function submitQuiz() {
+            const selected = document.querySelector('.quiz-option.selected');
+            if (!selected) {
+                alert('Please select an answer');
+                return;
+            }
+
+            const selectedIndex = parseInt(selected.dataset.index);
+            const isCorrect = selectedIndex === currentQuiz.quiz.correct;
+
+            document.querySelectorAll('.quiz-option').forEach((option, index) => {
+                if (index === currentQuiz.quiz.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+
+            setTimeout(() => {
+                if (isCorrect) {
+                    userProgress[currentQuiz.id] = {
+                        completed: true,
+                        completedAt: Date.now(),
+                        score: 100
+                    };
+                    localStorage.setItem('learningProgress', JSON.stringify(userProgress));
+                    
+                    closeQuiz();
+                    renderLearningPath();
+                    updateOverallProgress();
+                    
+                    alert('🎉 Chapter completed! Great job!');
+                } else {
+                    alert('❌ Incorrect answer. Try again!');
+                    closeQuiz();
+                }
+            }, 1500);
+        }
+
+        function closeQuiz() {
+            document.getElementById('quizModal').style.display = 'none';
+            currentQuiz = null;
+        }
+
+        function updateOverallProgress() {
+            const totalChapters = Object.values(learningPath).reduce((sum, level) => 
+                sum + Object.values(level.subjects).reduce((subSum, subject) => 
+                    subSum + subject.chapters.length, 0), 0);
+            const completedChapters = Object.keys(userProgress).filter(id => userProgress[id].completed).length;
+            const percentage = Math.round((completedChapters / totalChapters) * 100);
+
+            document.getElementById('progressText').textContent = `${completedChapters} of ${totalChapters} chapters completed`;
+            document.getElementById('progressPercent').textContent = `${percentage}%`;
+            document.getElementById('overallProgress').style.width = `${percentage}%`;
+        }
+
+        function calculateLevelProgress(level) {
+            const totalChapters = Object.values(level.subjects).reduce((sum, subject) => sum + subject.chapters.length, 0);
+            const completedChapters = Object.values(level.subjects).reduce((sum, subject) => 
+                sum + subject.chapters.filter(chapter => userProgress[chapter.id]?.completed).length, 0);
+            return Math.round((completedChapters / totalChapters) * 100);
+        }
+
+        function isLevelCompleted(levelId) {
+            const level = learningPath[levelId];
+            if (!level) return false;
+            
+            return Object.values(level.subjects).every(subject => 
+                subject.chapters.every(chapter => userProgress[chapter.id]?.completed));
+        }
+
+        function isSubjectCompleted(subjectId, levelId) {
+            const level = learningPath[levelId];
+            if (!level) return false;
+            
+            const subject = level.subjects[subjectId];
+            if (!subject) return false;
+            
+            return subject.chapters.every(chapter => userProgress[chapter.id]?.completed);
+        }
+
+        function showLevelView(levelId, level) {
+            const mainView = document.getElementById('mainView');
+            const levelDetailView = document.getElementById('levelDetailView');
+            const levelProgress = calculateLevelProgress(level);
+            const totalChapters = Object.values(level.subjects).reduce((sum, subject) => sum + subject.chapters.length, 0);
+            const completedChapters = Object.values(level.subjects).reduce((sum, subject) => 
+                sum + subject.chapters.filter(chapter => userProgress[chapter.id]?.completed).length, 0);
+            
+            mainView.style.display = 'none';
+            levelDetailView.style.display = 'block';
+            
+            levelDetailView.innerHTML = `
+                <button class="back-btn" onclick="showMainView()">← Back to Learning Path</button>
+                <div class="level-container">
+                    <div class="level-header">
+                        <div class="level-title">
+                            <span>${level.title}</span>
+                        </div>
+                        <div class="level-description">${level.description}</div>
+                        <div class="level-badge">${levelProgress}% Complete (${completedChapters}/${totalChapters} chapters)</div>
+                        <div class="progress-bar" style="margin-top: 12px;">
+                            <div class="progress-fill" style="width: ${levelProgress}%"></div>
+                        </div>
+                    </div>
+                    <div class="subjects-grid" style="display: grid;">
+                        ${Object.entries(level.subjects).map(([subjectId, subject]) => 
+                            renderSubject(subject, levelId)
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showMainView() {
+            document.getElementById('mainView').style.display = 'block';
+            document.getElementById('levelDetailView').style.display = 'none';
+        }
+
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                userProgress = {};
+                localStorage.removeItem('learningProgress');
+                renderLearningPath();
+                updateOverallProgress();
+                alert('Progress reset successfully!');
+            }
+        }
+    </script>
+</body>
+</html>
