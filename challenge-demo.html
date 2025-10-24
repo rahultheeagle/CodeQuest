@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Coding Challenges - CodeQuest</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0d1117; color: #e6edf3; }
+        
+        .header { background: #161b22; padding: 16px 24px; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { color: #f0f6fc; font-size: 20px; font-weight: 600; display: flex; align-items: center; }
+        .header h1::before { content: '🎯'; margin-right: 12px; }
+        .btn { background: #238636; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; text-decoration: none; transition: all 0.2s; }
+        .btn:hover { background: #2ea043; }
+        .btn.secondary { background: #21262d; border: 1px solid #30363d; }
+        .btn.secondary:hover { background: #30363d; }
+        
+        .main-container { display: flex; height: calc(100vh - 65px); }
+        
+        .sidebar { width: 320px; background: #0d1117; border-right: 1px solid #30363d; display: flex; flex-direction: column; }
+        .sidebar-header { padding: 16px; border-bottom: 1px solid #30363d; }
+        .sidebar-title { font-size: 16px; font-weight: 600; color: #f0f6fc; margin-bottom: 8px; }
+        .difficulty-filter { display: flex; gap: 8px; }
+        .filter-btn { padding: 4px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+        .filter-btn.easy { background: #1a7f37; color: white; }
+        .filter-btn.medium { background: #fb8500; color: white; }
+        .filter-btn.hard { background: #da3633; color: white; }
+        .filter-btn.active { box-shadow: 0 0 0 2px #58a6ff; }
+        
+        .challenges-list { flex: 1; overflow-y: auto; }
+        .challenge-item { padding: 16px; border-bottom: 1px solid #21262d; cursor: pointer; transition: background 0.2s; }
+        .challenge-item:hover { background: #161b22; }
+        .challenge-item.active { background: #0969da; }
+        .challenge-title { font-size: 14px; font-weight: 600; color: #f0f6fc; margin-bottom: 4px; }
+        .challenge-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #7d8590; }
+        .challenge-difficulty { padding: 2px 8px; border-radius: 12px; font-weight: 500; }
+        .challenge-difficulty.easy { background: #1a7f37; color: white; }
+        .challenge-difficulty.medium { background: #fb8500; color: white; }
+        .challenge-difficulty.hard { background: #da3633; color: white; }
+        
+        .content-area { flex: 1; display: flex; flex-direction: column; }
+        .challenge-header { background: #161b22; padding: 20px 24px; border-bottom: 1px solid #30363d; }
+        .challenge-name { font-size: 24px; font-weight: 700; color: #f0f6fc; margin-bottom: 8px; }
+        .challenge-tags { display: flex; gap: 8px; margin-bottom: 12px; }
+        .tag { background: #21262d; color: #7d8590; padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+        .challenge-stats { display: flex; gap: 24px; font-size: 14px; color: #7d8590; }
+        
+        .challenge-content { flex: 1; display: flex; }
+        .problem-panel { width: 40%; background: #0d1117; padding: 24px; overflow-y: auto; border-right: 1px solid #30363d; }
+        .problem-section { margin-bottom: 24px; }
+        .section-title { font-size: 16px; font-weight: 600; color: #f0f6fc; margin-bottom: 12px; }
+        .problem-description { line-height: 1.6; color: #e6edf3; }
+        .example { background: #161b22; padding: 16px; border-radius: 8px; border-left: 4px solid #58a6ff; }
+        .example-title { font-weight: 600; color: #58a6ff; margin-bottom: 8px; }
+        .code-block { background: #0d1117; color: #f0f6fc; font-family: 'Consolas', 'Monaco', monospace; padding: 12px; border-radius: 6px; border: 1px solid #30363d; }
+        
+        .editor-panel { flex: 1; display: flex; flex-direction: column; }
+        .editor-tabs { background: #161b22; display: flex; border-bottom: 1px solid #30363d; }
+        .tab { padding: 12px 16px; cursor: pointer; font-size: 14px; color: #7d8590; border-right: 1px solid #30363d; transition: all 0.2s; }
+        .tab.active { background: #0d1117; color: #f0f6fc; }
+        .tab::before { content: ''; width: 16px; height: 16px; margin-right: 8px; background-size: contain; display: inline-block; }
+        .tab.js::before { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f7df1e"><path d="M3,3H21V21H3V3M7.73,18.04C8.13,18.89 8.92,19.59 10.27,19.59C11.77,19.59 12.8,18.79 12.8,17.04V11.26H11.1V17C11.1,17.86 10.75,18.08 10.2,18.08C9.62,18.08 9.38,17.68 9.11,17.21L7.73,18.04M13.71,17.86C14.21,18.84 15.22,19.59 16.8,19.59C18.4,19.59 19.6,18.76 19.6,17.23C19.6,15.82 18.79,15.19 17.35,14.57L16.93,14.39C16.2,14.08 15.89,13.87 15.89,13.37C15.89,12.96 16.2,12.64 16.7,12.64C17.18,12.64 17.5,12.85 17.79,13.37L19.1,12.5C18.55,11.54 17.77,11.17 16.7,11.17C15.19,11.17 14.22,12.13 14.22,13.4C14.22,14.78 15.03,15.43 16.25,15.95L16.67,16.13C17.45,16.47 17.91,16.68 17.91,17.26C17.91,17.74 17.46,18.09 16.76,18.09C15.93,18.09 15.45,17.66 15.09,17.06L13.71,17.86Z"/></svg>'); }
+        
+        .editor-container { flex: 1; position: relative; }
+        .line-numbers { position: absolute; left: 0; top: 0; width: 50px; background: #0d1117; color: #6e7681; font-family: 'Consolas', 'Monaco', monospace; font-size: 14px; line-height: 20px; padding: 16px 8px; border-right: 1px solid #30363d; user-select: none; }
+        .editor { width: calc(100% - 50px); height: 100%; border: none; padding: 16px 16px 16px 66px; font-family: 'Consolas', 'Monaco', monospace; font-size: 14px; line-height: 20px; resize: none; background: #0d1117; color: #e6edf3; outline: none; tab-size: 2; }
+        
+        .bottom-panel { background: #161b22; border-top: 1px solid #30363d; }
+        .panel-tabs { display: flex; }
+        .panel-tab { padding: 12px 16px; cursor: pointer; font-size: 14px; color: #7d8590; border-right: 1px solid #30363d; transition: all 0.2s; }
+        .panel-tab.active { background: #0d1117; color: #f0f6fc; }
+        .panel-content { height: 200px; padding: 16px; overflow-y: auto; }
+        .test-case { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 12px; margin-bottom: 8px; }
+        .test-status { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .status-icon { width: 16px; height: 16px; border-radius: 50%; }
+        .status-icon.pass { background: #238636; }
+        .status-icon.fail { background: #da3633; }
+        .test-details { font-family: 'Consolas', 'Monaco', monospace; font-size: 12px; color: #7d8590; }
+        
+        .action-bar { background: #161b22; padding: 16px 24px; border-top: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; }
+        .btn.run { background: #238636; }
+        .btn.submit { background: #0969da; }
+        .btn.reset { background: #6e7681; }
+        
+        @media (max-width: 1024px) {
+            .sidebar { width: 280px; }
+            .problem-panel { width: 100%; }
+            .challenge-content { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Coding Challenges</h1>
+        <div>
+            <button class="btn" onclick="runCode()">▶ Run</button>
+            <button class="btn submit" onclick="submitSolution()">Submit</button>
+            <a href="index.html" class="btn secondary">← Back</a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Challenges</div>
+                <div class="difficulty-filter">
+                    <div class="filter-btn easy active" onclick="filterDifficulty('easy')">Easy</div>
+                    <div class="filter-btn medium" onclick="filterDifficulty('medium')">Medium</div>
+                    <div class="filter-btn hard" onclick="filterDifficulty('hard')">Hard</div>
+                </div>
+            </div>
+            <div class="challenges-list" id="challengesList">
+                <!-- Challenges will be populated here -->
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="challenge-header">
+                <div class="challenge-name" id="challengeName">Two Sum</div>
+                <div class="challenge-tags">
+                    <span class="tag">Array</span>
+                    <span class="tag">Hash Table</span>
+                </div>
+                <div class="challenge-stats">
+                    <span>Acceptance: 49.2%</span>
+                    <span>Submissions: 4.2M</span>
+                    <span>Difficulty: <span class="challenge-difficulty easy">Easy</span></span>
+                </div>
+            </div>
+
+            <div class="challenge-content">
+                <div class="problem-panel">
+                    <div class="problem-section">
+                        <div class="section-title">Problem Description</div>
+                        <div class="problem-description" id="problemDescription">
+                            Given an array of integers <code>nums</code> and an integer <code>target</code>, return indices of the two numbers such that they add up to <code>target</code>.
+                            <br><br>
+                            You may assume that each input would have exactly one solution, and you may not use the same element twice.
+                            <br><br>
+                            You can return the answer in any order.
+                        </div>
+                    </div>
+
+                    <div class="problem-section">
+                        <div class="section-title">Examples</div>
+                        <div class="example">
+                            <div class="example-title">Example 1:</div>
+                            <div class="code-block">
+Input: nums = [2,7,11,15], target = 9<br>
+Output: [0,1]<br>
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="problem-section">
+                        <div class="section-title">Constraints</div>
+                        <div class="problem-description">
+                            • 2 ≤ nums.length ≤ 10⁴<br>
+                            • -10⁹ ≤ nums[i] ≤ 10⁹<br>
+                            • -10⁹ ≤ target ≤ 10⁹<br>
+                            • Only one valid answer exists.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="editor-panel">
+                    <div class="editor-tabs">
+                        <div class="tab js active">solution.js</div>
+                    </div>
+                    <div class="editor-container">
+                        <div class="line-numbers" id="lineNumbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8</div>
+                        <textarea class="editor" id="codeEditor">/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+    // Write your solution here
+};</textarea>
+                    </div>
+
+                    <div class="bottom-panel">
+                        <div class="panel-tabs">
+                            <div class="panel-tab active" onclick="switchTab('testcases')">Test Cases</div>
+                            <div class="panel-tab" onclick="switchTab('console')">Console</div>
+                            <div class="panel-tab" onclick="switchTab('submissions')">Submissions</div>
+                        </div>
+                        <div class="panel-content" id="panelContent">
+                            <div id="testCasesPanel">
+                                <!-- Test cases will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const challenges = [
+            { id: 1, title: "Two Sum", difficulty: "easy", tags: ["Array", "Hash Table"], acceptance: "49.2%" },
+            { id: 2, title: "Add Two Numbers", difficulty: "medium", tags: ["Linked List", "Math"], acceptance: "38.1%" },
+            { id: 3, title: "Longest Substring", difficulty: "medium", tags: ["String", "Sliding Window"], acceptance: "33.8%" },
+            { id: 4, title: "Median of Two Arrays", difficulty: "hard", tags: ["Array", "Binary Search"], acceptance: "35.2%" },
+            { id: 5, title: "Palindrome Number", difficulty: "easy", tags: ["Math"], acceptance: "52.7%" },
+            { id: 6, title: "Regular Expression", difficulty: "hard", tags: ["String", "Dynamic Programming"], acceptance: "27.9%" },
+            { id: 7, title: "Reverse Integer", difficulty: "medium", tags: ["Math"], acceptance: "26.8%" },
+            { id: 8, title: "Valid Parentheses", difficulty: "easy", tags: ["String", "Stack"], acceptance: "40.1%" }
+        ];
+
+        let currentFilter = 'easy';
+        let activeChallenge = 1;
+
+        function renderChallenges() {
+            const container = document.getElementById('challengesList');
+            const filtered = challenges.filter(c => c.difficulty === currentFilter);
+            
+            container.innerHTML = filtered.map(challenge => `
+                <div class="challenge-item ${challenge.id === activeChallenge ? 'active' : ''}" onclick="selectChallenge(${challenge.id})">
+                    <div class="challenge-title">${challenge.title}</div>
+                    <div class="challenge-meta">
+                        <span class="challenge-difficulty ${challenge.difficulty}">${challenge.difficulty}</span>
+                        <span>${challenge.acceptance}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterDifficulty(difficulty) {
+            currentFilter = difficulty;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.filter-btn.${difficulty}`).classList.add('active');
+            renderChallenges();
+        }
+
+        function selectChallenge(id) {
+            activeChallenge = id;
+            const challenge = challenges.find(c => c.id === id);
+            document.getElementById('challengeName').textContent = challenge.title;
+            renderChallenges();
+        }
+
+        function updateTestCasesPanel() {
+            const cases = testCases[activeChallenge] || [];
+            const panel = document.getElementById('testCasesPanel');
+            
+            panel.innerHTML = cases.map((testCase, index) => `
+                <div class="test-case">
+                    <div class="test-status">
+                        <div class="status-icon" id="status-${index}"></div>
+                        <span>Test Case ${index + 1}</span>
+                    </div>
+                    <div class="test-details">
+                        Input: ${JSON.stringify(testCase.input)}<br>
+                        Expected: ${JSON.stringify(testCase.expected)}<br>
+                        <span id="output-${index}">Click "Run" to see output</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const content = document.getElementById('panelContent');
+            if (tab === 'console') {
+                content.innerHTML = '<div style="font-family: monospace; color: #7d8590;">Console output will appear here...</div>';
+            } else if (tab === 'submissions') {
+                content.innerHTML = '<div style="color: #7d8590;">No submissions yet. Submit your solution to see results.</div>';
+            } else {
+                content.innerHTML = document.getElementById('testCasesPanel').outerHTML;
+            }
+        }
+
+        const testCases = {
+            1: [ // Two Sum
+                { input: [[2,7,11,15], 9], expected: [0,1] },
+                { input: [[3,2,4], 6], expected: [1,2] },
+                { input: [[3,3], 6], expected: [0,1] }
+            ]
+        };
+
+        function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            const content = document.getElementById('panelContent');
+            
+            // Switch to console tab
+            document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.panel-tab')[1].classList.add('active');
+            
+            let output = '<div style="font-family: monospace;">';
+            
+            try {
+                // Execute the user's code
+                const func = new Function('return ' + code)();
+                
+                if (typeof func !== 'function') {
+                    throw new Error('Code must return a function');
+                }
+                
+                output += '<div style="color: #238636;">✓ Code compiled successfully</div>';
+                output += '<div style="color: #7d8590; margin-top: 8px;">Running test cases...</div>';
+                
+                const cases = testCases[activeChallenge] || [];
+                let passed = 0;
+                
+                cases.forEach((testCase, index) => {
+                    try {
+                        const result = func(...testCase.input);
+                        const isCorrect = JSON.stringify(result) === JSON.stringify(testCase.expected);
+                        
+                        if (isCorrect) {
+                            passed++;
+                            output += `<div style="color: #238636; margin-top: 4px;">Test Case ${index + 1}: PASS ✓</div>`;
+                        } else {
+                            output += `<div style="color: #da3633; margin-top: 4px;">Test Case ${index + 1}: FAIL ✗</div>`;
+                            output += `<div style="color: #7d8590; font-size: 12px;">  Expected: ${JSON.stringify(testCase.expected)}</div>`;
+                            output += `<div style="color: #7d8590; font-size: 12px;">  Got: ${JSON.stringify(result)}</div>`;
+                        }
+                    } catch (err) {
+                        output += `<div style="color: #da3633; margin-top: 4px;">Test Case ${index + 1}: ERROR</div>`;
+                        output += `<div style="color: #7d8590; font-size: 12px;">  ${err.message}</div>`;
+                    }
+                });
+                
+                output += `<div style="color: #58a6ff; margin-top: 8px;">Results: ${passed}/${cases.length} test cases passed</div>`;
+                
+            } catch (error) {
+                output += `<div style="color: #da3633;">✗ Compilation Error</div>`;
+                output += `<div style="color: #7d8590; margin-top: 4px;">${error.message}</div>`;
+            }
+            
+            output += '</div>';
+            content.innerHTML = output;
+            
+            // Update test cases panel
+            updateTestCasesPanel();
+        }
+
+        function submitSolution() {
+            alert('🎉 Solution submitted! Check the submissions tab for results.');
+        }
+
+        function updateLineNumbers() {
+            const code = document.getElementById('codeEditor').value;
+            const lines = code.split('\n').length;
+            const lineNumbers = document.getElementById('lineNumbers');
+            lineNumbers.innerHTML = Array.from({length: lines}, (_, i) => i + 1).join('<br>');
+        }
+
+        document.getElementById('codeEditor').addEventListener('input', updateLineNumbers);
+
+        // Force reload on page load to prevent caching
+        if (performance.navigation.type !== 1) {
+            window.location.reload(true);
+        }
+        
+        // Initialize
+        renderChallenges();
+        updateTestCasesPanel();
+    </script>
+</body>
+</html>
