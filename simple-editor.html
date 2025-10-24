@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor - CodeQuest</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 10px; }
+        .header { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .btn { background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; text-decoration: none; }
+        .btn:hover { background: #0056b3; }
+        .container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .left { display: flex; flex-direction: column; gap: 15px; }
+        .panel { background: white; border-radius: 8px; overflow: hidden; }
+        .title { background: #f8f9fa; padding: 10px; font-weight: bold; border-bottom: 1px solid #ddd; }
+        .editor { width: 100%; height: 150px; border: none; padding: 10px; font-family: monospace; resize: none; }
+        .preview { width: 100%; height: 320px; border: none; }
+        .console { height: 120px; padding: 10px; background: #000; color: #0f0; font-family: monospace; font-size: 12px; overflow-y: auto; }
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Code Editor</h1>
+        <div>
+            <button class="btn" onclick="run()">Run</button>
+            <button class="btn" onclick="clear()">Clear</button>
+            <a href="index.html" class="btn">Back</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left">
+            <div class="panel">
+                <div class="title">HTML</div>
+                <textarea class="editor" id="html" oninput="update()" placeholder="<h1>Hello</h1>"></textarea>
+            </div>
+            <div class="panel">
+                <div class="title">CSS</div>
+                <textarea class="editor" id="css" oninput="update()" placeholder="h1 { color: red; }"></textarea>
+            </div>
+            <div class="panel">
+                <div class="title">JavaScript</div>
+                <textarea class="editor" id="js" placeholder="console.log('Hello');"></textarea>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="title">Preview</div>
+            <iframe class="preview" id="preview"></iframe>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="title">Console</div>
+        <div class="console" id="console">Ready</div>
+    </div>
+
+    <script>
+        const html = document.getElementById('html');
+        const css = document.getElementById('css');
+        const js = document.getElementById('js');
+        const preview = document.getElementById('preview');
+        const console = document.getElementById('console');
+
+        function update() {
+            const content = `<html><head><style>${css.value}</style></head><body>${html.value}</body></html>`;
+            preview.srcdoc = content;
+        }
+
+        function run() {
+            console.innerHTML = '';
+            log('Running...');
+            
+            const code = js.value.trim();
+            if (!code) {
+                log('No code to run');
+                return;
+            }
+            
+            try {
+                // Capture console output like advanced section
+                const originalLog = window.console.log;
+                const originalError = window.console.error;
+                const originalWarn = window.console.warn;
+                
+                window.console.log = (...args) => {
+                    log(args.join(' '));
+                    originalLog.apply(console, args);
+                };
+                
+                window.console.error = (...args) => {
+                    log('Error: ' + args.join(' '));
+                    originalError.apply(console, args);
+                };
+                
+                window.console.warn = (...args) => {
+                    log('Warning: ' + args.join(' '));
+                    originalWarn.apply(console, args);
+                };
+                
+                // Safe execution using Function constructor like advanced section
+                const safeCode = `"use strict"; ${code}`;
+                const func = new Function(safeCode);
+                const result = func();
+                
+                if (result !== undefined) {
+                    log('Return: ' + result);
+                }
+                
+                // Restore console
+                window.console.log = originalLog;
+                window.console.error = originalError;
+                window.console.warn = originalWarn;
+                
+                log('✓ Executed successfully');
+                
+            } catch (e) {
+                log('✗ Error: ' + e.message);
+            }
+        }
+
+        function log(msg) {
+            const time = new Date().toLocaleTimeString();
+            console.innerHTML += `\n[${time}] ${msg}`;
+            console.scrollTop = console.scrollHeight;
+        }
+
+        function clear() {
+            html.value = '';
+            css.value = '';
+            js.value = '';
+            console.innerHTML = 'Cleared';
+            update();
+        }
+
+        update();
+    </script>
+</body>
+</html>
