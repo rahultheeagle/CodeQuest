@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>JavaScript Editor - CodeQuest</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1e1e1e; color: #d4d4d4; }
+        .header { background: #2d2d30; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3e3e42; }
+        .header h1 { color: #cccccc; margin: 0; font-size: 18px; font-weight: 400; }
+        .btn { background: #0e639c; color: white; border: none; padding: 8px 16px; border-radius: 3px; cursor: pointer; font-size: 13px; margin-left: 8px; transition: background 0.2s; text-decoration: none; }
+        .btn:hover { background: #1177bb; }
+        .editor-container { display: flex; height: calc(100vh - 70px); }
+        .editor-panel { flex: 1; background: #1e1e1e; display: flex; flex-direction: column; }
+        .editor-panel:first-child { border-right: 1px solid #3e3e42; }
+        .panel-title { background: #2d2d30; padding: 12px 16px; font-weight: 400; font-size: 13px; color: #cccccc; border-bottom: 1px solid #3e3e42; display: flex; align-items: center; }
+        .panel-title::before { content: ''; width: 16px; height: 16px; margin-right: 8px; background-size: contain; }
+        .panel-title.js::before { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f7df1e"><path d="M3,3H21V21H3V3M7.73,18.04C8.13,18.89 8.92,19.59 10.27,19.59C11.77,19.59 12.8,18.79 12.8,17.04V11.26H11.1V17C11.1,17.86 10.75,18.08 10.2,18.08C9.62,18.08 9.38,17.68 9.11,17.21L7.73,18.04M13.71,17.86C14.21,18.84 15.22,19.59 16.8,19.59C18.4,19.59 19.6,18.76 19.6,17.23C19.6,15.82 18.79,15.19 17.35,14.57L16.93,14.39C16.2,14.08 15.89,13.87 15.89,13.37C15.89,12.96 16.2,12.64 16.7,12.64C17.18,12.64 17.5,12.85 17.79,13.37L19.1,12.5C18.55,11.54 17.77,11.17 16.7,11.17C15.19,11.17 14.22,12.13 14.22,13.4C14.22,14.78 15.03,15.43 16.25,15.95L16.67,16.13C17.45,16.47 17.91,16.68 17.91,17.26C17.91,17.74 17.46,18.09 16.76,18.09C15.93,18.09 15.45,17.66 15.09,17.06L13.71,17.86Z"/></svg>'); }
+        .editor-container-inner { flex: 1; position: relative; }
+        .line-numbers { position: absolute; left: 0; top: 0; width: 50px; background: #1e1e1e; color: #858585; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 14px; line-height: 20px; padding: 16px 8px; border-right: 1px solid #3e3e42; user-select: none; }
+        .editor { width: calc(100% - 50px); height: 100%; border: none; padding: 16px 16px 16px 66px; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 14px; line-height: 20px; resize: none; background: #1e1e1e; color: #d4d4d4; outline: none; tab-size: 2; }
+        .editor:focus { background: #1e1e1e; }
+        .console { flex: 1; padding: 16px; background: #0c0c0c; color: #cccccc; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 14px; line-height: 20px; overflow-y: auto; }
+        .console-log { color: #cccccc; }
+        .console-error { color: #f48771; }
+        .console-warn { color: #dcdcaa; }
+        .status-bar { background: #007acc; color: white; padding: 4px 16px; font-size: 12px; display: flex; justify-content: space-between; }
+        @media (max-width: 768px) { .editor-container { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>JavaScript Editor</h1>
+        <div>
+            <button class="btn" onclick="runCode()">▶ Run</button>
+            <button class="btn" onclick="clearCode()">Clear</button>
+            <a href="index.html" class="btn">← Back</a>
+        </div>
+    </div>
+
+    <div class="editor-container">
+        <div class="editor-panel">
+            <div class="panel-title js">script.js</div>
+            <div class="editor-container-inner">
+                <div class="line-numbers" id="lineNumbers">1</div>
+                <textarea class="editor" id="jsEditor" placeholder="// Write your JavaScript code here
+console.log('Hello World!');"></textarea>
+            </div>
+            <div class="status-bar">
+                <span>JavaScript</span>
+                <span id="cursor-pos">Ln 1, Col 1</span>
+            </div>
+        </div>
+
+        <div class="editor-panel">
+            <div class="panel-title">Console Output</div>
+            <div class="console" id="console">Ready. Click "Run" to execute JavaScript.</div>
+        </div>
+    </div>
+
+    <script>
+        const jsEditor = document.getElementById('jsEditor');
+        const consoleDiv = document.getElementById('console');
+
+        loadCode();
+
+        function runCode() {
+            consoleDiv.innerHTML = '';
+            addToConsole('Running...', 'log');
+            
+            const js = jsEditor.value.trim();
+            if (!js) {
+                addToConsole('No code to run', 'warn');
+                return;
+            }
+            
+            try {
+                // Use advanced section's method - capture console output
+                const originalLog = console.log;
+                const originalError = console.error;
+                const originalWarn = console.warn;
+                
+                console.log = (...args) => {
+                    addToConsole(args.join(' '), 'log');
+                    originalLog.apply(console, args);
+                };
+                
+                console.error = (...args) => {
+                    addToConsole(args.join(' '), 'error');
+                    originalError.apply(console, args);
+                };
+                
+                console.warn = (...args) => {
+                    addToConsole(args.join(' '), 'warn');
+                    originalWarn.apply(console, args);
+                };
+                
+                // Safe execution using Function constructor like advanced section
+                const safeCode = `"use strict"; ${js}`;
+                const func = new Function(safeCode);
+                const result = func();
+                
+                if (result !== undefined) {
+                    addToConsole('Return: ' + result, 'log');
+                }
+                
+                // Restore console
+                console.log = originalLog;
+                console.error = originalError;
+                console.warn = originalWarn;
+                
+                addToConsole('✓ Executed successfully', 'log');
+                
+            } catch (error) {
+                addToConsole('✗ Error: ' + error.message, 'error');
+            }
+            
+            localStorage.setItem('jsCode', js);
+        }
+
+        function addToConsole(message, type = 'log') {
+            const time = new Date().toLocaleTimeString();
+            const line = document.createElement('div');
+            line.className = `console-${type}`;
+            line.textContent = `[${time}] ${message}`;
+            consoleDiv.appendChild(line);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        function clearCode() {
+            if (confirm('Clear JavaScript code?')) {
+                jsEditor.value = '';
+                consoleDiv.innerHTML = 'Console cleared.';
+                updateLineNumbers();
+                updateCursorPosition();
+            }
+        }
+
+        function updateLineNumbers() {
+            const code = jsEditor.value;
+            const lines = code.split('\n').length;
+            const lineNumbers = document.getElementById('lineNumbers');
+            lineNumbers.innerHTML = Array.from({length: lines}, (_, i) => i + 1).join('\n');
+        }
+
+        function updateCursorPosition() {
+            const cursorPos = jsEditor.selectionStart;
+            const textBeforeCursor = jsEditor.value.substring(0, cursorPos);
+            const lines = textBeforeCursor.split('\n');
+            const line = lines.length;
+            const col = lines[lines.length - 1].length + 1;
+            document.getElementById('cursor-pos').textContent = `Ln ${line}, Col ${col}`;
+        }
+
+        jsEditor.addEventListener('input', function() {
+            updateLineNumbers();
+            updateCursorPosition();
+        });
+
+        jsEditor.addEventListener('keyup', updateCursorPosition);
+        jsEditor.addEventListener('click', updateCursorPosition);
+
+        // Initialize
+        updateLineNumbers();
+
+        function loadCode() {
+            const saved = localStorage.getItem('jsCode');
+            if (saved) jsEditor.value = saved;
+        }
+    </script>
+</body>
+</html>
