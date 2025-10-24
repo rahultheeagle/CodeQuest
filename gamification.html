@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest - Gamification</title>
+    <link rel="stylesheet" href="gamification.css">
+</head>
+<body>
+    <div class="gamification-container">
+        <header class="gamification-header">
+            <h1>🏆 Gamification Hub</h1>
+            <div class="header-nav">
+                <button class="nav-btn active" data-section="achievements">Achievements</button>
+                <button class="nav-btn" data-section="leaderboard">Leaderboard</button>
+                <button class="nav-btn" data-section="daily">Daily Challenge</button>
+                <button class="nav-btn" data-section="powerups">Power-ups</button>
+                <a href="index.html" class="back-btn">← Dashboard</a>
+            </div>
+        </header>
+
+        <div class="content-sections">
+            <!-- Achievements Section -->
+            <div class="section active" id="achievements">
+                <h2>🏅 Achievements</h2>
+                <div class="achievements-grid" id="achievementsGrid"></div>
+            </div>
+
+            <!-- Leaderboard Section -->
+            <div class="section" id="leaderboard">
+                <h2>📊 Leaderboard</h2>
+                <div class="leaderboard-controls">
+                    <button id="refreshLeaderboard">Refresh Rankings</button>
+                </div>
+                <div class="leaderboard-list" id="leaderboardList"></div>
+            </div>
+
+            <!-- Daily Challenge Section -->
+            <div class="section" id="daily">
+                <h2>📋 Daily Challenge</h2>
+                <div class="daily-challenge-card" id="dailyChallengeCard">
+                    <div class="daily-header">
+                        <h3 id="dailyTitle">Loading...</h3>
+                        <div class="daily-bonus">+<span id="dailyBonus">0</span> Bonus XP</div>
+                    </div>
+                    <p id="dailyDescription">Loading daily challenge...</p>
+                    <div class="daily-timer">
+                        <span>⏱️ Resets in: <span id="dailyTimer">--:--:--</span></span>
+                    </div>
+                    <button id="startDaily" class="daily-btn">Start Daily Challenge</button>
+                </div>
+            </div>
+
+            <!-- Power-ups Section -->
+            <div class="section" id="powerups">
+                <h2>⚡ Power-ups</h2>
+                <div class="powerups-grid">
+                    <div class="powerup-card" data-powerup="themes">
+                        <div class="powerup-icon">🎨</div>
+                        <h3>Custom Themes</h3>
+                        <p>Unlock editor themes</p>
+                        <div class="powerup-cost">Cost: 500 XP</div>
+                        <button class="powerup-btn" data-cost="500">Unlock</button>
+                    </div>
+                    <div class="powerup-card" data-powerup="hints">
+                        <div class="powerup-icon">💡</div>
+                        <h3>Free Hints</h3>
+                        <p>Get 5 free hints</p>
+                        <div class="powerup-cost">Cost: 200 XP</div>
+                        <button class="powerup-btn" data-cost="200">Buy</button>
+                    </div>
+                    <div class="powerup-card" data-powerup="skip">
+                        <div class="powerup-icon">⏩</div>
+                        <h3>Challenge Skip</h3>
+                        <p>Skip any challenge</p>
+                        <div class="powerup-cost">Cost: 300 XP</div>
+                        <button class="powerup-btn" data-cost="300">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="gamification.js"></script>
+</body>
+</html>
