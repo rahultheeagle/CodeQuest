@@ -1,0 +1,578 @@
+[
+  {
+    "id": 1,
+    "title": "Create Your First Heading",
+    "category": "html",
+    "difficulty": "easy",
+    "xp": 50,
+    "description": "Create an h1 element with the text 'Hello World'",
+    "starterCode": "<!-- Write your code here -->",
+    "solution": "<h1>Hello World</h1>",
+    "hints": ["Use the h1 tag", "Don't forget to close the tag"],
+    "testCases": [
+      {
+        "name": "Contains h1 element",
+        "type": "element_exists",
+        "selector": "h1",
+        "message": "Missing h1 element"
+      },
+      {
+        "name": "H1 contains 'Hello World'",
+        "type": "text_content",
+        "selector": "h1",
+        "expected": "Hello World",
+        "message": "H1 should contain 'Hello World'"
+      },
+      {
+        "name": "Only one h1 element",
+        "type": "element_count",
+        "selector": "h1",
+        "expected": 1,
+        "message": "Should have exactly one h1 element"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Style Your Text",
+    "category": "css",
+    "difficulty": "easy",
+    "xp": 75,
+    "description": "Make the h1 element red using CSS",
+    "starterCode": "h1 {\n  /* Add your styles here */\n}",
+    "solution": "h1 {\n  color: red;\n}",
+    "hints": ["Use the color property", "Set the value to red"],
+    "testCases": [
+      {
+        "name": "Uses color property",
+        "type": "property_exists",
+        "property": "color",
+        "message": "Missing color property"
+      },
+      {
+        "name": "Color is red",
+        "type": "property_value",
+        "property": "color",
+        "expected": "red",
+        "message": "Color should be red"
+      },
+      {
+        "name": "Targets h1 element",
+        "type": "selector_exists",
+        "selector": "h1",
+        "message": "Should target h1 element"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Add Interactivity",
+    "category": "javascript",
+    "difficulty": "medium",
+    "xp": 100,
+    "description": "Create a button that shows an alert when clicked",
+    "starterCode": "// Write your JavaScript here",
+    "solution": "document.querySelector('button').addEventListener('click', () => alert('Hello!'));",
+    "hints": ["Use addEventListener", "Use the 'click' event", "Call alert() function"],
+    "testCases": [
+      {
+        "name": "Uses addEventListener",
+        "type": "method_called",
+        "method": "addEventListener",
+        "message": "Should use addEventListener method"
+      },
+      {
+        "name": "Listens for click event",
+        "type": "contains_keyword",
+        "keyword": "click",
+        "message": "Should listen for click event"
+      },
+      {
+        "name": "Shows alert",
+        "type": "method_called",
+        "method": "alert",
+        "message": "Should call alert function"
+      },
+      {
+        "name": "Valid JavaScript syntax",
+        "type": "syntax_valid",
+        "message": "Code should be valid JavaScript"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Create a List",
+    "category": "html",
+    "difficulty": "easy",
+    "xp": 60,
+    "description": "Create an unordered list with 3 items",
+    "starterCode": "<!-- Create your list here -->",
+    "solution": "<ul>\n  <li>Item 1</li>\n  <li>Item 2</li>\n  <li>Item 3</li>\n</ul>",
+    "hints": ["Use ul for unordered list", "Use li for list items", "Add 3 li elements"],
+    "testCases": [
+      {
+        "name": "Contains ul element",
+        "type": "element_exists",
+        "selector": "ul",
+        "message": "Missing ul element"
+      },
+      {
+        "name": "Has 3 list items",
+        "type": "element_count",
+        "selector": "li",
+        "expected": 3,
+        "message": "Should have exactly 3 li elements"
+      },
+      {
+        "name": "List items are inside ul",
+        "type": "element_count",
+        "selector": "ul li",
+        "expected": 3,
+        "message": "All li elements should be inside ul"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Flexbox Layout",
+    "category": "css",
+    "difficulty": "medium",
+    "xp": 120,
+    "description": "Center content using flexbox",
+    "starterCode": ".container {\n  /* Add flexbox properties */\n}",
+    "solution": ".container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}",
+    "hints": ["Set display to flex", "Use justify-content for horizontal", "Use align-items for vertical"],
+    "testCases": [
+      {
+        "name": "Uses display flex",
+        "type": "property_value",
+        "property": "display",
+        "expected": "flex",
+        "message": "Should set display to flex"
+      },
+      {
+        "name": "Centers horizontally",
+        "type": "property_value",
+        "property": "justify-content",
+        "expected": "center",
+        "message": "Should use justify-content: center"
+      },
+      {
+        "name": "Centers vertically",
+        "type": "property_value",
+        "property": "align-items",
+        "expected": "center",
+        "message": "Should use align-items: center"
+      },
+      {
+        "name": "Targets .container",
+        "type": "selector_exists",
+        "selector": ".container",
+        "message": "Should target .container class"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "JavaScript Variables",
+    "category": "javascript",
+    "difficulty": "easy",
+    "xp": 80,
+    "description": "Create a variable named 'message' with value 'Hello JavaScript'",
+    "starterCode": "// Declare your variable here",
+    "solution": "const message = 'Hello JavaScript';",
+    "hints": ["Use const, let, or var", "Assign the string value"],
+    "testCases": [
+      {
+        "name": "Declares message variable",
+        "type": "variable_declared",
+        "name": "message",
+        "message": "Should declare a variable named 'message'"
+      },
+      {
+        "name": "Contains correct string",
+        "type": "contains_keyword",
+        "keyword": "Hello JavaScript",
+        "message": "Should contain 'Hello JavaScript'"
+      },
+      {
+        "name": "Valid syntax",
+        "type": "syntax_valid",
+        "message": "Code should be valid JavaScript"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Form Elements",
+    "category": "html",
+    "difficulty": "medium",
+    "xp": 90,
+    "description": "Create a form with input and button",
+    "starterCode": "<!-- Create your form here -->",
+    "solution": "<form>\n  <input type=\"text\" placeholder=\"Enter name\">\n  <button type=\"submit\">Submit</button>\n</form>",
+    "hints": ["Use form tag", "Add input element", "Add button element"],
+    "testCases": [
+      {"name": "Contains form", "type": "element_exists", "selector": "form", "message": "Missing form element"},
+      {"name": "Has input", "type": "element_exists", "selector": "input", "message": "Missing input element"},
+      {"name": "Has button", "type": "element_exists", "selector": "button", "message": "Missing button element"}
+    ]
+  },
+  {
+    "id": 8,
+    "title": "CSS Grid",
+    "category": "css",
+    "difficulty": "hard",
+    "xp": 150,
+    "description": "Create a 2x2 grid layout",
+    "starterCode": ".grid {\n  /* Add grid properties */\n}",
+    "solution": ".grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  grid-template-rows: 1fr 1fr;\n}",
+    "hints": ["Use display: grid", "Set template columns", "Set template rows"],
+    "testCases": [
+      {"name": "Uses grid", "type": "property_value", "property": "display", "expected": "grid", "message": "Should use display: grid"},
+      {"name": "Has columns", "type": "property_exists", "property": "grid-template-columns", "message": "Missing grid-template-columns"},
+      {"name": "Has rows", "type": "property_exists", "property": "grid-template-rows", "message": "Missing grid-template-rows"}
+    ]
+  },
+  {
+    "id": 9,
+    "title": "DOM Manipulation",
+    "category": "javascript",
+    "difficulty": "medium",
+    "xp": 110,
+    "description": "Change text content of an element",
+    "starterCode": "// Change the h1 text to 'Updated!'",
+    "solution": "document.querySelector('h1').textContent = 'Updated!';",
+    "hints": ["Use querySelector", "Use textContent property"],
+    "testCases": [
+      {"name": "Uses querySelector", "type": "method_called", "method": "querySelector", "message": "Should use querySelector"},
+      {"name": "Changes textContent", "type": "contains_keyword", "keyword": "textContent", "message": "Should use textContent property"},
+      {"name": "Sets to Updated", "type": "contains_keyword", "keyword": "Updated", "message": "Should set text to 'Updated!'"}
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Table Structure",
+    "category": "html",
+    "difficulty": "medium",
+    "xp": 100,
+    "description": "Create a table with header and data rows",
+    "starterCode": "<!-- Create your table here -->",
+    "solution": "<table>\n  <thead>\n    <tr><th>Name</th><th>Age</th></tr>\n  </thead>\n  <tbody>\n    <tr><td>John</td><td>25</td></tr>\n  </tbody>\n</table>",
+    "hints": ["Use table tag", "Add thead and tbody", "Use th for headers, td for data"],
+    "testCases": [
+      {"name": "Has table", "type": "element_exists", "selector": "table", "message": "Missing table element"},
+      {"name": "Has thead", "type": "element_exists", "selector": "thead", "message": "Missing thead element"},
+      {"name": "Has tbody", "type": "element_exists", "selector": "tbody", "message": "Missing tbody element"}
+    ]
+  },
+  {
+    "id": 11,
+    "title": "CSS Animations",
+    "category": "css",
+    "difficulty": "hard",
+    "xp": 140,
+    "description": "Create a fade-in animation",
+    "starterCode": ".fade-in {\n  /* Add animation */\n}\n\n@keyframes fadeIn {\n  /* Define keyframes */\n}",
+    "solution": ".fade-in {\n  animation: fadeIn 1s ease-in;\n}\n\n@keyframes fadeIn {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}",
+    "hints": ["Use animation property", "Define @keyframes", "Animate opacity"],
+    "testCases": [
+      {"name": "Has animation", "type": "property_exists", "property": "animation", "message": "Missing animation property"},
+      {"name": "Uses keyframes", "type": "contains_keyword", "keyword": "@keyframes", "message": "Should define @keyframes"},
+      {"name": "Animates opacity", "type": "contains_keyword", "keyword": "opacity", "message": "Should animate opacity"}
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Event Handling",
+    "category": "javascript",
+    "difficulty": "medium",
+    "xp": 120,
+    "description": "Handle form submission",
+    "starterCode": "// Prevent form default submission",
+    "solution": "document.querySelector('form').addEventListener('submit', (e) => e.preventDefault());",
+    "hints": ["Listen for submit event", "Use preventDefault"],
+    "testCases": [
+      {"name": "Listens for submit", "type": "contains_keyword", "keyword": "submit", "message": "Should listen for submit event"},
+      {"name": "Prevents default", "type": "method_called", "method": "preventDefault", "message": "Should call preventDefault"}
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Semantic HTML",
+    "category": "html",
+    "difficulty": "easy",
+    "xp": 70,
+    "description": "Use semantic tags for page structure",
+    "starterCode": "<!-- Create semantic structure -->",
+    "solution": "<header>\n  <h1>Title</h1>\n</header>\n<main>\n  <article>Content</article>\n</main>\n<footer>Footer</footer>",
+    "hints": ["Use header, main, footer", "Add article inside main"],
+    "testCases": [
+      {"name": "Has header", "type": "element_exists", "selector": "header", "message": "Missing header element"},
+      {"name": "Has main", "type": "element_exists", "selector": "main", "message": "Missing main element"},
+      {"name": "Has footer", "type": "element_exists", "selector": "footer", "message": "Missing footer element"}
+    ]
+  },
+  {
+    "id": 14,
+    "title": "CSS Variables",
+    "category": "css",
+    "difficulty": "medium",
+    "xp": 100,
+    "description": "Define and use CSS custom properties",
+    "starterCode": ":root {\n  /* Define variables */\n}\n\n.element {\n  /* Use variables */\n}",
+    "solution": ":root {\n  --primary-color: #007bff;\n}\n\n.element {\n  color: var(--primary-color);\n}",
+    "hints": ["Define variables in :root", "Use var() function"],
+    "testCases": [
+      {"name": "Defines variable", "type": "contains_keyword", "keyword": "--", "message": "Should define CSS variable"},
+      {"name": "Uses var()", "type": "contains_keyword", "keyword": "var(", "message": "Should use var() function"}
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Array Methods",
+    "category": "javascript",
+    "difficulty": "medium",
+    "xp": 130,
+    "description": "Use map to transform array",
+    "starterCode": "const numbers = [1, 2, 3];\n// Double each number",
+    "solution": "const numbers = [1, 2, 3];\nconst doubled = numbers.map(n => n * 2);",
+    "hints": ["Use map method", "Return transformed value"],
+    "testCases": [
+      {"name": "Uses map", "type": "method_called", "method": "map", "message": "Should use map method"},
+      {"name": "Multiplies by 2", "type": "contains_keyword", "keyword": "* 2", "message": "Should multiply by 2"}
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Media Queries",
+    "category": "css",
+    "difficulty": "hard",
+    "xp": 160,
+    "description": "Create responsive design with media queries",
+    "starterCode": ".container {\n  width: 100%;\n}\n\n/* Add media query */",
+    "solution": ".container {\n  width: 100%;\n}\n\n@media (max-width: 768px) {\n  .container {\n    padding: 10px;\n  }\n}",
+    "hints": ["Use @media rule", "Set max-width breakpoint"],
+    "testCases": [
+      {"name": "Has media query", "type": "contains_keyword", "keyword": "@media", "message": "Should use @media rule"},
+      {"name": "Has breakpoint", "type": "contains_keyword", "keyword": "max-width", "message": "Should set max-width breakpoint"}
+    ]
+  },
+  {
+    "id": 17,
+    "title": "Local Storage",
+    "category": "javascript",
+    "difficulty": "hard",
+    "xp": 150,
+    "description": "Save and retrieve data from localStorage",
+    "starterCode": "// Save 'username' with value 'John'",
+    "solution": "localStorage.setItem('username', 'John');\nconst user = localStorage.getItem('username');",
+    "hints": ["Use setItem to save", "Use getItem to retrieve"],
+    "testCases": [
+      {"name": "Uses setItem", "type": "method_called", "method": "setItem", "message": "Should use setItem method"},
+      {"name": "Uses getItem", "type": "method_called", "method": "getItem", "message": "Should use getItem method"}
+    ]
+  },
+  {
+    "id": 18,
+    "title": "CSS Pseudo-classes",
+    "category": "css",
+    "difficulty": "medium",
+    "xp": 90,
+    "description": "Style hover and focus states",
+    "starterCode": "button {\n  background: blue;\n}\n\n/* Add hover and focus styles */",
+    "solution": "button {\n  background: blue;\n}\n\nbutton:hover {\n  background: darkblue;\n}\n\nbutton:focus {\n  outline: 2px solid orange;\n}",
+    "hints": ["Use :hover pseudo-class", "Use :focus pseudo-class"],
+    "testCases": [
+      {"name": "Has hover", "type": "contains_keyword", "keyword": ":hover", "message": "Should use :hover pseudo-class"},
+      {"name": "Has focus", "type": "contains_keyword", "keyword": ":focus", "message": "Should use :focus pseudo-class"}
+    ]
+  },
+  {
+    "id": 19,
+    "title": "Async/Await",
+    "category": "javascript",
+    "difficulty": "hard",
+    "xp": 180,
+    "description": "Create async function with await",
+    "starterCode": "// Create async function that waits",
+    "solution": "async function fetchData() {\n  const response = await fetch('/api/data');\n  return response.json();\n}",
+    "hints": ["Use async keyword", "Use await with promises"],
+    "testCases": [
+      {"name": "Uses async", "type": "contains_keyword", "keyword": "async", "message": "Should use async keyword"},
+      {"name": "Uses await", "type": "contains_keyword", "keyword": "await", "message": "Should use await keyword"}
+    ]
+  },
+  {
+    "id": 20,
+    "title": "CSS Transforms",
+    "category": "css",
+    "difficulty": "medium",
+    "xp": 110,
+    "description": "Rotate and scale an element",
+    "starterCode": ".transform-me {\n  /* Add transforms */\n}",
+    "solution": ".transform-me {\n  transform: rotate(45deg) scale(1.2);\n}",
+    "hints": ["Use transform property", "Combine rotate and scale"],
+    "testCases": [
+      {"name": "Uses transform", "type": "property_exists", "property": "transform", "message": "Should use transform property"},
+      {"name": "Has rotate", "type": "contains_keyword", "keyword": "rotate", "message": "Should use rotate function"},
+      {"name": "Has scale", "type": "contains_keyword", "keyword": "scale", "message": "Should use scale function"}
+    ]
+  },
+  {
+    "id": 21,
+    "title": "Object Destructuring",
+    "category": "javascript",
+    "difficulty": "medium",
+    "xp": 120,
+    "description": "Extract properties from object",
+    "starterCode": "const user = { name: 'John', age: 30 };\n// Extract name and age",
+    "solution": "const user = { name: 'John', age: 30 };\nconst { name, age } = user;",
+    "hints": ["Use curly braces", "Match property names"],
+    "testCases": [
+      {"name": "Uses destructuring", "type": "contains_keyword", "keyword": "{ name, age }", "message": "Should use object destructuring"},
+      {"name": "Extracts properties", "type": "contains_keyword", "keyword": "= user", "message": "Should extract from user object"}
+    ]
+  },
+  {
+    "id": 22,
+    "title": "CSS Positioning",
+    "category": "css",
+    "difficulty": "medium",
+    "xp": 100,
+    "description": "Position element absolutely",
+    "starterCode": ".positioned {\n  /* Add positioning */\n}",
+    "solution": ".positioned {\n  position: absolute;\n  top: 50px;\n  left: 100px;\n}",
+    "hints": ["Use position: absolute", "Set top and left values"],
+    "testCases": [
+      {"name": "Uses absolute", "type": "property_value", "property": "position", "expected": "absolute", "message": "Should use position: absolute"},
+      {"name": "Has top", "type": "property_exists", "property": "top", "message": "Should set top position"},
+      {"name": "Has left", "type": "property_exists", "property": "left", "message": "Should set left position"}
+    ]
+  },
+  {
+    "id": 23,
+    "title": "Arrow Functions",
+    "category": "javascript",
+    "difficulty": "easy",
+    "xp": 80,
+    "description": "Convert function to arrow function",
+    "starterCode": "// Convert: function add(a, b) { return a + b; }",
+    "solution": "const add = (a, b) => a + b;",
+    "hints": ["Use => syntax", "Remove function keyword"],
+    "testCases": [
+      {"name": "Uses arrow syntax", "type": "contains_keyword", "keyword": "=>", "message": "Should use arrow function syntax"},
+      {"name": "Returns sum", "type": "contains_keyword", "keyword": "a + b", "message": "Should return a + b"}
+    ]
+  },
+  {
+    "id": 24,
+    "title": "CSS Box Model",
+    "category": "css",
+    "difficulty": "easy",
+    "xp": 70,
+    "description": "Set margin, padding, and border",
+    "starterCode": ".box {\n  /* Add box model properties */\n}",
+    "solution": ".box {\n  margin: 20px;\n  padding: 15px;\n  border: 2px solid black;\n}",
+    "hints": ["Set margin property", "Set padding property", "Set border property"],
+    "testCases": [
+      {"name": "Has margin", "type": "property_exists", "property": "margin", "message": "Should set margin"},
+      {"name": "Has padding", "type": "property_exists", "property": "padding", "message": "Should set padding"},
+      {"name": "Has border", "type": "property_exists", "property": "border", "message": "Should set border"}
+    ]
+  },
+  {
+    "id": 25,
+    "title": "Template Literals",
+    "category": "javascript",
+    "difficulty": "easy",
+    "xp": 75,
+    "description": "Use template literals for string interpolation",
+    "starterCode": "const name = 'John';\n// Create greeting with template literal",
+    "solution": "const name = 'John';\nconst greeting = `Hello, ${name}!`;",
+    "hints": ["Use backticks", "Use ${} for variables"],
+    "testCases": [
+      {"name": "Uses backticks", "type": "contains_keyword", "keyword": "`", "message": "Should use backticks"},
+      {"name": "Uses interpolation", "type": "contains_keyword", "keyword": "${name}", "message": "Should use ${} syntax"}
+    ]
+  },
+  {
+    "id": 26,
+    "title": "CSS Transitions",
+    "category": "css",
+    "difficulty": "medium",
+    "xp": 95,
+    "description": "Add smooth color transition",
+    "starterCode": ".smooth {\n  background: blue;\n  /* Add transition */\n}\n\n.smooth:hover {\n  background: red;\n}",
+    "solution": ".smooth {\n  background: blue;\n  transition: background 0.3s ease;\n}\n\n.smooth:hover {\n  background: red;\n}",
+    "hints": ["Use transition property", "Specify duration and easing"],
+    "testCases": [
+      {"name": "Has transition", "type": "property_exists", "property": "transition", "message": "Should use transition property"},
+      {"name": "Transitions background", "type": "contains_keyword", "keyword": "background", "message": "Should transition background"}
+    ]
+  },
+  {
+    "id": 27,
+    "title": "Class Methods",
+    "category": "javascript",
+    "difficulty": "hard",
+    "xp": 160,
+    "description": "Create class with constructor and method",
+    "starterCode": "// Create Person class with name property and greet method",
+    "solution": "class Person {\n  constructor(name) {\n    this.name = name;\n  }\n  \n  greet() {\n    return `Hello, I'm ${this.name}`;\n  }\n}",
+    "hints": ["Use class keyword", "Add constructor", "Add method"],
+    "testCases": [
+      {"name": "Uses class", "type": "contains_keyword", "keyword": "class", "message": "Should use class keyword"},
+      {"name": "Has constructor", "type": "contains_keyword", "keyword": "constructor", "message": "Should have constructor"},
+      {"name": "Has method", "type": "contains_keyword", "keyword": "greet()", "message": "Should have greet method"}
+    ]
+  },
+  {
+    "id": 28,
+    "title": "CSS Selectors",
+    "category": "css",
+    "difficulty": "medium",
+    "xp": 85,
+    "description": "Use descendant and child selectors",
+    "starterCode": "/* Style paragraphs inside articles */\n/* Style direct children of nav */",
+    "solution": "article p {\n  color: gray;\n}\n\nnav > a {\n  text-decoration: none;\n}",
+    "hints": ["Use space for descendant", "Use > for direct child"],
+    "testCases": [
+      {"name": "Uses descendant", "type": "contains_keyword", "keyword": "article p", "message": "Should use descendant selector"},
+      {"name": "Uses child", "type": "contains_keyword", "keyword": "nav >", "message": "Should use child selector"}
+    ]
+  },
+  {
+    "id": 29,
+    "title": "Promises",
+    "category": "javascript",
+    "difficulty": "hard",
+    "xp": 170,
+    "description": "Create and handle a Promise",
+    "starterCode": "// Create promise that resolves after 1 second",
+    "solution": "const promise = new Promise((resolve) => {\n  setTimeout(() => resolve('Done!'), 1000);\n});\n\npromise.then(result => console.log(result));",
+    "hints": ["Use new Promise", "Use resolve function", "Use .then() method"],
+    "testCases": [
+      {"name": "Creates Promise", "type": "contains_keyword", "keyword": "new Promise", "message": "Should create new Promise"},
+      {"name": "Uses resolve", "type": "contains_keyword", "keyword": "resolve", "message": "Should use resolve function"},
+      {"name": "Uses then", "type": "contains_keyword", "keyword": ".then", "message": "Should use .then() method"}
+    ]
+  },
+  {
+    "id": 30,
+    "title": "CSS Layout",
+    "category": "css",
+    "difficulty": "hard",
+    "xp": 140,
+    "description": "Create sidebar layout with flexbox",
+    "starterCode": ".layout {\n  /* Create sidebar layout */\n}\n\n.sidebar {\n  /* Sidebar styles */\n}\n\n.content {\n  /* Content styles */\n}",
+    "solution": ".layout {\n  display: flex;\n}\n\n.sidebar {\n  width: 200px;\n  flex-shrink: 0;\n}\n\n.content {\n  flex: 1;\n}",
+    "hints": ["Use display: flex on container", "Set fixed width for sidebar", "Use flex: 1 for content"],
+    "testCases": [
+      {"name": "Uses flex layout", "type": "property_value", "property": "display", "expected": "flex", "message": "Should use display: flex"},
+      {"name": "Sidebar has width", "type": "property_exists", "property": "width", "message": "Sidebar should have width"},
+      {"name": "Content uses flex", "type": "property_exists", "property": "flex", "message": "Content should use flex property"}
+    ]
+  }
+]
