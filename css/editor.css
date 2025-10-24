@@ -1,0 +1,119 @@
+/* Editor Styles */
+.editor-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.editor-panel, .preview-panel {
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    height: 400px;
+}
+
+.panel-header {
+    background: var(--primary);
+    color: white;
+    padding: 10px 15px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.editor-wrapper {
+    display: flex;
+    height: calc(100% - 40px);
+}
+
+.line-numbers {
+    background: #f8f9fa;
+    color: #6c757d;
+    padding: 10px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: right;
+    border-right: 1px solid var(--border);
+    user-select: none;
+    overflow: hidden;
+    white-space: pre;
+    min-width: 40px;
+}
+
+.code-editor {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    resize: none;
+    outline: none;
+    background: white;
+    color: #333;
+}
+
+.code-editor:focus {
+    background: #fefefe;
+}
+
+.preview-frame {
+    width: 100%;
+    height: calc(100% - 40px);
+    border: none;
+    background: white;
+}
+
+.console-panel {
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    height: 200px;
+}
+
+.console {
+    background: #1e1e1e;
+    color: #fff;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+.console-entry {
+    margin-bottom: 4px;
+    word-wrap: break-word;
+}
+
+.console-log { color: #fff; }
+.console-error { color: #ff6b6b; }
+.console-warn { color: #ffa726; }
+
+.timestamp {
+    color: #888;
+    font-size: 11px;
+}
+
+@media (max-width: 1200px) {
+    .editor-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .editor-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .editor-panel, .preview-panel {
+        height: 300px;
+    }
+    
+    .console-panel {
+        height: 150px;
+    }
+}
