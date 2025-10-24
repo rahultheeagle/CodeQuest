@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Concepts Demo - CodeQuest</title>
+    <link rel="stylesheet" href="design-system.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .demo-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: white;
+            padding: 2rem;
+            border: 3px outset #e2e8f0;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .concept-section {
+            background: white;
+            margin-bottom: 2rem;
+            border: 3px outset #e2e8f0;
+            overflow: hidden;
+        }
+
+        .concept-title {
+            background: #0f172a;
+            color: white;
+            padding: 1.5rem 2rem;
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .demo-card {
+            padding: 2rem;
+            border-right: 3px inset #e2e8f0;
+        }
+
+        .demo-card:last-child {
+            border-right: none;
+        }
+
+        .demo-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn--primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn--primary:hover {
+            background: #2563eb;
+        }
+
+        .btn--secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn--secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .btn--danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn--danger:hover {
+            background: #dc2626;
+        }
+
+        .btn--sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        .user-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .user-form input, #validation-input, #searchInput {
+            padding: 0.875rem 1rem;
+            border: 2px inset #d1d5db;
+            font-size: 0.875rem;
+            transition: border-color 0.2s;
+        }
+
+        .user-form input:focus, #validation-input:focus, #searchInput:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .user-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border: 2px outset #e2e8f0;
+            margin-bottom: 1rem;
+        }
+
+        .user-card h3 {
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        .user-card p {
+            margin: 0.25rem 0;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .code-example {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 3px inset #374151;
+            padding: 1.5rem;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+
+        .test-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .test-output {
+            background: #f8fafc;
+            border: 3px inset #e2e8f0;
+            padding: 1.5rem;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+            font-size: 0.8125rem;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: #374151;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border: 2px outset #e2e8f0;
+            margin-bottom: 0.75rem;
+        }
+
+        .item .text {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .item button {
+            margin-left: 0.5rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border: 3px outset;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification--success {
+            background: #10b981;
+        }
+
+        .notification--error {
+            background: #ef4444;
+        }
+
+        @keyframes slideIn {
+            from { 
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to { 
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-card {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            
+            .demo-card:last-child {
+                border-bottom: none;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <header class="header">
+            <h1>JavaScript Concepts Demo</h1>
+            <nav>
+                <a href="index.html" class="btn btn--secondary">← Back to Dashboard</a>
+            </nav>
+        </header>
+
+        <!-- 1. Local Storage -->
+        <section class="concept-section">
+            <h2 class="concept-title">1. Local Storage API</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Storage Operations</h3>
+                    <div class="test-buttons">
+                        <button class="btn btn--primary" onclick="testStorage()">Test Storage</button>
+                        <button class="btn btn--secondary" onclick="clearStorage()">Clear Storage</button>
+                    </div>
+                    <div class="test-output" id="storage-output"></div>
+                </div>
+                <div class="demo-card">
+                    <div class="code-example">const Storage = {
+  set: (key, value) => localStorage.setItem(key, JSON.stringify(value)),
+  get: (key) => JSON.parse(localStorage.getItem(key) || 'null'),
+  remove: (key) => localStorage.removeItem(key)
+};</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Array Methods -->
+        <section class="concept-section">
+            <h2 class="concept-title">2. Array Methods</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Array Operations</h3>
+                    <div class="test-buttons">
+                        <button class="btn btn--primary" onclick="testArrayMethods()">Test Arrays</button>
+                    </div>
+                    <div class="test-output" id="array-output"></div>
+                </div>
+                <div class="demo-card">
+                    <div class="code-example">// Map, Filter, Reduce, ForEach
+users.map(u => u.name)
+users.filter(u => u.active)
+scores.reduce((sum, score) => sum + score, 0)
+users.forEach(u => console.log(u))</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Template Literals -->
+        <section class="concept-section">
+            <h2 class="concept-title">3. Template Literals</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Dynamic Templates</h3>
+                    <div class="test-buttons">
+                        <button class="btn btn--primary" onclick="testTemplates()">Test Templates</button>
+                    </div>
+                    <div class="test-output" id="template-output"></div>
+                </div>
+                <div class="demo-card">
+                    <div class="code-example">const template = (user) => `
+  <div class="user-card">
+    <h3>${user.name}</h3>
+    <p>Email: ${user.email}</p>
+  </div>
+`;</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Event Delegation -->
+        <section class="concept-section">
+            <h2 class="concept-title">4. Event Delegation</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Dynamic Items</h3>
+                    <button class="btn btn--primary" onclick="addItem()">Add Item</button>
+                    <div id="items-container" style="margin-top: 1rem;"></div>
+                </div>
+                <div class="demo-card">
+                    <div class="code-example">container.addEventListener('click', (e) => {
+  const action = e.target.dataset.action;
+  if (action && this[action]) {
+    this[action](e.target, e);
+  }
+});</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Async/Await -->
+        <section class="concept-section">
+            <h2 class="concept-title">5. Promises & Async/Await</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Async Operations</h3>
+                    <div class="test-buttons">
+                        <button class="btn btn--primary" onclick="testAsync()">Test Async</button>
+                    </div>
+                    <div class="test-output" id="async-output"></div>
+                </div>
+                <div class="demo-card">
+                    <div class="code-example">const loadData = async (id) => {
+  try {
+    const user = await fetchUser(id);
+    const profile = await fetchProfile(user.id);
+    return { ...user, ...profile };
+  } catch (error) {
+    throw new Error(`Failed: ${error}`);
+  }
+};</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. JSON -->
+        <section class="concept-section">
+            <h2 class="concept-title">6. JSON Parsing & Stringifying</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>JSON Operations</h3>
+                    <div class="test-buttons">
+                        <button class="btn btn--primary" onclick="testJSON()">Test JSON</button>
+                    </div>
+                    <div class="test-output" id="json-output"></div>
+                </div>
+                <div class="demo-card">
+                    <div class="code-example">const save = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+const load = (key) => {
+  return JSON.parse(localStorage.getItem(key) || 'null');
+};</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Date & Time -->
+        <section class="concept-section">
+            <h2 class="concept-title">7. Date & Time Manipulation</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Date Operations</h3>
+                    <div class="test-buttons">
+                        <button class="btn btn--primary" onclick="testDates()">Test Dates</button>
+                    </div>
+                    <div class="test-output" id="date-output"></div>
+                </div>
+                <div class="demo-card">
+                    <div class="code-example">const timeAgo = (date) => {
+  const diff = Date.now() - date.getTime();
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  
+  if (days > 0) return `${days}d ago`;
+  if (hours > 0) return `${hours}h ago`;
+  return `${minutes}m ago`;
+};</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Regular Expressions -->
+        <section class="concept-section">
+            <h2 class="concept-title">8. Regular Expressions</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Validation</h3>
+                    <input type="text" id="validation-input" placeholder="Enter email to validate">
+                    <div class="test-buttons">
+                        <button class="btn btn--primary" onclick="testRegex()">Validate</button>
+                    </div>
+                    <div class="test-output" id="regex-output"></div>
+                </div>
+                <div class="demo-card">
+                    <div class="code-example">const Validators = {
+  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  phone: /^\+?[\d\s-()]{10,}$/,
+  password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+  
+  validate: (value, type) => Validators[type]?.test(value)
+};</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Custom Events -->
+        <section class="concept-section">
+            <h2 class="concept-title">9. Custom Events</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Event System</h3>
+                    <div class="test-buttons">
+                        <button class="btn btn--primary" onclick="testEvents()">Test Events</button>
+                    </div>
+                    <div class="test-output" id="event-output"></div>
+                </div>
+                <div class="demo-card">
+                    <div class="code-example">class EventEmitter {
+  emit(event, data) {
+    document.dispatchEvent(
+      new CustomEvent(event, { detail: data })
+    );
+  }
+}
+
+// Usage
+emitter.emit('userAdded', { name: 'John' });</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. User Management Demo -->
+        <section class="concept-section">
+            <h2 class="concept-title">10. Complete Example - User Management</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Add User</h3>
+                    <form id="userForm" class="user-form">
+                        <input type="text" name="name" placeholder="Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="number" name="score" placeholder="Score" min="0" max="100">
+                        <button type="submit" class="btn btn--primary">Add User</button>
+                    </form>
+                </div>
+                <div class="demo-card">
+                    <h3>Search Users</h3>
+                    <input type="text" id="searchInput" placeholder="Search users..." oninput="searchUsers()">
+                </div>
+            </div>
+            <div id="app"></div>
+        </section>
+    </div>
+
+    <script src="js-concepts.js"></script>
+    <script>
+        // Test functions for demonstrations
+        function testStorage() {
+            const output = document.getElementById('storage-output');
+            const testData = { name: 'John', age: 30, active: true };
+            
+            // Test storage operations
+            Storage.set('testUser', testData);
+            const retrieved = Storage.get('testUser');
+            
+            output.innerHTML = `
+Stored: ${JSON.stringify(testData, null, 2)}
+Retrieved: ${JSON.stringify(retrieved, null, 2)}
+Keys in storage: ${Object.keys(localStorage).filter(k => k.includes('testUser')).length}
+            `;
+        }
+
+        function clearStorage() {
+            Storage.remove('testUser');
+            document.getElementById('storage-output').innerHTML = 'Storage cleared!';
+        }
+
+        function testArrayMethods() {
+            const users = [
+                { name: 'Alice', email: 'alice@test.com', active: true, score: 85 },
+                { name: 'Bob', email: 'bob@test.com', active: false, score: 92 },
+                { name: 'Charlie', email: 'charlie@test.com', active: true, score: 78 }
+            ];
+
+            const output = document.getElementById('array-output');
+            output.innerHTML = `
+Map (names): ${JSON.stringify(ArrayUtils.formatUsers(users))}
+
+Filter (active): ${JSON.stringify(ArrayUtils.getActiveUsers(users))}
+
+Reduce (total score): ${ArrayUtils.getTotalScore(users.map(u => u.score))}
+
+ForEach: Check console for logged names
+            `;
+            
+            ArrayUtils.logUsers(users);
+        }
+
+        function testTemplates() {
+            const user = { name: 'John Doe', email: 'john@example.com', score: 95 };
+            const output = document.getElementById('template-output');
+            output.innerHTML = Templates.userCard(user);
+        }
+
+        let itemCounter = 0;
+        function addItem() {
+            const container = document.getElementById('items-container');
+            const item = document.createElement('div');
+            item.className = 'item';
+            item.innerHTML = `
+                <span class="text">Item ${++itemCounter}</span>
+                <button class="btn btn--sm btn--secondary" data-action="edit">Edit</button>
+                <button class="btn btn--sm btn--danger" data-action="delete">Delete</button>
+            `;
+            container.appendChild(item);
+        }
+
+        async function testAsync() {
+            const output = document.getElementById('async-output');
+            output.innerHTML = 'Loading...';
+            
+            try {
+                const userData = await AsyncOps.loadUserData(1);
+                output.innerHTML = `
+Success: ${JSON.stringify(userData, null, 2)}
+                `;
+            } catch (error) {
+                output.innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        function testJSON() {
+            const data = { users: [{ name: 'Test', active: true }], timestamp: new Date() };
+            const output = document.getElementById('json-output');
+            
+            JSONHandler.save('testData', data);
+            const loaded = JSONHandler.load('testData');
+            
+            output.innerHTML = `
+Saved: ${JSONHandler.export(data)}
+
+Loaded: ${JSONHandler.export(loaded)}
+            `;
+        }
+
+        function testDates() {
+            const now = DateUtils.now();
+            const yesterday = DateUtils.addDays(now, -1);
+            const output = document.getElementById('date-output');
+            
+            output.innerHTML = `
+Now: ${DateUtils.format(now)}
+Yesterday: ${DateUtils.format(yesterday)}
+Time ago: ${DateUtils.timeAgo(yesterday)}
+Is today: ${DateUtils.isToday(now)}
+            `;
+        }
+
+        function testRegex() {
+            const input = document.getElementById('validation-input');
+            const output = document.getElementById('regex-output');
+            const value = input.value;
+            
+            const isValidEmail = Validators.validate(value, 'email');
+            const sanitized = Validators.sanitize(value);
+            
+            output.innerHTML = `
+Input: "${value}"
+Valid email: ${isValidEmail}
+Sanitized: "${sanitized}"
+            `;
+        }
+
+        function testEvents() {
+            const output = document.getElementById('event-output');
+            const emitter = new EventEmitter();
+            
+            // Listen for custom event
+            document.addEventListener('testEvent', (e) => {
+                output.innerHTML += `Event received: ${JSON.stringify(e.detail)}\n`;
+            });
+            
+            // Emit custom event
+            emitter.emit('testEvent', { message: 'Hello from custom event!', timestamp: new Date() });
+        }
+
+        function searchUsers() {
+            const query = document.getElementById('searchInput').value;
+            if (window.conceptsDemo && query) {
+                const results = window.conceptsDemo.userManager.searchUsers(query);
+                console.log('Search results:', results);
+            }
+        }
+    </script>
+</body>
+</html>
