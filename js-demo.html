@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Architecture Demo - CodeQuest</title>
+    <link rel="stylesheet" href="design-system.css">
+    <link rel="stylesheet" href="js-demo.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>JavaScript Architecture Demo</h1>
+            <nav>
+                <a href="index.html" class="btn btn--secondary">← Back to Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- ES6+ Features Demo -->
+            <section class="demo-section">
+                <h2>ES6+ Features</h2>
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <h3>Arrow Functions & Destructuring</h3>
+                        <button data-action="test-es6" class="btn btn--primary">Test ES6 Features</button>
+                        <pre class="code-output" id="es6-output"></pre>
+                    </div>
+                    <div class="demo-card">
+                        <h3>Async/Await</h3>
+                        <button data-action="test-async" class="btn btn--primary">Test Async Operations</button>
+                        <div class="loading-indicator" id="async-loading" style="display: none;">Loading...</div>
+                        <pre class="code-output" id="async-output"></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OOP Classes Demo -->
+            <section class="demo-section">
+                <h2>Object-Oriented Programming</h2>
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <h3>User Management</h3>
+                        <form data-ajax class="form">
+                            <input type="text" name="name" placeholder="Name" data-validate="required|min:2" required>
+                            <input type="email" name="email" placeholder="Email" data-validate="required|email" required>
+                            <button type="submit" class="btn btn--primary">Create User</button>
+                        </form>
+                        <div id="user-output"></div>
+                    </div>
+                    <div class="demo-card">
+                        <h3>Challenge System</h3>
+                        <textarea id="challenge-code" placeholder="Enter your code here..." rows="4"></textarea>
+                        <button data-action="validate-challenge" class="btn btn--primary">Validate Code</button>
+                        <div id="challenge-output"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Event Handling Demo -->
+            <section class="demo-section">
+                <h2>Event Handling</h2>
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <h3>Interactive Elements</h3>
+                        <button data-action="trigger-event" class="btn btn--primary">Trigger Custom Event</button>
+                        <button data-action="test-delegation" class="btn btn--secondary">Test Event Delegation</button>
+                        <div class="event-log" id="event-log"></div>
+                    </div>
+                    <div class="demo-card">
+                        <h3>Form Validation</h3>
+                        <form class="form">
+                            <input type="text" data-validate="required|min:3|max:20" placeholder="Username (3-20 chars)">
+                            <input type="password" data-validate="required|min:6" placeholder="Password (min 6 chars)">
+                            <div class="validation-status"></div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DOM Manipulation Demo -->
+            <section class="demo-section">
+                <h2>DOM Manipulation</h2>
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <h3>Dynamic Content</h3>
+                        <button data-action="render-template" class="btn btn--primary">Render Template</button>
+                        <button data-action="create-component" class="btn btn--secondary">Create Component</button>
+                        <div id="dynamic-content"></div>
+                    </div>
+                    <div class="demo-card">
+                        <h3>Animations</h3>
+                        <button data-action="fade-in" class="btn btn--primary">Fade In</button>
+                        <button data-action="fade-out" class="btn btn--secondary">Fade Out</button>
+                        <div class="animation-target" id="animation-target">
+                            <p>This element will be animated</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Handling Demo -->
+            <section class="demo-section">
+                <h2>Error Handling</h2>
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <h3>Error Simulation</h3>
+                        <button data-action="trigger-error" class="btn btn--danger">Trigger Error</button>
+                        <button data-action="trigger-promise-error" class="btn btn--danger">Promise Error</button>
+                        <div class="error-log" id="error-log"></div>
+                    </div>
+                    <div class="demo-card">
+                        <h3>Safe Operations</h3>
+                        <button data-action="safe-async" class="btn btn--primary">Safe Async</button>
+                        <button data-action="safe-dom" class="btn btn--primary">Safe DOM</button>
+                        <div id="safe-output"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Achievement System Demo -->
+            <section class="demo-section">
+                <h2>Achievement System</h2>
+                <div class="achievements-grid" id="achievements-grid">
+                    <!-- Achievements will be rendered here -->
+                </div>
+                <button data-action="check-achievements" class="btn btn--primary">Check Achievements</button>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notification Container -->
+    <div id="notifications" class="notifications"></div>
+
+    <script type="module" src="js-architecture.js"></script>
+    <script src="js-demo.js"></script>
+</body>
+</html>
