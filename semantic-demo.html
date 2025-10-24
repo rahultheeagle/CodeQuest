@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest - Semantic HTML Demo</title>
+    <link rel="stylesheet" href="design-system.css">
+    <link rel="stylesheet" href="semantic-demo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Skip Links for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#navigation" class="skip-link">Skip to navigation</a>
+
+    <!-- Main Header with Navigation -->
+    <header class="site-header" role="banner">
+        <div id="navigation-container"></div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-content" role="main">
+        <!-- Hero Section -->
+        <section class="hero-section" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h1 id="hero-heading" class="hero-title">
+                    Master Web Development with Semantic HTML
+                </h1>
+                <p class="hero-description">
+                    Learn proper HTML structure, accessibility, and SEO best practices through interactive examples and templates.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-lg" id="generateChallenges">
+                        <i class="fas fa-play" aria-hidden="true"></i>
+                        View Challenge Examples
+                    </button>
+                    <button class="btn btn-secondary btn-lg" id="showProfileForm">
+                        <i class="fas fa-user-plus" aria-hidden="true"></i>
+                        Demo Profile Form
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Challenge Cards Section -->
+        <section class="challenges-section" aria-labelledby="challenges-heading">
+            <header class="section-header">
+                <h2 id="challenges-heading" class="section-title">Interactive Challenge Cards</h2>
+                <p class="section-description">
+                    Dynamically generated challenge cards using semantic HTML templates
+                </p>
+            </header>
+            <div id="challenge-cards-container" class="challenges-grid" role="region" aria-label="Available challenges">
+                <!-- Challenge cards will be generated here -->
+            </div>
+        </section>
+
+        <!-- User Profile Form Section -->
+        <section class="profile-section" aria-labelledby="profile-heading" style="display: none;">
+            <header class="section-header">
+                <h2 id="profile-heading" class="section-title">User Profile Form</h2>
+                <p class="section-description">
+                    Semantic form with proper validation and accessibility features
+                </p>
+            </header>
+            <div id="profile-form-container" role="region" aria-label="User profile setup">
+                <!-- Profile form will be generated here -->
+            </div>
+        </section>
+
+        <!-- HTML Structure Examples -->
+        <section class="examples-section" aria-labelledby="examples-heading">
+            <header class="section-header">
+                <h2 id="examples-heading" class="section-title">Semantic HTML Examples</h2>
+                <p class="section-description">
+                    Proper use of HTML5 semantic elements throughout the application
+                </p>
+            </header>
+
+            <div class="examples-grid">
+                <!-- Article Example -->
+                <article class="example-card" role="article" aria-labelledby="article-example-title">
+                    <header class="example-header">
+                        <h3 id="article-example-title" class="example-title">
+                            <i class="fas fa-newspaper" aria-hidden="true"></i>
+                            Article Structure
+                        </h3>
+                    </header>
+                    <div class="example-content">
+                        <p>Proper use of <code>&lt;article&gt;</code> element for standalone content:</p>
+                        <pre class="code-example"><code>&lt;article role="article" aria-labelledby="title"&gt;
+  &lt;header&gt;
+    &lt;h1 id="title"&gt;Article Title&lt;/h1&gt;
+    &lt;time datetime="2024-01-01"&gt;January 1, 2024&lt;/time&gt;
+  &lt;/header&gt;
+  &lt;div class="content"&gt;Article content...&lt;/div&gt;
+  &lt;footer&gt;Author information&lt;/footer&gt;
+&lt;/article&gt;</code></pre>
+                    </div>
+                </article>
+
+                <!-- Navigation Example -->
+                <article class="example-card" role="article" aria-labelledby="nav-example-title">
+                    <header class="example-header">
+                        <h3 id="nav-example-title" class="example-title">
+                            <i class="fas fa-compass" aria-hidden="true"></i>
+                            Navigation Structure
+                        </h3>
+                    </header>
+                    <div class="example-content">
+                        <p>Accessible navigation with proper ARIA attributes:</p>
+                        <pre class="code-example"><code>&lt;nav role="navigation" aria-label="Main navigation"&gt;
+  &lt;ul role="menubar"&gt;
+    &lt;li role="none"&gt;
+      &lt;a href="#" role="menuitem"&gt;Home&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li role="none"&gt;
+      &lt;a href="#" role="menuitem"&gt;Challenges&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+                    </div>
+                </article>
+
+                <!-- Form Example -->
+                <article class="example-card" role="article" aria-labelledby="form-example-title">
+                    <header class="example-header">
+                        <h3 id="form-example-title" class="example-title">
+                            <i class="fas fa-wpforms" aria-hidden="true"></i>
+                            Form Accessibility
+                        </h3>
+                    </header>
+                    <div class="example-content">
+                        <p>Accessible form with proper labeling and validation:</p>
+                        <pre class="code-example"><code>&lt;form novalidate aria-labelledby="form-title"&gt;
+  &lt;fieldset aria-labelledby="basic-info"&gt;
+    &lt;legend id="basic-info"&gt;Basic Information&lt;/legend&gt;
+    &lt;label for="username"&gt;Username&lt;/label&gt;
+    &lt;input id="username" 
+           type="text" 
+           required 
+           aria-describedby="username-help username-error"&gt;
+    &lt;small id="username-help"&gt;Help text&lt;/small&gt;
+    &lt;div id="username-error" role="alert"&gt;&lt;/div&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+                    </div>
+                </article>
+
+                <!-- ARIA Example -->
+                <article class="example-card" role="article" aria-labelledby="aria-example-title">
+                    <header class="example-header">
+                        <h3 id="aria-example-title" class="example-title">
+                            <i class="fas fa-universal-access" aria-hidden="true"></i>
+                            ARIA Attributes
+                        </h3>
+                    </header>
+                    <div class="example-content">
+                        <p>Proper ARIA usage for enhanced accessibility:</p>
+                        <pre class="code-example"><code>&lt;div role="progressbar" 
+     aria-valuenow="75" 
+     aria-valuemin="0" 
+     aria-valuemax="100" 
+     aria-label="Challenge progress"&gt;
+  &lt;div class="progress-bar" style="width: 75%"&gt;&lt;/div&gt;
+  &lt;span class="sr-only"&gt;75% complete&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;button aria-expanded="false" 
+        aria-controls="menu" 
+        aria-haspopup="true"&gt;
+  Menu
+&lt;/button&gt;</code></pre>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SEO Features Section -->
+        <section class="seo-section" aria-labelledby="seo-heading">
+            <header class="section-header">
+                <h2 id="seo-heading" class="section-title">SEO & Metadata Features</h2>
+                <p class="section-description">
+                    Comprehensive SEO optimization and structured data implementation
+                </p>
+            </header>
+
+            <div class="seo-features">
+                <div class="seo-feature">
+                    <h3 class="feature-title">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                        Meta Tags
+                    </h3>
+                    <ul class="feature-list">
+                        <li>Dynamic title and description updates</li>
+                        <li>Open Graph tags for social sharing</li>
+                        <li>Twitter Card metadata</li>
+                        <li>Canonical URLs</li>
+                        <li>Viewport and charset declarations</li>
+                    </ul>
+                </div>
+
+                <div class="seo-feature">
+                    <h3 class="feature-title">
+                        <i class="fas fa-sitemap" aria-hidden="true"></i>
+                        Structured Data
+                    </h3>
+                    <ul class="feature-list">
+                        <li>JSON-LD schema markup</li>
+                        <li>Educational organization data</li>
+                        <li>Course and breadcrumb schemas</li>
+                        <li>Rating and review markup</li>
+                        <li>Contact information schema</li>
+                    </ul>
+                </div>
+
+                <div class="seo-feature">
+                    <h3 class="feature-title">
+                        <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
+                        Performance
+                    </h3>
+                    <ul class="feature-list">
+                        <li>Resource preloading hints</li>
+                        <li>DNS prefetch optimization</li>
+                        <li>Critical CSS inlining</li>
+                        <li>Image optimization</li>
+                        <li>Lazy loading implementation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="seo-demo">
+                <h3 class="demo-title">Current Page Metadata</h3>
+                <div class="metadata-display" id="metadata-display">
+                    <!-- Metadata will be displayed here -->
+                </div>
+                <button class="btn btn-primary" id="updateMetadata">
+                    <i class="fas fa-sync" aria-hidden="true"></i>
+                    Update Page Metadata
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">CodeQuest</h3>
+                <p class="footer-description">
+                    Interactive web development learning platform with semantic HTML, accessibility, and SEO best practices.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-subtitle">Quick Links</h4>
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <ul class="footer-links">
+                        <li><a href="index.html" class="footer-link">Dashboard</a></li>
+                        <li><a href="challenges.html" class="footer-link">Challenges</a></li>
+                        <li><a href="resources.html" class="footer-link">Resources</a></li>
+                        <li><a href="ui-components.html" class="footer-link">UI System</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer-section">
+                <h4 class="footer-subtitle">Contact</h4>
+                <address class="footer-contact">
+                    <p>Email: <a href="mailto:support@codequest.com" class="footer-link">support@codequest.com</a></p>
+                    <p>Follow us: <a href="#" class="footer-link">@CodeQuest</a></p>
+                </address>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">
+                &copy; <time datetime="2024">2024</time> CodeQuest. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="html-templates.js"></script>
+    <script src="seo-metadata.js"></script>
+    <script src="semantic-demo.js"></script>
+</body>
+</html>
