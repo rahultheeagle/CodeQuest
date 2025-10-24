@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Dashboard - CodeQuest</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #334155; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        .header { background: white; padding: 20px; border: 3px outset #e2e8f0; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 24px; font-weight: 600; color: #1e293b; }
+        
+        .btn { background: #3b82f6; color: white; border: 2px outset #3b82f6; padding: 8px 16px; cursor: pointer; text-decoration: none; font-size: 14px; margin-left: 8px; }
+        .btn:hover { background: #2563eb; border: 2px inset #2563eb; }
+        .btn.secondary { background: #64748b; border: 2px outset #64748b; }
+        .btn.secondary:hover { background: #475569; border: 2px inset #475569; }
+        
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        
+        .card { background: white; border: 3px outset #e2e8f0; padding: 20px; }
+        .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1e293b; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .stat { text-align: center; padding: 16px; background: #f8fafc; border: 2px inset #e2e8f0; }
+        .stat-number { font-size: 24px; font-weight: 700; color: #3b82f6; }
+        .stat-label { font-size: 12px; color: #64748b; margin-top: 4px; }
+        
+        .progress-item { margin-bottom: 16px; }
+        .progress-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .progress-name { font-weight: 500; }
+        .progress-count { font-size: 14px; color: #64748b; }
+        .progress-bar { height: 8px; background: #e2e8f0; border: 1px inset #d1d5db; overflow: hidden; }
+        .progress-fill { height: 100%; background: #3b82f6; transition: width 0.3s; }
+        
+        .activity-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 12px; }
+        .activity-day { width: 12px; height: 12px; background: #e2e8f0; border: 1px outset #e2e8f0; }
+        .activity-day.active { background: #3b82f6; border: 1px inset #3b82f6; }
+        .activity-day.high { background: #1d4ed8; border: 1px inset #1d4ed8; }
+        
+        .recent-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 2px outset #f1f5f9; margin-bottom: 8px; background: #f8fafc; }
+        .recent-item:last-child { border-bottom: none; }
+        .recent-title { font-weight: 500; }
+        .recent-time { font-size: 12px; color: #64748b; }
+        
+        .empty-state { text-align: center; padding: 40px 20px; color: #64748b; }
+        .empty-state svg { width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.5; }
+        
+        @media (max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
+                    <path d="M3,3V21H21V19H5V3H3M9,17H7V10H9V17M13,17H11V6H13V17M17,17H15V13H17V17Z"/>
+                </svg>
+                Study Dashboard
+            </h1>
+            <div>
+                <button class="btn secondary" onclick="exportData()">Export</button>
+                <button class="btn secondary" onclick="resetData()">Reset</button>
+                <a href="index.html" class="btn">← Back</a>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Overview Stats -->
+            <div class="card">
+                <h3>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 6px;">
+                        <path d="M16,6L18.29,8.29L13.41,13.17L9.41,9.17L2,16.59L3.41,18L9.41,12L13.41,16L19.71,9.71L22,12V6H16Z"/>
+                    </svg>
+                    Overview
+                </h3>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number" id="totalCompleted">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="totalTime">0h</div>
+                        <div class="stat-label">Study Time</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="currentStreak">0</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="totalXP">0</div>
+                        <div class="stat-label">XP Earned</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Progress -->
+            <div class="card">
+                <h3>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 6px;">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10Z"/>
+                    </svg>
+                    Learning Progress
+                </h3>
+                <div id="progressList">
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-name">HTML Basics</span>
+                            <span class="progress-count" id="htmlProgress">0/8</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="htmlBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-name">CSS Styling</span>
+                            <span class="progress-count" id="cssProgress">0/11</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="cssBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-name">JavaScript</span>
+                            <span class="progress-count" id="jsProgress">0/11</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="jsBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Study Activity -->
+            <div class="card">
+                <h3>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 6px;">
+                        <path d="M19,3H18V1H16V3H8V1H6V3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z"/>
+                    </svg>
+                    Study Activity
+                </h3>
+                <div class="activity-grid" id="activityGrid"></div>
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: #64748b;">
+                    <span>30 days ago</span>
+                    <span>Today</span>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card">
+                <h3>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 6px;">
+                        <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12H16A4,4 0 0,0 12,8V6Z"/>
+                    </svg>
+                    Recent Activity
+                </h3>
+                <div id="recentActivity">
+                    <div class="empty-state">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <p>No recent activity</p>
+                        <p style="font-size: 12px;">Complete challenges to see your progress here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class StudyDashboard {
+            constructor() {
+                this.loadData();
+                this.updateDisplay();
+            }
+
+            loadData() {
+                // Get real data from localStorage
+                this.challenges = JSON.parse(localStorage.getItem('codequest_challenges') || '{}');
+                this.user = JSON.parse(localStorage.getItem('codequest_user') || '{}');
+                this.sessions = JSON.parse(localStorage.getItem('study_sessions') || '[]');
+                this.activities = JSON.parse(localStorage.getItem('recent_activities') || '[]');
+            }
+
+            updateDisplay() {
+                this.updateStats();
+                this.updateProgress();
+                this.updateActivity();
+                this.updateRecent();
+            }
+
+            updateStats() {
+                // Calculate real stats
+                const completed = this.getTotalCompleted();
+                const totalTime = this.getTotalStudyTime();
+                const streak = this.getCurrentStreak();
+                const xp = completed * 50; // 50 XP per completion
+
+                document.getElementById('totalCompleted').textContent = completed;
+                document.getElementById('totalTime').textContent = Math.floor(totalTime / 60) + 'h';
+                document.getElementById('currentStreak').textContent = streak;
+                document.getElementById('totalXP').textContent = xp;
+            }
+
+            updateProgress() {
+                const htmlCompleted = this.getCompletedByCategory('html');
+                const cssCompleted = this.getCompletedByCategory('css');
+                const jsCompleted = this.getCompletedByCategory('javascript');
+
+                // Update HTML progress
+                document.getElementById('htmlProgress').textContent = `${htmlCompleted}/8`;
+                document.getElementById('htmlBar').style.width = `${(htmlCompleted/8)*100}%`;
+
+                // Update CSS progress
+                document.getElementById('cssProgress').textContent = `${cssCompleted}/11`;
+                document.getElementById('cssBar').style.width = `${(cssCompleted/11)*100}%`;
+
+                // Update JS progress
+                document.getElementById('jsProgress').textContent = `${jsCompleted}/11`;
+                document.getElementById('jsBar').style.width = `${(jsCompleted/11)*100}%`;
+            }
+
+            updateActivity() {
+                const grid = document.getElementById('activityGrid');
+                const days = [];
+
+                // Generate last 30 days
+                for (let i = 29; i >= 0; i--) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    const dateStr = date.toDateString();
+                    
+                    const dayActivity = this.sessions.filter(s => s.date === dateStr).length;
+                    const hasActivity = dayActivity > 0;
+                    const isHigh = dayActivity >= 3;
+
+                    days.push(`<div class="activity-day ${hasActivity ? 'active' : ''} ${isHigh ? 'high' : ''}" title="${dateStr}: ${dayActivity} activities"></div>`);
+                }
+
+                grid.innerHTML = days.join('');
+            }
+
+            updateRecent() {
+                const container = document.getElementById('recentActivity');
+                
+                if (this.activities.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <p>No recent activity</p>
+                            <p style="font-size: 12px;">Complete challenges to see your progress here</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const recent = this.activities.slice(-5).reverse();
+                container.innerHTML = recent.map(activity => `
+                    <div class="recent-item">
+                        <div>
+                            <div class="recent-title">${activity.title}</div>
+                            <div class="recent-time">${activity.category} • ${this.formatTime(activity.timestamp)}</div>
+                        </div>
+                        <div style="color: #10b981;">✓</div>
+                    </div>
+                `).join('');
+            }
+
+            getTotalCompleted() {
+                return Object.values(this.challenges).flat().length;
+            }
+
+            getTotalStudyTime() {
+                return this.sessions.reduce((total, session) => total + (session.duration || 0), 0);
+            }
+
+            getCurrentStreak() {
+                if (this.sessions.length === 0) return 0;
+                
+                let streak = 0;
+                const today = new Date();
+                
+                for (let i = 0; i < 30; i++) {
+                    const checkDate = new Date(today);
+                    checkDate.setDate(today.getDate() - i);
+                    const dateStr = checkDate.toDateString();
+                    
+                    const hasActivity = this.sessions.some(s => s.date === dateStr);
+                    if (hasActivity) {
+                        streak++;
+                    } else if (i > 0) {
+                        break;
+                    }
+                }
+                
+                return streak;
+            }
+
+            getCompletedByCategory(category) {
+                return this.challenges[category] ? this.challenges[category].length : 0;
+            }
+
+            formatTime(timestamp) {
+                const date = new Date(timestamp);
+                const now = new Date();
+                const diff = now - date;
+                
+                if (diff < 60000) return 'Just now';
+                if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+                if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+                return Math.floor(diff / 86400000) + 'd ago';
+            }
+        }
+
+        function exportData() {
+            const data = {
+                challenges: JSON.parse(localStorage.getItem('codequest_challenges') || '{}'),
+                user: JSON.parse(localStorage.getItem('codequest_user') || '{}'),
+                sessions: JSON.parse(localStorage.getItem('study_sessions') || '[]'),
+                activities: JSON.parse(localStorage.getItem('recent_activities') || '[]'),
+                exportDate: new Date().toISOString()
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `codequest-progress-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function resetData() {
+            if (confirm('Reset all progress? This cannot be undone.')) {
+                localStorage.removeItem('codequest_challenges');
+                localStorage.removeItem('codequest_user');
+                localStorage.removeItem('study_sessions');
+                localStorage.removeItem('recent_activities');
+                location.reload();
+            }
+        }
+
+        // Initialize dashboard
+        new StudyDashboard();
+    </script>
+</body>
+</html>
