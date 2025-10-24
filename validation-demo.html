@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation System Demo - CodeQuest</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+        
+        body {
+            background: #f7f5f3;
+            background-image: 
+                radial-gradient(circle at 20px 50px, #ddd 2px, transparent 2px),
+                radial-gradient(circle at 40px 80px, #ddd 1px, transparent 1px);
+            background-size: 100px 100px;
+            font-family: 'Kalam', cursive;
+        }
+        
+        .validation-demo {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .test-section {
+            background: #fefefe;
+            border: 3px solid #2c3e50;
+            border-radius: 15px 5px 20px 8px;
+            box-shadow: 3px 3px 0px #2c3e50;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            transform: rotate(-0.5deg);
+        }
+        
+        .test-section::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 20px;
+            width: 30px;
+            height: 15px;
+            background: #e74c3c;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+
+        .code-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px dashed #34495e;
+            border-radius: 8px 15px 5px 12px;
+            font-family: 'Kalam', cursive;
+            font-size: 16px;
+            margin-bottom: 15px;
+            resize: vertical;
+            background: #fff;
+            line-height: 1.8;
+        }
+
+        .validation-result {
+            background: #fff9c4;
+            border: 2px solid #f39c12;
+            border-radius: 12px 3px 15px 7px;
+            padding: 20px;
+            margin-top: 15px;
+            position: relative;
+            transform: rotate(0.3deg);
+        }
+        
+        .validation-result::after {
+            content: '📝';
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            font-size: 20px;
+        }
+
+        .score-bar {
+            width: 100%;
+            height: 25px;
+            background: #ecf0f1;
+            border: 2px solid #34495e;
+            border-radius: 20px 5px 15px 8px;
+            overflow: hidden;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .score-bar::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            right: 5px;
+            height: 3px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 10px;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60);
+            transition: width 0.5s ease;
+            border-radius: 15px 2px 10px 5px;
+        }
+
+        .test-details {
+            margin-top: 20px;
+        }
+
+        .test-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border: 2px solid;
+            border-radius: 8px 15px 5px 12px;
+            margin-bottom: 8px;
+            position: relative;
+            transform: rotate(-0.2deg);
+        }
+        
+        .test-item:nth-child(even) {
+            transform: rotate(0.2deg);
+        }
+
+        .test-item.passed {
+            background: #d5f4e6;
+            border-color: #27ae60;
+            color: #1e8449;
+        }
+
+        .test-item.failed {
+            background: #fadbd8;
+            border-color: #e74c3c;
+            color: #c0392b;
+        }
+
+        .test-icon {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .challenge-selector {
+            margin-bottom: 25px;
+            transform: rotate(-0.3deg);
+        }
+
+        .challenge-selector select {
+            padding: 12px 15px;
+            border: 3px solid #2c3e50;
+            border-radius: 10px 3px 8px 15px;
+            font-size: 16px;
+            min-width: 220px;
+            font-family: 'Kalam', cursive;
+            background: #fff;
+            box-shadow: 2px 2px 0px #2c3e50;
+        }
+
+        .expected-output {
+            background: #e8f6f3;
+            border: 2px dashed #16a085;
+            border-radius: 8px 12px 5px 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Kalam', cursive;
+            font-size: 14px;
+            position: relative;
+        }
+        
+        .expected-output::before {
+            content: '💡';
+            position: absolute;
+            top: -8px;
+            left: 15px;
+            background: #e8f6f3;
+            padding: 0 5px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .comparison-panel {
+            background: #fefefe;
+            border: 3px solid #8e44ad;
+            border-radius: 12px 5px 15px 8px;
+            padding: 20px;
+            position: relative;
+            transform: rotate(-0.4deg);
+        }
+        
+        .comparison-panel:nth-child(2) {
+            transform: rotate(0.4deg);
+        }
+        
+        .comparison-panel::before {
+            content: '📋';
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            font-size: 18px;
+        }
+
+        .panel-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #8e44ad;
+            font-size: 18px;
+            text-decoration: underline;
+            text-decoration-style: wavy;
+        }
+        
+        .btn {
+            font-family: 'Kalam', cursive !important;
+            border: 3px solid #2c3e50 !important;
+            border-radius: 8px 15px 5px 12px !important;
+            padding: 10px 20px !important;
+            font-weight: 600 !important;
+            box-shadow: 2px 2px 0px #2c3e50 !important;
+            transition: all 0.1s !important;
+            transform: rotate(-0.5deg) !important;
+        }
+        
+        .btn:hover {
+            transform: rotate(0deg) translateY(-2px) !important;
+            box-shadow: 3px 3px 0px #2c3e50 !important;
+        }
+        
+        .btn:active {
+            transform: rotate(0.5deg) translateY(1px) !important;
+            box-shadow: 1px 1px 0px #2c3e50 !important;
+        }
+        
+        .header h1 {
+            font-family: 'Kalam', cursive;
+            color: #2c3e50;
+            text-shadow: 2px 2px 0px #ecf0f1;
+            transform: rotate(-1deg);
+            font-size: 2.5rem;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="validation-demo">
+        <header class="header">
+            <h1>Validation System Demo</h1>
+            <nav>
+                <a href="index.html" class="btn btn-secondary">← Back</a>
+                <a href="challenges.html" class="btn btn-primary">Try Challenges</a>
+            </nav>
+        </header>
+
+        <div class="challenge-selector">
+            <label for="challengeSelect">Select Challenge:</label>
+            <select id="challengeSelect" onchange="loadChallenge()">
+                <option value="">Choose a challenge...</option>
+            </select>
+        </div>
+
+        <div class="test-section">
+            <h2 id="challengeTitle">Select a challenge to begin</h2>
+            <p id="challengeDescription"></p>
+            
+            <div id="challengeContent" style="display: none;">
+                <textarea class="code-input" id="userCode" placeholder="Write your code here..."></textarea>
+                
+                <div class="expected-output" id="expectedOutput" style="display: none;">
+                    <strong>Expected Solution:</strong>
+                    <pre id="solutionCode"></pre>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <button class="btn btn-primary" onclick="validateCode()">Validate Code</button>
+                    <button class="btn btn-secondary" onclick="showSolution()">Show Solution</button>
+                    <button class="btn btn-warning" onclick="clearCode()">Clear</button>
+                </div>
+
+                <div class="validation-result" id="validationResult" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Validation Results</h3>
+                        <span id="scoreText">Score: 0%</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" id="scoreFill" style="width: 0%"></div>
+                    </div>
+                    <p id="resultMessage"></p>
+                    <div class="test-details" id="testDetails"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-grid" id="comparisonGrid" style="display: none;">
+            <div class="comparison-panel">
+                <div class="panel-title">Your Output</div>
+                <div id="userOutput"></div>
+            </div>
+            <div class="comparison-panel">
+                <div class="panel-title">Expected Output</div>
+                <div id="expectedOutputPanel"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/validation.js"></script>
+    <script>
+        let challenges = [];
+        let currentChallenge = null;
+
+        // Sample challenges with comprehensive test cases
+        const sampleChallenges = [
+            {
+                id: 1,
+                title: "HTML Heading Challenge",
+                category: "html",
+                description: "Create an h1 element with the text 'Welcome to CodeQuest'",
+                solution: "<h1>Welcome to CodeQuest</h1>",
+                testCases: [
+                    {
+                        name: "Contains h1 element",
+                        type: "element_exists",
+                        selector: "h1",
+                        message: "Missing h1 element"
+                    },
+                    {
+                        name: "H1 contains correct text",
+                        type: "text_content",
+                        selector: "h1",
+                        expected: "Welcome to CodeQuest",
+                        message: "H1 should contain 'Welcome to CodeQuest'"
+                    },
+                    {
+                        name: "Only one h1 element",
+                        type: "element_count",
+                        selector: "h1",
+                        expected: 1,
+                        message: "Should have exactly one h1 element"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "CSS Styling Challenge",
+                category: "css",
+                description: "Style a paragraph with blue color and 18px font size",
+                solution: "p {\\n  color: blue;\\n  font-size: 18px;\\n}",
+                testCases: [
+                    {
+                        name: "Uses color property",
+                        type: "property_exists",
+                        property: "color",
+                        message: "Missing color property"
+                    },
+                    {
+                        name: "Color is blue",
+                        type: "property_value",
+                        property: "color",
+                        expected: "blue",
+                        message: "Color should be blue"
+                    },
+                    {
+                        name: "Uses font-size property",
+                        type: "property_exists",
+                        property: "font-size",
+                        message: "Missing font-size property"
+                    },
+                    {
+                        name: "Font size is 18px",
+                        type: "property_value",
+                        property: "font-size",
+                        expected: "18px",
+                        message: "Font size should be 18px"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "JavaScript Function Challenge",
+                category: "javascript",
+                description: "Create a function named 'greet' that returns 'Hello World'",
+                solution: "function greet() {\\n  return 'Hello World';\\n}",
+                testCases: [
+                    {
+                        name: "Declares greet function",
+                        type: "function_exists",
+                        name: "greet",
+                        message: "Missing greet function"
+                    },
+                    {
+                        name: "Uses return statement",
+                        type: "contains_keyword",
+                        keyword: "return",
+                        message: "Function should return a value"
+                    },
+                    {
+                        name: "Returns correct string",
+                        type: "contains_keyword",
+                        keyword: "Hello World",
+                        message: "Should return 'Hello World'"
+                    },
+                    {
+                        name: "Valid JavaScript syntax",
+                        type: "syntax_valid",
+                        message: "Code should be valid JavaScript"
+                    }
+                ]
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChallenges();
+        });
+
+        function loadChallenges() {
+            challenges = sampleChallenges;
+            const select = document.getElementById('challengeSelect');
+            
+            challenges.forEach(challenge => {
+                const option = document.createElement('option');
+                option.value = challenge.id;
+                option.textContent = challenge.title;
+                select.appendChild(option);
+            });
+        }
+
+        function loadChallenge() {
+            const select = document.getElementById('challengeSelect');
+            const challengeId = parseInt(select.value);
+            
+            if (!challengeId) {
+                document.getElementById('challengeContent').style.display = 'none';
+                return;
+            }
+
+            currentChallenge = challenges.find(c => c.id === challengeId);
+            
+            document.getElementById('challengeTitle').textContent = currentChallenge.title;
+            document.getElementById('challengeDescription').textContent = currentChallenge.description;
+            document.getElementById('challengeContent').style.display = 'block';
+            document.getElementById('userCode').value = '';
+            document.getElementById('validationResult').style.display = 'none';
+            document.getElementById('expectedOutput').style.display = 'none';
+            document.getElementById('comparisonGrid').style.display = 'none';
+        }
+
+        function validateCode() {
+            if (!currentChallenge) return;
+
+            const userCode = document.getElementById('userCode').value;
+            const result = Validation.validateChallenge(currentChallenge, userCode);
+            
+            displayValidationResult(result);
+            
+            if (currentChallenge.category === 'html') {
+                showHTMLComparison(userCode, currentChallenge.solution);
+            }
+        }
+
+        function displayValidationResult(result) {
+            const resultDiv = document.getElementById('validationResult');
+            const scoreText = document.getElementById('scoreText');
+            const scoreFill = document.getElementById('scoreFill');
+            const resultMessage = document.getElementById('resultMessage');
+            const testDetails = document.getElementById('testDetails');
+
+            const scorePercent = Math.round(result.score * 100);
+            
+            scoreText.textContent = `Score: ${scorePercent}% (${result.xp} XP)`;
+            scoreFill.style.width = `${scorePercent}%`;
+            resultMessage.textContent = result.message;
+
+            // Display test details
+            if (result.details) {
+                testDetails.innerHTML = result.details.map(detail => `
+                    <div class="test-item ${detail.passed ? 'passed' : 'failed'}">
+                        <span class="test-icon">${detail.passed ? '✓' : '✗'}</span>
+                        <span>${detail.test}</span>
+                        ${!detail.passed ? `<span style="margin-left: auto; font-size: 0.9em;">${detail.message}</span>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            resultDiv.style.display = 'block';
+        }
+
+        function showHTMLComparison(userCode, expectedCode) {
+            const userOutput = document.getElementById('userOutput');
+            const expectedOutputPanel = document.getElementById('expectedOutputPanel');
+            
+            userOutput.innerHTML = userCode;
+            expectedOutputPanel.innerHTML = expectedCode;
+            
+            document.getElementById('comparisonGrid').style.display = 'grid';
+        }
+
+        function showSolution() {
+            if (!currentChallenge) return;
+            
+            document.getElementById('solutionCode').textContent = currentChallenge.solution.replace(/\\n/g, '\\n');
+            document.getElementById('expectedOutput').style.display = 'block';
+        }
+
+        function clearCode() {
+            document.getElementById('userCode').value = '';
+            document.getElementById('validationResult').style.display = 'none';
+            document.getElementById('expectedOutput').style.display = 'none';
+            document.getElementById('comparisonGrid').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
