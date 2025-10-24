@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>HTML Editor</title>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1e1e1e; color: #d4d4d4; overflow: hidden; }
+        .header { background: #2d2d30; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3e3e42; }
+        .header h1 { color: #cccccc; margin: 0; font-size: 24px; font-weight: 600; }
+        .btn { background: #0e639c; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500; margin-left: 8px; transition: background 0.2s; }
+        .btn:hover { background: #1177bb; }
+        .btn.run { background: #16825d; }
+        .btn.run:hover { background: #1e9973; }
+        .btn.clear { background: #a1260d; }
+        .btn.clear:hover { background: #c5341a; }
+        .container { display: flex; flex-direction: column; height: calc(100vh - 70px); }
+        .panel { flex: 1; background: #1e1e1e; display: flex; flex-direction: column; }
+        .panel:first-child { border-bottom: 1px solid #3e3e42; }
+        .title { background: #2d2d30; padding: 12px 16px; font-weight: 500; font-size: 13px; color: #cccccc; border-bottom: 1px solid #3e3e42; display: flex; align-items: center; }
+        .title::before { content: ''; width: 20px; height: 20px; margin-right: 12px; background-size: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .title.html::before { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e34c26"><path d="M12,17.56L16.07,16.43L16.62,10.33H9.38L9.2,8.3H16.8L17,6.31H7L7.56,12.32H14.45L14.22,14.9L12,15.5L9.78,14.9L9.64,13.24H7.64L7.93,16.43L12,17.56M4.07,3H19.93L18.5,19.2L12,21L5.5,19.2L4.07,3Z"/></svg>'); }
+        .editor-container { flex: 1; position: relative; }
+        .line-numbers { position: absolute; left: 0; top: 0; width: 50px; background: #1e1e1e; color: #858585; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 14px; line-height: 20px; padding: 16px 8px; border-right: 1px solid #3e3e42; user-select: none; }
+        .editor { width: calc(100% - 50px); height: 100%; border: none; padding: 16px 16px 16px 66px; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; font-size: 14px; line-height: 20px; resize: none; background: #1e1e1e; color: #d4d4d4; outline: none; tab-size: 2; }
+        .editor:focus { background: #1e1e1e; }
+        .output { width: 100%; height: calc(100% - 40px); background: white; padding: 16px; overflow: auto; font-family: Arial, sans-serif; }
+        .status-bar { background: #007acc; color: white; padding: 4px 16px; font-size: 12px; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>HTML Editor</h1>
+        <div>
+            <button class="btn" onclick="run()">Run</button>
+            <button class="btn" onclick="clearCode()">Clear</button>
+            <a href="index.html" class="btn">Back</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel">
+            <div class="title html">index.html</div>
+            <div class="editor-container">
+                <div class="line-numbers" id="lineNumbers">1</div>
+                <textarea class="editor" id="code" placeholder="<!-- Start typing your HTML code here -->"></textarea>
+            </div>
+            <div class="status-bar">
+                <span>HTML</span>
+                <span id="cursor-pos">Ln 1, Col 1</span>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="title">Output</div>
+            <div class="output" id="output"></div>
+        </div>
+    </div>
+
+    <script>
+        function run() {
+            var code = document.getElementById('code').value;
+            var output = document.getElementById('output');
+            output.innerHTML = code;
+        }
+
+        function clearCode() {
+            document.getElementById('code').value = '';
+            document.getElementById('output').innerHTML = '';
+            updateLineNumbers();
+            updateCursorPosition();
+        }
+
+        function updateLineNumbers() {
+            const code = document.getElementById('code').value;
+            const lines = code.split('\n').length;
+            const lineNumbers = document.getElementById('lineNumbers');
+            lineNumbers.innerHTML = Array.from({length: lines}, (_, i) => i + 1).join('\n');
+        }
+
+        function updateCursorPosition() {
+            const editor = document.getElementById('code');
+            const cursorPos = editor.selectionStart;
+            const textBeforeCursor = editor.value.substring(0, cursorPos);
+            const lines = textBeforeCursor.split('\n');
+            const line = lines.length;
+            const col = lines[lines.length - 1].length + 1;
+            document.getElementById('cursor-pos').textContent = `Ln ${line}, Col ${col}`;
+        }
+
+        document.getElementById('code').addEventListener('input', function() {
+            updateLineNumbers();
+            updateCursorPosition();
+        });
+
+        document.getElementById('code').addEventListener('keyup', updateCursorPosition);
+        document.getElementById('code').addEventListener('click', updateCursorPosition);
+
+        // Initialize
+        updateLineNumbers();
+    </script>
+</body>
+</html>
