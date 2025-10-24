@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Code - CodeQuest</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 id="codeTitle">Shared Code</h1>
+            <nav>
+                <a href="index.html" class="btn btn-secondary">← Home</a>
+                <button class="btn btn-primary" onclick="forkCode()">Fork Code</button>
+                <button class="btn btn-success" onclick="shareAgain()">Share Again</button>
+            </nav>
+        </header>
+
+        <div class="editor-container">
+            <div class="editor-panel">
+                <div class="panel-header" id="languageHeader">Code</div>
+                <textarea class="code-editor" id="sharedCode" readonly></textarea>
+            </div>
+            <div class="preview-panel">
+                <div class="panel-header">Preview</div>
+                <iframe id="preview" class="preview-frame"></iframe>
+            </div>
+        </div>
+
+        <div class="share-info" style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
+            <h3>Share Information</h3>
+            <p><strong>Created:</strong> <span id="shareDate"></span></p>
+            <p><strong>Language:</strong> <span id="shareLanguage"></span></p>
+            <div style="margin-top: 15px;">
+                <input type="text" id="shareUrl" readonly style="width: 70%; padding: 8px; margin-right: 10px;">
+                <button class="btn btn-primary" onclick="copyShareUrl()">Copy Link</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/code-sharing.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const shareId = urlParams.get('id');
+            
+            if (shareId) {
+                loadSharedCode(shareId);
+            } else {
+                document.body.innerHTML = '<div class="container"><h1>Invalid share link</h1><a href="index.html">Go Home</a></div>';
+            }
+        });
+
+        function loadSharedCode(id) {
+            const sharedData = codeSharing.loadSharedCode(id);
+            
+            if (!sharedData) {
+                document.body.innerHTML = '<div class="container"><h1>Shared code not found</h1><a href="index.html">Go Home</a></div>';
+                return;
+            }
+
+            document.getElementById('codeTitle').textContent = sharedData.title;
+            document.getElementById('sharedCode').value = sharedData.code;
+            document.getElementById('languageHeader').textContent = sharedData.language.toUpperCase();
+            document.getElementById('shareDate').textContent = new Date(sharedData.timestamp).toLocaleString();
+            document.getElementById('shareLanguage').textContent = sharedData.language;
+            document.getElementById('shareUrl').value = window.location.href;
+
+            // Update preview if HTML
+            if (sharedData.language === 'html') {
+                updatePreview(sharedData.code);
+            }
+        }
+
+        function updatePreview(html) {
+            const preview = document.getElementById('preview');
+            preview.srcdoc = html;
+        }
+
+        function forkCode() {
+            const code = document.getElementById('sharedCode').value;
+            const language = document.getElementById('shareLanguage').textContent;
+            
+            // Redirect to editor with code
+            const encodedCode = encodeURIComponent(code);
+            window.location.href = `editor.html?code=${encodedCode}&lang=${language}`;
+        }
+
+        function shareAgain() {
+            const code = document.getElementById('sharedCode').value;
+            const title = document.getElementById('codeTitle').textContent;
+            const language = document.getElementById('shareLanguage').textContent;
+            
+            const result = codeSharing.shareCode(code, title, language);
+            window.location.href = result.url;
+        }
+
+        function copyShareUrl() {
+            const url = document.getElementById('shareUrl').value;
+            codeSharing.copyToClipboard(url);
+        }
+    </script>
+</body>
+</html>
