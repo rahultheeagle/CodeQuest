@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor - CodeQuest</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Code Editor</h1>
+            <nav>
+                <a href="index.html" class="btn btn-secondary">← Back</a>
+                <button class="btn btn-primary" onclick="editor.runCode()">Run</button>
+                <button class="btn btn-warning" onclick="editor.clearCode()">Clear</button>
+            </nav>
+        </header>
+
+        <div class="editor-container">
+            <div class="editor-panel">
+                <div class="panel-header">HTML</div>
+                <textarea class="code-editor" id="htmlEditor" placeholder="Enter HTML code..."></textarea>
+            </div>
+
+            <div class="editor-panel">
+                <div class="panel-header">CSS</div>
+                <textarea class="code-editor" id="cssEditor" placeholder="Enter CSS code..."></textarea>
+            </div>
+
+            <div class="editor-panel">
+                <div class="panel-header">JavaScript</div>
+                <textarea class="code-editor" id="jsEditor" placeholder="Enter JavaScript code..."></textarea>
+            </div>
+
+            <div class="preview-panel">
+                <div class="panel-header">Preview</div>
+                <iframe id="preview" class="preview-frame"></iframe>
+            </div>
+        </div>
+
+        <div class="console-panel">
+            <div class="panel-header">Console</div>
+            <div class="console" id="console"></div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script>
+        class CodeEditor {
+            constructor() {
+                this.htmlEditor = document.getElementById('htmlEditor');
+                this.cssEditor = document.getElementById('cssEditor');
+                this.jsEditor = document.getElementById('jsEditor');
+                this.preview = document.getElementById('preview');
+                this.console = document.getElementById('console');
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.loadSavedCode();
+                this.updatePreview();
+            }
+
+            setupEventListeners() {
+                [this.htmlEditor, this.cssEditor, this.jsEditor].forEach(editor => {
+                    editor.addEventListener('input', () => {
+                        this.updatePreview();
+                        this.saveCode();
+                    });
+                });
+
+                window.addEventListener('message', (e) => {
+                    if (e.data && e.data.type === 'console') {
+                        this.logToConsole(e.data.method, e.data.args);
+                    }
+                });
+                
+                this.logToConsole('info', ['Console ready']);
+            }
+
+
+
+            updatePreview() {
+                const html = this.htmlEditor.value;
+                const css = this.cssEditor.value;
+                const js = this.jsEditor.value;
+
+                const previewContent = `
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <style>${css}</style>
+                    </head>
+                    <body>
+                        ${html}
+                        <script>
+                            // Override console methods
+                            const originalLog = console.log;
+                            const originalError = console.error;
+                            const originalWarn = console.warn;
+                            
+                            console.log = (...args) => {
+                                parent.postMessage({type: 'console', method: 'log', args}, '*');
+                                originalLog.apply(console, args);
+                            };
+                            
+                            console.error = (...args) => {
+                                parent.postMessage({type: 'console', method: 'error', args}, '*');
+                                originalError.apply(console, args);
+                            };
+                            
+                            console.warn = (...args) => {
+                                parent.postMessage({type: 'console', method: 'warn', args}, '*');
+                                originalWarn.apply(console, args);
+                            };
+
+                            // Error handling
+                            window.onerror = (msg, url, line, col, error) => {
+                                parent.postMessage({type: 'console', method: 'error', args: ['Error: ' + msg + ' (Line: ' + line + ')']}, '*');
+                                return true;
+                            };
+
+                            try {
+                                if (\`${js}\`.trim()) {
+                                    ${js}
+                                }
+                            } catch (error) {
+                                parent.postMessage({type: 'console', method: 'error', args: ['JavaScript Error: ' + error.message]}, '*');
+                            }
+                        </script>
+                    </body>
+                    </html>
+                `;
+
+                this.preview.srcdoc = previewContent;
+            }
+
+            logToConsole(method, args) {
+                const timestamp = new Date().toLocaleTimeString();
+                const message = args.map(arg => 
+                    typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
+                ).join(' ');
+
+                const logEntry = document.createElement('div');
+                logEntry.className = `console-entry console-${method}`;
+                logEntry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+                
+                this.console.appendChild(logEntry);
+                this.console.scrollTop = this.console.scrollHeight;
+            }
+
+            runCode() {
+                this.console.innerHTML = '';
+                this.logToConsole('info', ['Running code...']);
+                setTimeout(() => {
+                    this.updatePreview();
+                }, 100);
+            }
+
+            clearCode() {
+                this.htmlEditor.value = '';
+                this.cssEditor.value = '';
+                this.jsEditor.value = '';
+                this.console.innerHTML = '';
+                this.updatePreview();
+                this.saveCode();
+
+            }
+
+            saveCode() {
+                const code = {
+                    html: this.htmlEditor.value,
+                    css: this.cssEditor.value,
+                    js: this.jsEditor.value
+                };
+                localStorage.setItem('editorCode', JSON.stringify(code));
+            }
+
+            loadSavedCode() {
+                const saved = localStorage.getItem('editorCode');
+                if (saved) {
+                    const code = JSON.parse(saved);
+                    this.htmlEditor.value = code.html || '';
+                    this.cssEditor.value = code.css || '';
+                    this.jsEditor.value = code.js || '';
+                    
+                    // Update line numbers
+    
+                }
+            }
+        }
+
+        // Initialize editor
+        document.addEventListener('DOMContentLoaded', () => {
+            window.editor = new CodeEditor();
+        });
+    </script>
+</body>
+</html>
