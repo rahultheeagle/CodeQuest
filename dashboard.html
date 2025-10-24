@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CodeQuest</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header class="header">
+            <h1>CodeQuest Dashboard</h1>
+            <div class="user-info" id="userInfo"></div>
+        </header>
+        
+        <main class="main-content">
+            <div class="stats-grid" id="statsGrid"></div>
+            <div class="quick-actions">
+                <a href="editor.html" class="action-btn">Code Editor</a>
+                <a href="challenges.html" class="action-btn">Challenges</a>
+                <a href="resources.html" class="action-btn">Resources</a>
+            </div>
+            <div class="recent-activity" id="recentActivity"></div>
+        </main>
+    </div>
+    
+    <script src="js/app.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+</body>
+</html>
