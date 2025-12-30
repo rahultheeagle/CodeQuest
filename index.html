@@ -125,82 +125,55 @@
 
         <main class="dashboard">
             <div class="profile-section">
-                <div class="profile-header">
-                    <div class="user-avatar-large">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
-                        </svg>
-                    </div>
-                    <div class="user-stats">
-                        <h2 id="userDisplayName">Alex Johnson</h2>
-                        <div class="level-badge">
-                            <span class="level-text">Level 1</span>
-                            <span class="level-subtitle">Beginner Developer</span>
-                        </div>
-                    </div>
-                    <div class="profile-actions">
-                        <button class="edit-profile-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
+                <div class="profile-card">
+                    <div class="profile-info">
+                        <div class="avatar">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
                             </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="progress-container">
-                    <div class="xp-section">
-                        <div class="xp-header">
-                            <span class="xp-label">Experience Points</span>
-                            <span class="xp-count" id="xpDisplay">0 / 100 XP</span>
                         </div>
-                        <div class="xp-progress">
-                            <div class="xp-track">
-                                <div class="xp-fill" id="xpFillBar" style="width: 0%"></div>
-                                <div class="xp-glow"></div>
-                            </div>
+                        <div class="user-details">
+                            <h3>Alex Johnson</h3>
+                            <span class="level">Level 1 • Beginner</span>
                         </div>
                     </div>
                     
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">🔥</div>
-                            <div class="stat-info">
-                                <span class="stat-number" id="streakDisplay">0</span>
-                                <span class="stat-label">Day Streak</span>
-                            </div>
+                    <div class="xp-container">
+                        <div class="xp-info">
+                            <span>Experience</span>
+                            <span id="xpText">0 / 100 XP</span>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">⚡</div>
-                            <div class="stat-info">
-                                <span class="stat-number" id="challengesCompleted">0</span>
-                                <span class="stat-label">Challenges</span>
-                            </div>
+                        <div class="xp-bar">
+                            <div class="xp-fill" id="xpFill" style="width: 0%"></div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">🏆</div>
-                            <div class="stat-info">
-                                <span class="stat-number" id="badgesEarned">0</span>
-                                <span class="stat-label">Badges</span>
-                            </div>
+                    </div>
+                    
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number" id="streakCount">0</span>
+                            <span class="stat-label">Day Streak</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="challengesCount">0</span>
+                            <span class="stat-label">Challenges</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="badgesCount">0</span>
+                            <span class="stat-label">Badges</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="achievements-section">
-                    <div class="achievements-header">
-                        <h3>Recent Achievements</h3>
-                        <button class="view-all-btn">View All</button>
-                    </div>
-                    <div class="achievements-grid" id="achievementsContainer">
-                        <div class="empty-state">
-                            <div class="empty-icon">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <div class="achievements-card">
+                    <h4>Achievements</h4>
+                    <div class="badges" id="badgeContainer">
+                        <div class="no-badges">
+                            <div class="badge-placeholder">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12,2L13.09,8.26L22,9L17,14L18.18,23L12,19.77L5.82,23L7,14L2,9L10.91,8.26L12,2Z"/>
                                 </svg>
                             </div>
-                            <h4>Start Your Journey</h4>
-                            <p>Complete your first challenge to earn your first badge!</p>
-                            <button class="start-challenge-btn">Start Challenge</button>
+                            <p>Complete challenges to earn your first badge!</p>
                         </div>
                     </div>
                 </div>
