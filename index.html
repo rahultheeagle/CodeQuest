@@ -94,10 +94,32 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>CodeQuest</h1>
-            <div class="user-info">
-                <span id="username">Learner</span>
-                <span id="level">Level 1</span>
+            <div class="header-brand">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10Z"/>
+                    </svg>
+                    <h1>CodeQuest</h1>
+                </div>
+                <p class="tagline">Master Web Development Through Interactive Learning</p>
+            </div>
+            <div class="header-actions">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                        </svg>
+                    </div>
+                    <div class="user-details">
+                        <span id="username">Learner</span>
+                        <span id="level">Level 1</span>
+                    </div>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,18C11.11,18 10.26,17.8 9.5,17.46C11.56,16.06 13,13.72 13,11A6,6 0 0,0 7,5C8.2,3.78 9.96,3 12,3A9,9 0 0,1 21,12A9,9 0 0,1 12,21C12.64,20.68 12,19.9 12,18Z"/>
+                    </svg>
+                </button>
             </div>
         </header>
 
@@ -288,6 +310,18 @@
     <script src="js/performance-optimizer.js"></script>
     <script src="js/theme-toggle.js"></script>
     <script>
+        // Theme toggle function
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        
         const learningPath = {
             "level-1": {
                 title: "Level 1: Beginner",
