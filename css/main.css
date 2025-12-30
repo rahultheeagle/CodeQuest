@@ -2111,3 +2111,113 @@ input:focus, textarea:focus, select:focus {
         gap: 12px !important;
     }
 }
+/* Real Data Updates & Theme Toggle */
+.path-item.completed .path-icon {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+.path-item.completed span {
+    color: #10b981 !important;
+    font-weight: 600 !important;
+}
+
+.path-connector.active {
+    background: linear-gradient(90deg, #10b981, #059669) !important;
+    height: 3px !important;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Enhanced Theme Toggle Button */
+.theme-toggle {
+    background: rgba(255,255,255,0.2) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 2px solid rgba(255,255,255,0.3) !important;
+    border-radius: 12px !important;
+    width: 48px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.theme-toggle::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+.theme-toggle:hover::before {
+    left: 100% !important;
+}
+
+.theme-toggle:hover {
+    background: rgba(255,255,255,0.3) !important;
+    border-color: rgba(255,255,255,0.5) !important;
+    transform: translateY(-2px) scale(1.05) !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.theme-toggle svg {
+    color: white !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.theme-toggle:hover svg {
+    transform: rotate(180deg) scale(1.1) !important;
+}
+
+/* Dark Theme Enhancements */
+[data-theme="dark"] .theme-toggle {
+    background: rgba(255,255,255,0.1) !important;
+    border-color: rgba(255,255,255,0.2) !important;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background: rgba(255,255,255,0.2) !important;
+    border-color: rgba(255,255,255,0.4) !important;
+}
+
+/* Real Progress Indicators */
+.stat-number {
+    animation: countUp 1s ease-out !important;
+}
+
+@keyframes countUp {
+    from { 
+        opacity: 0 !important;
+        transform: translateY(10px) !important;
+    }
+    to { 
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+}
+
+/* Enhanced User Avatar */
+.avatar {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+    border: 3px solid rgba(255,255,255,0.2) !important;
+    animation: avatarGlow 3s ease-in-out infinite !important;
+}
+
+@keyframes avatarGlow {
+    0%, 100% { 
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+    }
+    50% { 
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5) !important;
+    }
+}
