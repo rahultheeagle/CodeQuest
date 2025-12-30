@@ -2221,3 +2221,298 @@ input:focus, textarea:focus, select:focus {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5) !important;
     }
 }
+/* WORLD-CLASS QUICK ACTIONS - REVOLUTIONARY DESIGN */
+.quick-actions-card {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
+    border-radius: 24px !important;
+    padding: 0 !important;
+    box-shadow: 
+        0 20px 60px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.1) !important;
+    border: none !important;
+    overflow: hidden !important;
+    position: relative !important;
+    animation: cardBreath 8s ease-in-out infinite !important;
+}
+
+@keyframes cardBreath {
+    0%, 100% { transform: scale(1) rotateX(0deg); }
+    50% { transform: scale(1.02) rotateX(2deg); }
+}
+
+.actions-header {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)) !important;
+    backdrop-filter: blur(20px) !important;
+    padding: 24px !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.header-content {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.header-icon {
+    font-size: 1.5rem !important;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    animation: iconRainbow 3s linear infinite !important;
+}
+
+@keyframes iconRainbow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.actions-header h4 {
+    margin: 0 !important;
+    color: white !important;
+    font-size: 1.4rem !important;
+    font-weight: 800 !important;
+    text-shadow: 0 0 20px rgba(255,255,255,0.5) !important;
+    animation: textGlow 2s ease-in-out infinite alternate !important;
+}
+
+@keyframes textGlow {
+    from { text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+    to { text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 40px rgba(102,126,234,0.3); }
+}
+
+.header-particles {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: none !important;
+}
+
+.particle {
+    position: absolute !important;
+    width: 4px !important;
+    height: 4px !important;
+    background: radial-gradient(circle, #fff, transparent) !important;
+    border-radius: 50% !important;
+    animation: particleFloat 6s linear infinite !important;
+}
+
+.particle:nth-child(1) {
+    left: 20% !important;
+    animation-delay: 0s !important;
+}
+
+.particle:nth-child(2) {
+    left: 50% !important;
+    animation-delay: 2s !important;
+}
+
+.particle:nth-child(3) {
+    left: 80% !important;
+    animation-delay: 4s !important;
+}
+
+@keyframes particleFloat {
+    0% { 
+        transform: translateY(100px) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(80px) scale(1);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1);
+    }
+    100% {
+        transform: translateY(-40px) scale(0);
+        opacity: 0;
+    }
+}
+
+.actions-grid {
+    padding: 28px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+}
+
+.action-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+}
+
+.action-card {
+    position: relative !important;
+    padding: 24px !important;
+    border-radius: 16px !important;
+    text-decoration: none !important;
+    color: white !important;
+    overflow: hidden !important;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    transform-style: preserve-3d !important;
+    perspective: 1000px !important;
+}
+
+.card-bg {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 16px !important;
+    transition: all 0.6s ease !important;
+}
+
+.action-card.primary .card-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.action-card.secondary .card-bg {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+}
+
+.action-card.tertiary .card-bg {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.action-card.quaternary .card-bg {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+}
+
+.card-content {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+}
+
+.icon-container {
+    position: relative !important;
+    width: 56px !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.icon-bg {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(255,255,255,0.2) !important;
+    border-radius: 50% !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+    animation: iconPulse 3s ease-in-out infinite !important;
+}
+
+@keyframes iconPulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255,255,255,0.4);
+    }
+    50% { 
+        transform: scale(1.1);
+        box-shadow: 0 0 0 10px rgba(255,255,255,0);
+    }
+}
+
+.icon {
+    font-size: 1.8rem !important;
+    position: relative !important;
+    z-index: 2 !important;
+    animation: iconSpin 8s linear infinite !important;
+}
+
+@keyframes iconSpin {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+.text-content h5 {
+    margin: 0 0 4px 0 !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+.text-content p {
+    margin: 0 !important;
+    font-size: 0.85rem !important;
+    color: rgba(255,255,255,0.9) !important;
+    font-weight: 400 !important;
+}
+
+.card-glow {
+    position: absolute !important;
+    top: -50% !important;
+    left: -50% !important;
+    width: 200% !important;
+    height: 200% !important;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%) !important;
+    opacity: 0 !important;
+    transition: all 0.6s ease !important;
+    animation: glowRotate 10s linear infinite !important;
+}
+
+@keyframes glowRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.action-card:hover {
+    transform: translateY(-8px) rotateX(5deg) rotateY(5deg) !important;
+    box-shadow: 
+        0 25px 50px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(255,255,255,0.2) !important;
+}
+
+.action-card:hover .card-bg {
+    transform: scale(1.05) !important;
+    filter: brightness(1.2) saturate(1.3) !important;
+}
+
+.action-card:hover .card-glow {
+    opacity: 1 !important;
+}
+
+.action-card:hover .icon {
+    animation-play-state: paused !important;
+    transform: scale(1.2) rotateZ(10deg) !important;
+}
+
+.action-card:hover .icon-bg {
+    animation-play-state: paused !important;
+    transform: scale(1.2) !important;
+    background: rgba(255,255,255,0.3) !important;
+}
+
+@media (max-width: 768px) {
+    .action-row {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    .actions-grid {
+        padding: 20px !important;
+        gap: 16px !important;
+    }
+    
+    .action-card {
+        padding: 20px !important;
+    }
+}
