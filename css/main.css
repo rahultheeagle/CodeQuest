@@ -389,247 +389,126 @@ body {
     box-shadow: var(--shadow);
 }
 
-/* Enhanced Profile Section */
+/* Udemy-style Profile Section with VS Code Colors */
 .profile-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    padding: 35px;
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4), inset 0 1px 0 rgba(255,255,255,0.2);
-    color: white;
-    margin-bottom: 35px;
-    position: relative;
-    overflow: hidden;
-    animation: profileGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes profileGlow {
-    0% { box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4), inset 0 1px 0 rgba(255,255,255,0.2); }
-    100% { box-shadow: 0 25px 80px rgba(240, 147, 251, 0.5), inset 0 1px 0 rgba(255,255,255,0.3); }
-}
-
-.profile-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
-    animation: rotate 8s linear infinite;
-    pointer-events: none;
-}
-
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    background: #1e1e1e;
+    padding: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    color: #d4d4d4;
+    margin-bottom: 24px;
+    border: 1px solid #333;
 }
 
 .profile-card {
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(15px);
-    border: 2px solid rgba(255,255,255,0.25);
-    padding: 30px;
-    border-radius: 20px;
-    margin-bottom: 25px;
-    position: relative;
-    z-index: 2;
-    transform: translateY(0);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.profile-card:hover {
-    transform: translateY(-8px);
-    background: rgba(255,255,255,0.18);
-    border-color: rgba(255,255,255,0.4);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    background: #252526;
+    border: none;
+    padding: 24px;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid #333;
 }
 
 .profile-card h2 {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 25px;
-    color: white;
-    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    background: linear-gradient(45deg, #fff, #f0f8ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #569cd6;
 }
 
 .xp-bar {
-    background: rgba(0,0,0,0.2);
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 12px;
-    padding: 6px;
-    margin-bottom: 20px;
+    background: #3c3c3c;
+    border: 1px solid #464647;
+    border-radius: 4px;
+    padding: 2px;
+    margin-bottom: 16px;
     position: relative;
-    overflow: hidden;
-}
-
-.xp-bar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
+    height: 8px;
 }
 
 .xp-fill {
-    background: linear-gradient(90deg, #00f5ff 0%, #00d4ff 50%, #0099ff 100%);
-    height: 28px;
-    border-radius: 8px;
-    transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4), inset 0 2px 4px rgba(255,255,255,0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.xp-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
-    border-radius: 8px 8px 0 0;
+    background: #007acc;
+    height: 4px;
+    border-radius: 2px;
+    transition: width 0.8s ease;
 }
 
 #xpText {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 700;
-    font-size: 1rem;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-    z-index: 3;
+    position: static;
+    transform: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: #cccccc;
+    margin-top: 8px;
+    display: block;
 }
 
 .streak {
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-align: center;
-    color: white;
-    background: rgba(255,255,255,0.12);
-    padding: 15px;
-    border-radius: 16px;
-    border: 2px solid rgba(255,255,255,0.25);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: left;
+    color: #4ec9b0;
+    background: transparent;
+    padding: 0;
+    border: none;
 }
 
 .achievements {
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(15px);
-    border: 2px solid rgba(255,255,255,0.25);
-    padding: 30px;
-    border-radius: 20px;
-    position: relative;
-    z-index: 2;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.achievements:hover {
-    transform: translateY(-8px);
-    background: rgba(255,255,255,0.18);
-    border-color: rgba(255,255,255,0.4);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    background: #252526;
+    border: none;
+    padding: 24px;
+    border-radius: 0 0 8px 8px;
 }
 
 .achievements h3 {
-    font-size: 1.6rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    color: white;
-    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    background: linear-gradient(45deg, #ffd700, #ffed4e);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    border-bottom: 3px solid rgba(255,215,0,0.4);
-    padding-bottom: 10px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #dcdcaa;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
 }
 
 .badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
 }
 
 .badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    background: rgba(255,255,255,0.15);
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 16px;
-    min-width: 90px;
+    background: #2d2d30;
+    border: 1px solid #464647;
+    border-radius: 6px;
+    padding: 12px 8px;
     text-align: center;
-    backdrop-filter: blur(8px);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
     cursor: pointer;
 }
 
 .badge:hover {
-    transform: translateY(-5px) scale(1.05);
-    background: rgba(255,255,255,0.25);
-    border-color: rgba(255,215,0,0.6);
-    box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+    background: #37373d;
+    border-color: #007acc;
 }
 
 .badge-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-    animation: bounce 2s ease-in-out infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-3px); }
-    60% { transform: translateY(-2px); }
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+    color: #f9826c;
 }
 
 .badge-name {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #cccccc;
 }
 
 [data-theme="dark"] .profile-section {
-    background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
+    background: #1e1e1e;
 }
 
 @media (max-width: 768px) {
-    .profile-section {
-        padding: 25px;
-    }
-    
-    .profile-card,
-    .achievements {
-        padding: 25px;
-    }
-    
     .badges {
-        justify-content: center;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
 }
 
