@@ -138,16 +138,6 @@
                         </div>
                     </div>
                     
-                    <div class="xp-container">
-                        <div class="xp-info">
-                            <span>Experience</span>
-                            <span id="xpText">0 / 100 XP</span>
-                        </div>
-                        <div class="xp-bar">
-                            <div class="xp-fill" id="xpFill" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    
                     <div class="stats">
                         <div class="stat">
                             <span class="stat-number" id="streakCount">0</span>
@@ -158,23 +148,51 @@
                             <span class="stat-label">Challenges</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number" id="badgesCount">0</span>
-                            <span class="stat-label">Badges</span>
+                            <span class="stat-number" id="lessonsCount">0</span>
+                            <span class="stat-label">Lessons</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="achievements-card">
-                    <h4>Achievements</h4>
-                    <div class="badges" id="badgeContainer">
-                        <div class="no-badges">
-                            <div class="badge-placeholder">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12,2L13.09,8.26L22,9L17,14L18.18,23L12,19.77L5.82,23L7,14L2,9L10.91,8.26L12,2Z"/>
-                                </svg>
-                            </div>
-                            <p>Complete challenges to earn your first badge!</p>
+                <div class="learning-path-card">
+                    <h4>Your Learning Path</h4>
+                    <div class="path-progress">
+                        <div class="path-item active">
+                            <div class="path-icon">📝</div>
+                            <span>HTML Basics</span>
                         </div>
+                        <div class="path-connector"></div>
+                        <div class="path-item">
+                            <div class="path-icon">🎨</div>
+                            <span>CSS Styling</span>
+                        </div>
+                        <div class="path-connector"></div>
+                        <div class="path-item">
+                            <div class="path-icon">⚡</div>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-actions-card">
+                    <h4>Quick Actions</h4>
+                    <div class="actions-grid">
+                        <a href="html-editor.html" class="action-btn">
+                            <div class="action-icon">💻</div>
+                            <span>Code Editor</span>
+                        </a>
+                        <a href="challenges.html" class="action-btn">
+                            <div class="action-icon">🎯</div>
+                            <span>Challenges</span>
+                        </a>
+                        <a href="resources.html" class="action-btn">
+                            <div class="action-icon">📚</div>
+                            <span>Resources</span>
+                        </a>
+                        <a href="tutorials/html-basics.html" class="action-btn">
+                            <div class="action-icon">🚀</div>
+                            <span>Start Learning</span>
+                        </a>
                     </div>
                 </div>
             </div>
